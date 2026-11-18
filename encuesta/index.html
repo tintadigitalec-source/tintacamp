@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Encuesta inicial · Tinta Camp III</title>
+<meta name="description" content="Encuesta inicial de Tinta Camp III: China e inteligencia artificial aplicada al periodismo.">
+<meta property="og:title" content="Encuesta inicial · Tinta Camp III">
+<meta property="og:description" content="15 niveles, 6 a 8 minutos. Cuéntanos qué sabes de China y cómo usas la IA.">
+<meta property="og:image" content="../assets/logos-tinta-iri.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,900&family=Instrument+Serif:ital@1&family=Silkscreen:wght@400;700&display=swap">
+<style>
+:root{--y:#FFE600;--blue:#1B2DB0;--navy:#0B0C4A;--red:#E01B1B;--pink:#C2004E;--g1:#4D4D4D;--blk:#080808;--lav:#DCDDFF;--vio:#7B5CFF;--pix:'Silkscreen',monospace;--sans:'Montserrat',system-ui,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#0F0E0D;color:#fff;font-family:var(--sans)}
+body{min-height:100vh;display:flex;flex-direction:column}
+button{font-family:inherit}
+.stars{background-color:#14179A;background-image:radial-gradient(circle,#fff 1px,transparent 1.8px),radial-gradient(circle,#A9AEFF 1.3px,transparent 2.2px),linear-gradient(#2A31C9,#2A31C9),linear-gradient(#2A31C9,#2A31C9),linear-gradient(#2A31C9,#2A31C9),linear-gradient(#2A31C9,#2A31C9),linear-gradient(180deg,#1C22C2 0%,#0B0C4A 100%);background-size:150px 150px,97px 97px,22px 22px,14px 14px,30px 30px,18px 18px,100% 100%;background-position:12px 30px,60px 8px,7% 18%,91% 12%,84% 78%,14% 86%,0 0;background-repeat:repeat,repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat;background-attachment:fixed}
+.squares{background-color:#050505;background-image:linear-gradient(#262626,#262626),linear-gradient(#262626,#262626),linear-gradient(#262626,#262626),linear-gradient(#1E1E1E,#1E1E1E),linear-gradient(#262626,#262626),linear-gradient(#1E1E1E,#1E1E1E),linear-gradient(#262626,#262626);background-size:44px 44px,18px 18px,30px 30px,56px 56px,14px 14px,24px 24px,36px 36px;background-position:6% 10%,40% 6%,88% 16%,12% 78%,62% 92%,94% 64%,52% 40%;background-repeat:no-repeat}
+.console{background-color:#9E9E9E;background-image:linear-gradient(#B4B4B4,#B4B4B4),linear-gradient(#B4B4B4,#B4B4B4),linear-gradient(#B4B4B4,#B4B4B4),linear-gradient(#B4B4B4,#B4B4B4);background-size:30px 30px,16px 16px,40px 40px,22px 22px;background-position:93% 8%,86% 22%,10% 88%,97% 70%;background-repeat:no-repeat}
+
+header{position:sticky;top:0;z-index:5;border-bottom:4px solid #4D4D4D}
+.hud{max-width:900px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:14px;justify-content:space-between;color:#0F0E0D}
+.hud img{height:40px;width:auto;display:block}
+.xpw{flex:1;display:flex;align-items:center;gap:10px;font-family:var(--pix);font-size:13px;min-width:0}
+.xp{flex:1;height:16px;background:#0F0E0D;border:3px solid #0F0E0D;padding:2px;max-width:320px}
+.xpb{height:100%;width:0;background:repeating-linear-gradient(90deg,var(--y) 0 10px,transparent 10px 13px);transition:width .35s steps(8)}
+.lv{font-family:var(--pix);font-weight:700;font-size:14px;background:#0F0E0D;color:var(--y);padding:6px 10px;white-space:nowrap}
+
+main{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:28px 16px 60px}
+.screen{width:100%;max-width:820px;animation:boot .4s steps(5) both}
+@keyframes boot{0%{clip-path:inset(0 0 100% 0);filter:brightness(1.8)}100%{clip-path:inset(0);filter:none}}
+.frame{background:var(--g1);border-radius:16px 16px 16px 48px;padding:14px;box-shadow:0 8px 0 rgba(0,0,0,.35)}
+.inner{background:var(--blk);border-radius:10px;padding:clamp(22px,5vw,40px)}
+.inner.sq{background-color:#050505}
+.kick{margin:0 0 10px;font-family:var(--pix);font-size:14px;color:var(--y)}
+h1,h2{margin:0;font-weight:900;letter-spacing:-.03em;line-height:1.05}
+h1{font-size:clamp(34px,7vw,64px)}
+h2{font-size:clamp(22px,4vw,30px);line-height:1.2;letter-spacing:-.02em}
+.pix{font-family:var(--pix);font-weight:700;color:var(--y)}
+.help{margin:10px 0 0;font-size:15px;color:#B8B8B8;font-weight:600}
+.lead{font-size:18px;line-height:1.55;color:var(--lav);font-weight:500}
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.opt{display:flex;align-items:flex-start;gap:14px;text-align:left;width:100%;background:#1A1A1A;border:3px solid #2E2E2E;color:#fff;padding:14px 16px;font-size:17px;line-height:1.4;font-weight:600;cursor:pointer;transition:transform .08s,border-color .1s}
+.opt:hover{border-color:#8C86FF}
+.opt:active{transform:translateY(2px)}
+.opt .k{flex:none;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-family:var(--pix);font-size:14px;background:#2E2E2E;color:#fff}
+.opt.multi .k{border-radius:0}
+.opt.on{background:var(--blue);border-color:var(--y)}
+.opt.on .k{background:var(--y);color:#0F0E0D}
+.opt.dis{opacity:.4;cursor:not-allowed}
+.other{margin:8px 0 0 44px;display:none}
+.other.show{display:block}
+input[type=text],input[type=email],textarea{width:100%;background:#fff;color:#0F0E0D;border:3px solid #0F0E0D;padding:14px 16px;font-family:var(--sans);font-size:17px;font-weight:600;outline:none;box-shadow:5px 5px 0 var(--navy)}
+input:focus,textarea:focus{border-color:var(--y);box-shadow:5px 5px 0 var(--y)}
+textarea{min-height:130px;resize:vertical;line-height:1.5}
+label.f{display:block;margin:20px 0 8px;font-family:var(--pix);font-size:14px;color:var(--y)}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:26px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 30px;border:0;border-radius:999px;font-family:var(--pix);font-weight:700;font-size:18px;color:#fff;background:var(--blue);box-shadow:0 6px 0 #6E6E6E;cursor:pointer}
+.btn.red{background:var(--red)}
+.btn.ghost{background:transparent;box-shadow:none;color:#B8B8B8;padding:0 8px;font-size:14px}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn:not(:disabled):active{transform:translateY(4px);box-shadow:0 2px 0 #6E6E6E}
+.err{margin:14px 0 0;color:#FF7A7A;font-weight:700;font-size:15px;min-height:1em}
+.count{font-family:var(--pix);font-size:13px;color:#8C86FF;margin-top:12px}
+.blink{animation:blink 1s steps(2) infinite}@keyframes blink{50%{opacity:0}}
+.badge{display:inline-block;background:#2333C9;color:var(--y);padding:6px 14px;font-weight:800;font-size:16px;transform:rotate(-3deg)}
+.world{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
+.world .big{font-family:var(--pix);font-weight:700;font-size:clamp(40px,9vw,80px);color:var(--y);line-height:1}
+.cross{position:relative;width:84px;height:84px;flex:none}
+.cross:before,.cross:after{content:"";position:absolute;background:#3F3F3F;box-shadow:0 5px 0 #6E6E6E}
+.cross:before{left:28px;top:0;width:28px;height:84px}.cross:after{left:0;top:28px;width:84px;height:28px}
+.btnsdeco{position:relative;width:96px;height:76px;flex:none}
+.btnsdeco i{position:absolute;width:40px;height:40px;border-radius:50%;background:var(--pink);border:6px solid #6E6E6E}
+.btnsdeco i:first-child{left:0;bottom:0}.btnsdeco i:last-child{right:0;top:0}
+.ctrl{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px}
+footer{text-align:center;padding:18px;font-family:var(--pix);font-size:12px;color:#8C86FF}
+#mute{position:fixed;right:14px;bottom:14px;z-index:6;background:#0F0E0D;color:#fff;border:2px solid #fff;font-family:var(--pix);font-size:12px;padding:6px 10px;cursor:pointer}
+@media(max-width:560px){.hud img{height:30px}.xpw span.t{display:none}.opt{font-size:16px;padding:12px}.cross,.btnsdeco{display:none}.ctrl{justify-content:center}}
+</style>
+</head>
+<body class="stars">
+<header class="console"><div class="hud"><img src="../assets/logos-tinta-iri.png" alt="Tinta Digital e IRI"><div class="xpw"><span class="t">XP</span><div class="xp"><div class="xpb" id="xpb"></div></div></div><span class="lv" id="lv">START</span></div></header>
+<main><div class="screen" id="app"></div></main>
+<footer>@tintadigitaal · #TintaCamp</footer>
+<button id="mute" type="button" aria-label="Sonido">♪ ON</button>
+
+<script>
+/* ===== CONFIG: Google Form ===== */
+const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScMqswy9jkOkPbsdcfvuCNkZH2FYnFKaXj7jLcoDsRs4xhjfQ/formResponse';
+const ENTRY = {nombre:'entry.1677324798', correo:'entry.195496028', q1:'entry.1798020421', q2:'entry.1544530345', q3:'entry.170556197', q4:'entry.247301831', q5:'entry.2089883437', q6:'entry.960092545', q7:'entry.305917119', q8:'entry.1708155220', q9:'entry.568428811', q10:'entry.1341929784', q11:'entry.524910005', q12:'entry.272231730', q13:'entry.1822160521', q14:'entry.2143107419', q15:'entry.1500758688'};
+
+const Q = [
+ {world:1,id:'q1',type:'single',t:'¿Cómo evaluarías tu nivel actual de conocimiento sobre la República Popular China?',o:['No tengo conocimientos previos.','Básico: conozco algunos acontecimientos y características generales.','Intermedio: comprendo aspectos de su política, economía y relaciones internacionales.','Avanzado: puedo analizar acontecimientos relacionados con China y contextualizarlos.','Especializado: investigo o trabajo habitualmente con temas relacionados con China.']},
+ {world:1,id:'q2',type:'multi',other:true,none:'No he trabajado directamente con información sobre China.',t:'¿Qué experiencia has tenido trabajando con información relacionada con China?',o:['He leído noticias o informes sobre China por interés personal.','He realizado investigaciones académicas sobre China.','He producido noticias, entrevistas o reportajes relacionados con China.','He trabajado con información económica, comercial o empresarial vinculada con China.','He entrevistado a especialistas o personas relacionadas con China.','No he trabajado directamente con información sobre China.']},
+ {world:1,id:'q3',type:'multi',none:'No considero que tenga conocimientos suficientes sobre estos temas.',t:'¿En cuáles de estos temas sobre China sientes que podrías explicar lo básico?',o:['Historia contemporánea de China.','Sistema político y Partido Comunista de China.','Economía, comercio e inversiones internacionales.','Relaciones entre China y América Latina.','Política exterior, geopolítica y seguridad.','Tecnología, inteligencia artificial e industria.','Sociedad, cultura y derechos humanos.','No considero que tenga conocimientos suficientes sobre estos temas.']},
+ {world:1,id:'q4',type:'multi',other:true,none:'No consulto habitualmente información sobre China.',t:'¿Qué fuentes usas habitualmente para informarte sobre China?',o:['Medios de comunicación nacionales.','Medios internacionales occidentales.','Medios de comunicación chinos.','Documentos y estadísticas oficiales del Gobierno chino.','Informes académicos y centros de investigación.','Redes sociales y creadores de contenido.','Herramientas de inteligencia artificial.','No consulto habitualmente información sobre China.']},
+ {world:1,id:'q5',type:'multi',max:3,other:true,none:'No identifico dificultades importantes.',t:'¿Cuáles son tus principales dificultades al investigar o informar sobre China?',o:['Desconocimiento de su historia y contexto político.','Dificultad para comprender su sistema político y económico.','Barreras idiomáticas para acceder a fuentes originales.','Dificultad para encontrar fuentes confiables.','Dificultad para identificar propaganda, desinformación o sesgos.','Dificultad para interpretar estadísticas y documentos oficiales.','Falta de conocimiento sobre las relaciones entre China y América Latina.','Acceso limitado a especialistas o fuentes directas.','No identifico dificultades importantes.']},
+ {world:2,id:'q6',type:'single',t:'Aproximadamente, ¿cuántos días usaste herramientas de IA en los últimos 30 días?',o:['Nunca he utilizado una herramienta de IA.','Las he utilizado antes, pero ningún día en los últimos 30.','Entre 1 y 5 días.','Entre 6 y 15 días.','Entre 16 y 30 días.','No lo recuerdo.']},
+ {world:2,id:'q7',type:'multi',other:true,none:'Ninguna.',t:'¿Qué herramientas de IA has usado personalmente?',o:['ChatGPT.','Gemini.','Claude.','Microsoft Copilot.','DeepSeek.','Perplexity.','NotebookLM.','Herramientas de IA para imagen, audio o video.','Ninguna.']},
+ {world:2,id:'q8',type:'multi',other:true,none:'No la he utilizado en mi trabajo.',t:'¿Para qué tareas de tu trabajo has usado IA?',o:['Generar ideas o enfoques.','Localizar fuentes o documentos.','Resumir o analizar documentos.','Redactar o revisar textos.','Organizar o analizar datos.','Traducir.','Transcribir audio.','Crear o editar imágenes.','Crear o editar video.','No la he utilizado en mi trabajo.']},
+ {world:2,id:'q9',type:'text',t:'Recibes un comunicado público sobre una empresa china y quieres que una IA te ayude a analizarlo para una nota periodística. ¿Qué le escribirías?',help:'Escribe tu solicitud en una o dos frases. Si todavía no sabes cómo hacerlo, cuéntanos eso: también es una respuesta válida.'},
+ {world:2,id:'q10',type:'single',t:'¿Cuál describe mejor tu experiencia con archivos Markdown (los que terminan en .md)?',o:['No conozco ese formato.','Sé qué son, pero no los he utilizado.','He abierto o leído alguno.','He creado o editado alguno.','Los he utilizado para organizar información o instrucciones para una IA.']},
+ {world:2,id:'q11',type:'multi',none:'Ninguna de las anteriores.',t:'¿Cuáles de estas formas de trabajar con IA has usado?',o:['Adjuntar archivos para que una IA los analice.','Guardar y reutilizar solicitudes o plantillas.','Crear un proyecto con instrucciones y documentos de referencia.','Conectar una IA con otras aplicaciones.','Supervisar un agente que ejecuta varios pasos utilizando herramientas.','Automatizar una tarea repetitiva.','Ninguna de las anteriores.']},
+ {world:2,id:'q12',type:'single',other:true,otherLabel:'Realicé otra comprobación:',t:'La última vez que usaste un dato de una IA para tu trabajo, ¿cuál fue la comprobación más completa que hiciste?',o:['No comprobé el dato.','Pedí a la misma IA que confirmara si era correcto.','Consulté otra IA y acepté el dato al coincidir las respuestas.','Comprobé que la fuente citada existiera, pero no revisé su contenido.','Abrí la fuente original y comprobé el dato y su contexto.','Todavía no he utilizado datos de una IA en mi trabajo.','No lo recuerdo.']},
+ {world:2,id:'q13',type:'single',t:'Dos herramientas de IA coinciden en una afirmación sobre China. ¿Qué puedes concluir?',o:['La afirmación ya está verificada.','La afirmación es fiable si una de las herramientas es de pago.','La coincidencia no sustituye la comprobación con fuentes.','No lo sé.']},
+ {world:2,id:'q14',type:'single',t:'Quieres analizar una entrevista confidencial con una herramienta externa de IA. ¿Qué harías primero?',o:['Subirla completa y pedir a la IA que no la comparta.','Quitar el nombre del archivo y cargarla sin más revisión.','Comprobar qué contenido puede compartirse con ese servicio y enviar solo lo necesario y autorizado.','No lo sé.']},
+ {world:2,id:'q15',type:'multi',max:2,other:true,none:'No encuentro dificultades importantes.',t:'¿Cuáles son tus principales dificultades para incorporar la IA a tu trabajo?',o:['No sé por dónde empezar.','Me cuesta formular solicitudes útiles.','Me cuesta verificar las respuestas.','Tengo dudas sobre privacidad, derechos o uso ético.','Me cuesta trabajar con archivos o combinar herramientas.','Las cuotas, los costos o las restricciones de acceso me limitan.','No tengo tiempo para aprender y practicar.','No confío en la IA para temas laborales y no busco implementarla.','No encuentro dificultades importantes.']}
+];
+
+/* ===== state ===== */
+const ans = {nombre:'',correo:''}; Q.forEach(q=>ans[q.id]={sel:[],other:'',text:''});
+const STEPS = ['start','player','w1',...Q.filter(q=>q.world===1).map(q=>q.id),'w2',...Q.filter(q=>q.world===2).map(q=>q.id),'send'];
+let step = 0, muted = false, actx = null, sent = false;
+const app = document.getElementById('app');
+const KEYS = 'ABCDEFGHIJKL';
+try{ const s = JSON.parse(localStorage.getItem('tcIIIenc')||'null'); if(s && s.ans){ Object.assign(ans,s.ans); } if(s && s.sent) sent = true; }catch(e){}
+function save(){ try{ localStorage.setItem('tcIIIenc', JSON.stringify({ans,sent})) }catch(e){} }
+
+function beep(f=660,d=.07,v=.04){ if(muted) return; try{ actx = actx || new (window.AudioContext||window.webkitAudioContext)(); const o=actx.createOscillator(), g=actx.createGain(); o.type='square'; o.frequency.value=f; g.gain.value=v; o.connect(g); g.connect(actx.destination); o.start(); g.gain.exponentialRampToValueAtTime(.0001, actx.currentTime+d); o.stop(actx.currentTime+d+.02);}catch(e){} }
+function coin(){ beep(988,.07); setTimeout(()=>beep(1319,.16),70) }
+document.getElementById('mute').onclick = e => { muted=!muted; e.target.textContent = muted?'♪ OFF':'♪ ON' };
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function qNum(id){ return Q.findIndex(q=>q.id===id)+1 }
+
+function hud(){
+  const id = STEPS[step]; const n = qNum(id);
+  const done = Q.filter(q=>answered(q)).length + (ans.nombre&&ans.correo?1:0);
+  document.getElementById('xpb').style.width = (done/(Q.length+1)*100)+'%';
+  document.getElementById('lv').textContent = id==='start'?'START': id==='player'?'PLAYER 1': id==='w1'?'MUNDO 1': id==='w2'?'MUNDO 2': id==='send'?'FINAL': 'NIVEL '+String(n).padStart(2,'0')+'/15';
+  document.body.className = (id==='w1'||id==='w2'||id==='start'||id==='send') ? 'squares' : 'stars';
+}
+function answered(q){ const a=ans[q.id]; if(q.type==='text') return a.text.trim().length>0; if(!a.sel.length) return false; if(a.sel.includes('__other__') && !a.other.trim()) return false; return true; }
+
+function go(i){ step = Math.max(0, Math.min(STEPS.length-1, i)); render(); window.scrollTo({top:0,behavior:'instant'}); }
+
+function render(){
+  hud(); const id = STEPS[step];
+  if(id==='start') return rStart();
+  if(id==='player') return rPlayer();
+  if(id==='w1') return rWorld(1);
+  if(id==='w2') return rWorld(2);
+  if(id==='send') return rSend();
+  rQ(Q.find(q=>q.id===id));
+}
+
+function rStart(){
+  app.innerHTML = `<div class="frame"><div class="inner sq" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px">
+   <p class="kick">&gt; Tinta Camp III · Investigadores geopolíticos</p>
+   <h1>ENCUESTA <span class="pix">INICIAL</span></h1>
+   <span class="badge">China + IA aplicada al periodismo</span>
+   <p class="lead" style="margin:10px 0 0;max-width:560px">Queremos saber desde dónde arrancas: qué sabes de China, cómo usas la inteligencia artificial y qué te frena. <b style="color:#fff">No hay respuestas buenas ni malas.</b></p>
+   <p class="pix" style="margin:6px 0 0;font-size:15px">2 mundos · 15 niveles · 6 a 8 minutos</p>
+  </div></div>
+  <div class="ctrl"><span class="cross"></span><button class="btn red blink" id="ps" style="font-size:22px;min-height:64px;padding:0 40px">${sent?'VOLVER A JUGAR':'PRESS START'}</button><span class="btnsdeco"><i></i><i></i></span></div>
+  ${sent?'<p class="help" style="text-align:center">Ya enviaste tu encuesta desde este dispositivo. ¡Gracias!</p>':''}`;
+  document.getElementById('ps').onclick = ()=>{ coin(); go(1) };
+}
+
+function rPlayer(){
+  app.innerHTML = `<div class="frame"><div class="inner">
+   <p class="kick">&gt; Crea tu jugador</p><h2>¿Quién está jugando?</h2>
+   <label class="f" for="nm">NOMBRE COMPLETO</label><input type="text" id="nm" autocomplete="name" value="${esc(ans.nombre)}" placeholder="Tu nombre y apellido">
+   <label class="f" for="em">CORREO ELECTRÓNICO</label><input type="email" id="em" autocomplete="email" value="${esc(ans.correo)}" placeholder="El mismo con el que te inscribiste">
+   <p class="err" id="err"></p>
+   <div class="nav"><button class="btn ghost" id="bk">◀ VOLVER</button><button class="btn" id="nx">CONTINUAR ▶</button></div>
+  </div></div>`;
+  const nm=document.getElementById('nm'), em=document.getElementById('em');
+  nm.oninput=()=>{ans.nombre=nm.value;save()}; em.oninput=()=>{ans.correo=em.value.trim();save()};
+  document.getElementById('bk').onclick=()=>go(step-1);
+  const next=()=>{ if(nm.value.trim().length<3) return err('Escribe tu nombre completo.'); if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) return err('Revisa tu correo: parece incompleto.'); beep(784); go(step+1) };
+  document.getElementById('nx').onclick=next; em.onkeydown=e=>{if(e.key==='Enter')next()};
+  setTimeout(()=>nm.focus(),50);
+}
+function err(m){ const e=document.getElementById('err'); e.textContent=m; beep(180,.18); }
+
+function rWorld(w){
+  const W = w===1 ? {n:'MUNDO 1',t:'China',d:'Cinco niveles para saber cuánto conoces de China, con qué información has trabajado y qué se te complica.',e:'🐉'}
+                  : {n:'MUNDO 2',t:'Inteligencia artificial',d:'Diez niveles sobre cómo usas la IA hoy, cómo verificas lo que te dice y qué te frena.',e:'🤖'};
+  app.innerHTML = `<div class="frame"><div class="inner sq world">
+   <span style="font-size:56px">${W.e}</span><p class="pix" style="margin:0;font-size:18px">${W.n}</p><span class="big">${W.t.toUpperCase()}</span>
+   <p class="lead" style="margin:0;max-width:520px">${W.d}</p></div></div>
+  <div class="ctrl" style="justify-content:center"><button class="btn red" id="nx">ENTRAR ▶</button></div>`;
+  document.getElementById('nx').onclick=()=>{coin();go(step+1)};
+}
+
+function rQ(q){
+  const a = ans[q.id], n = qNum(q.id);
+  let body = '';
+  if(q.type==='text'){
+    body = `<textarea id="tx" placeholder="Por ejemplo: «…»">${esc(a.text)}</textarea>`;
+  } else {
+    const opts = q.o.map((o,i)=>({v:o,l:o,k:KEYS[i]}));
+    if(q.other) opts.push({v:'__other__',l:q.otherLabel||'Otra:',k:KEYS[opts.length]});
+    body = `<div class="opts">${opts.map(o=>`<button type="button" class="opt ${q.type==='multi'?'multi':''} ${a.sel.includes(o.v)?'on':''}" data-v="${esc(o.v)}"><span class="k">${q.type==='multi'?(a.sel.includes(o.v)?'✓':o.k):o.k}</span><span>${esc(o.l)}</span></button>${o.v==='__other__'?`<div class="other ${a.sel.includes('__other__')?'show':''}"><input type="text" id="ot" value="${esc(a.other)}" placeholder="Escribe tu respuesta"></div>`:''}`).join('')}</div>`;
+  }
+  const hint = q.type==='text' ? (q.help||'') : q.type==='multi' ? (q.max?`Elige hasta ${q.max}.`:'Puedes elegir varias.') : 'Elige una.';
+  app.innerHTML = `<div class="frame"><div class="inner">
+   <p class="kick">&gt; ${q.world===1?'Mundo 1 · China':'Mundo 2 · IA'} · Nivel ${n}</p>
+   <h2>${esc(q.t)}</h2><p class="help">${esc(hint)}</p>${body}
+   ${q.type==='multi'?`<p class="count" id="cnt"></p>`:''}
+   <p class="err" id="err"></p>
+   <div class="nav"><button class="btn ghost" id="bk">◀ VOLVER</button><button class="btn" id="nx">${n===15?'TERMINAR ▶':'SIGUIENTE ▶'}</button></div>
+  </div></div>`;
+  const nx=document.getElementById('nx');
+  const refresh=()=>{ nx.disabled=!answered(q);
+    if(q.type==='multi'){ document.getElementById('cnt').textContent = q.max?`${a.sel.length}/${q.max} seleccionadas`:`${a.sel.length} seleccionada${a.sel.length===1?'':'s'}`;
+      app.querySelectorAll('.opt').forEach(b=>{ const v=b.dataset.v, on=a.sel.includes(v); b.classList.toggle('on',on); b.querySelector('.k').textContent = on?'✓':KEYS[[...b.parentNode.querySelectorAll('.opt')].indexOf(b)]; b.classList.toggle('dis', !!q.max && !on && a.sel.length>=q.max); }); }
+    hud(); save(); };
+  if(q.type==='text'){ const tx=document.getElementById('tx'); tx.oninput=()=>{a.text=tx.value;refresh()}; setTimeout(()=>tx.focus(),50); }
+  else {
+    app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+      const v=b.dataset.v;
+      if(q.type==='single'){ a.sel=[v]; app.querySelectorAll('.opt').forEach(x=>x.classList.toggle('on',x===b)); beep(659); }
+      else {
+        if(a.sel.includes(v)) { a.sel=a.sel.filter(x=>x!==v); beep(440); }
+        else {
+          if(v===q.none) a.sel=[v]; else a.sel=a.sel.filter(x=>x!==q.none);
+          if(q.max && a.sel.length>=q.max) { err(`Máximo ${q.max}. Quita una para elegir otra.`); return; }
+          a.sel.push(v); beep(659);
+        }
+      }
+      const ob=app.querySelector('.other'); if(ob){ const show=a.sel.includes('__other__'); ob.classList.toggle('show',show); if(show) setTimeout(()=>document.getElementById('ot').focus(),30); }
+      document.getElementById('err').textContent=''; refresh();
+      if(q.type==='single' && v!=='__other__') setTimeout(()=>{ if(STEPS[step]===q.id) { beep(784); go(step+1) } }, 380);
+    });
+    const ot=document.getElementById('ot'); if(ot) ot.oninput=()=>{a.other=ot.value;refresh()};
+  }
+  document.getElementById('bk').onclick=()=>go(step-1);
+  nx.onclick=()=>{ if(!answered(q)) return err(a.sel.includes('__other__')?'Completa el campo «Otra».':'Responde para avanzar.'); beep(784); go(step+1) };
+  refresh();
+}
+
+function rSend(){
+  const missing = Q.filter(q=>!answered(q));
+  app.innerHTML = `<div class="frame"><div class="inner sq world">
+   <p class="pix blink" style="margin:0;font-size:20px">★ ÚLTIMO NIVEL ★</p>
+   <span class="big" style="font-size:clamp(34px,7vw,60px)">GUARDAR<br>PARTIDA</span>
+   <p class="lead" style="margin:0;max-width:520px">${missing.length?`Te faltan ${missing.length} nivel(es): ${missing.map(q=>qNum(q.id)).join(', ')}.`:`Listo, <b style="color:#fff">${esc(ans.nombre.split(' ')[0]||'player')}</b>. Revisa si quieres cambiar algo y envía tus respuestas.`}</p>
+   <p class="err" id="err"></p></div></div>
+  <div class="ctrl" style="justify-content:center;gap:12px;flex-wrap:wrap"><button class="btn ghost" id="bk">◀ REVISAR</button><button class="btn red" id="sb" ${missing.length?'':''}>${missing.length?'IR AL NIVEL '+qNum(missing[0].id):'ENVIAR ▶'}</button></div>`;
+  document.getElementById('bk').onclick=()=>go(step-1);
+  document.getElementById('sb').onclick=()=>{ if(missing.length) return go(STEPS.indexOf(missing[0].id)); submit(); };
+}
+
+async function submit(){
+  const sb=document.getElementById('sb'); sb.disabled=true; sb.textContent='ENVIANDO…';
+  const p = new URLSearchParams();
+  p.append(ENTRY.nombre, ans.nombre.trim()); p.append(ENTRY.correo, ans.correo.trim());
+  Q.forEach(q=>{ const a=ans[q.id], e=ENTRY[q.id];
+    if(q.type==='text') { p.append(e, a.text.trim()); return; }
+    a.sel.forEach(v=>{ if(v==='__other__'){ p.append(e,'__other_option__'); p.append(e+'.other_option_response', a.other.trim()); } else p.append(e,v); });
+  });
+  try{
+    await fetch(FORM_ACTION, {method:'POST', mode:'no-cors', body:p});
+    sent=true; save(); win();
+  }catch(e){ sb.disabled=false; sb.textContent='REINTENTAR ▶'; err('No se pudo enviar. Revisa tu conexión e inténtalo otra vez.'); }
+}
+
+function win(){
+  document.getElementById('xpb').style.width='100%'; document.getElementById('lv').textContent='CLEAR!'; document.body.className='stars';
+  [523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>beep(f,.18),i*130));
+  app.innerHTML = `<div class="frame"><div class="inner sq world">
+   <p class="pix blink" style="margin:0;font-size:22px">★ LEVEL CLEAR ★</p>
+   <span class="big">¡GRACIAS!</span>
+   <p class="lead" style="margin:0;max-width:540px">Tus respuestas quedaron guardadas. Con ellas ajustamos las próximas clases a lo que el grupo ya sabe y a lo que necesita.</p>
+   <span class="badge">+100 XP · Nos vemos en clase</span></div></div>`;
+}
+
+addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+  const id=STEPS[step], q=Q.find(x=>x.id===id);
+  if(q && q.type!=='text'){ const i=KEYS.indexOf(e.key.toUpperCase()); const bs=app.querySelectorAll('.opt'); if(i>=0 && bs[i]){ bs[i].click(); return; } }
+  if(e.key==='Enter'){ const b=document.getElementById('nx')||document.getElementById('ps'); if(b && !b.disabled) b.click(); }
+});
+
+render();
+</script>
+</body>
+</html>
