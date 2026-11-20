@@ -190,24 +190,19 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <!-- M1 -->
 <section class="screen" data-s="m1"><div class="frame"><div class="in">
 <p class="k">Misión 1 · ¿A quién le hablas?</p>
-<h2>Un hecho, ocho historias</h2>
-<p class="lead">Todos trabajan con el mismo caso: <b style="color:#fff">Temu</b>.</p>
-<div class="facts">
-<div class="fact"><b>CHINA</b><span>Temu es una app china: te vende directo lo que hacen sus fábricas. Por eso es tan barato</span></div>
-<div class="fact"><b>MAYO 2025</b><span>En plena pelea comercial, EE. UU. empieza a cobrar impuestos a esos paquetes</span></div>
-<div class="fact"><b>105 M</b><span>personas usan Temu cada mes en América Latina. En un año, más que se duplicaron</span></div>
-<div class="fact"><b>$20</b><span>cobra Ecuador por paquete. Pero la región no puede pelearse mucho con China: le vende cobre, soya y petróleo</span></div>
-</div>
-<p class="src">Fuentes: PDD Holdings (SEC); El Espectador/EFE; Sensor Tower vía Bloomberg Línea; El Universo; Odecu.</p>
-<p class="tip"><b>En corto:</b> China necesita vender, EE. UU. le cerró la puerta y Temu vino hacia acá. Tu personaje vive la última parte, pero tu historia tiene que contar las tres.</p>
-<ol class="how"><li><b>Sorteen un personaje</b> y volteen su tarjeta.</li><li><b>Conózcanlo a fondo:</b> quién es, dónde se informa, qué le preocupa.</li><li><b>Planteen su hipótesis:</b> «Creo que a ___ le importa Temu porque ___».</li><li><b>¿Cómo la comprobarían?</b></li></ol>
+<h2>Conozcan a su personaje</h2>
+<p class="lead">Todavía no hay tema. Solo conocer a la persona a la que le van a hablar.</p>
+<ol class="how"><li><b>Sorteen un personaje</b> y volteen su tarjeta.</li><li><b>Completen su perfil</b> con las cuatro preguntas.</li><li><b>¿Qué lo haría detener el scroll?</b> Formato, tono y estilo.</li><li><b>¿Cómo lo conocerían de verdad?</b></li></ol>
 <div class="row"><button class="btn y" id="sortear">Sortear personaje</button><p class="pickout" id="pickout" aria-live="polite"></p></div>
 <div class="pgrid" id="personas"></div>
 <div class="fields">
 <div><label class="lb" for="k-persona">Nuestro personaje</label><input type="text" id="k-persona" data-k="persona" data-req></div>
-<div><label class="lb" for="k-importa">Hipótesis: le importa Temu porque…</label><input type="text" id="k-importa" data-k="importa" data-req></div>
-<div><label class="lb" for="k-aja">Su momento «ajá» y dónde lo vería</label><input type="text" id="k-aja" data-k="aja"></div>
-<div><label class="lb" for="k-validar">¿Cómo comprobamos la hipótesis?</label><input type="text" id="k-validar" data-k="validar" placeholder="Hablar con…, leer comentarios en…, encuesta en…"></div>
+<div><label class="lb" for="k-quien">¿Quién es?</label><input type="text" id="k-quien" data-k="quien" data-req placeholder="Edad, ciudad, a qué se dedica"></div>
+<div><label class="lb" for="k-donde">¿Dónde y cuándo se informa?</label><input type="text" id="k-donde" data-k="donde" data-req></div>
+<div><label class="lb" for="k-preocupa">¿Qué le preocupa?</label><input type="text" id="k-preocupa" data-k="preocupa" data-req></div>
+<div><label class="lb" for="k-engancha">¿Qué le gusta y qué lo engancha?</label><input type="text" id="k-engancha" data-k="engancha"></div>
+<div><label class="lb" for="k-scroll">¿Qué lo haría detener el scroll?</label><input type="text" id="k-scroll" data-k="scroll" data-req placeholder="Formato, tono, estilo"></div>
+<div><label class="lb" for="k-conocer">¿Cómo lo conoceríamos de verdad?</label><input type="text" id="k-conocer" data-k="conocer" placeholder="Hablar con…, leer comentarios en…, encuesta en…"></div>
 </div>
 <p class="err" aria-live="polite"></p>
 <div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="m1">Terminar misión ▸</button></div>
@@ -217,7 +212,7 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <section class="screen" data-s="m2"><div class="frame"><div class="in">
 <p class="k">Misión 2 · El antes y el después</p>
 <h2>Elijan un caso y armen su película</h2>
-<ol class="how"><li><b>Elijan o sorteen un caso</b> y lean su dato de partida.</li><li><b>El antes:</b> 2 o 3 hitos que lo explican.</li><li><b>El después:</b> qué pasó o puede pasar, a corto y largo plazo.</li><li><b>¿Qué les falta leer?</b> Busquen con IA, pero verifiquen cada dato.</li></ol>
+<ol class="how"><li><b>Elijan o sorteen un caso latinoamericano</b> y lean su dato de partida.</li><li><b>El antes y el después:</b> hitos que lo explican y qué puede pasar.</li><li><b>¿Por qué es estratégico?</b> ¿Altera rutas, datos, capacidades o alternativas?</li><li><b>Investiguen con IA, como les enseñó Bernie:</b> lean la fuente original y anoten qué le preguntaron.</li></ol>
 <div class="row"><button class="btn y" id="sortcaso">Sortear caso</button></div>
 <div class="cgrid" id="casos"></div>
 <div class="detail" id="detalle" aria-live="polite"><p>Toca un cartucho para ver su dato de partida.</p></div>
@@ -226,6 +221,8 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <div><label class="lb" for="k-leer">¿Qué nos falta leer?</label><input type="text" id="k-leer" data-k="leer"></div>
 <div><label class="lb" for="k-antes">El antes</label><textarea id="k-antes" data-k="antes" data-req></textarea></div>
 <div><label class="lb" for="k-despues">El después</label><textarea id="k-despues" data-k="despues" data-req></textarea></div>
+<div><label class="lb" for="k-estrategico">¿Por qué es estratégico? ¿Altera rutas, datos, capacidades o alternativas?</label><textarea id="k-estrategico" data-k="estrategico" data-req></textarea></div>
+<div><label class="lb" for="k-ia">Registro: qué le preguntamos a la IA y qué verificamos</label><textarea id="k-ia" data-k="ia"></textarea></div>
 </div>
 <p class="err" aria-live="polite"></p>
 <div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="m2">Terminar misión ▸</button></div>
@@ -234,15 +231,16 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <!-- M3 -->
 <section class="screen" data-s="m3"><div class="frame"><div class="in">
 <p class="k">Misión 3 · Actores y enfoques</p>
-<h2>Mesa de enfoques</h2>
-<ol class="how"><li><b>Repartan los roles</b> con el botón. Siempre hay alguien que habla por su personaje.</li><li><b>Un minuto por persona:</b> cada quien defiende su mirada sobre el caso, aunque no la comparta.</li><li><b>Respondan juntos.</b></li></ol>
+<h2>Mesa de enfoques e hipótesis</h2>
+<ol class="how"><li><b>Repartan los roles</b> con el botón. Siempre hay alguien que habla por su personaje.</li><li><b>Un minuto por persona:</b> cada quien defiende su mirada sobre el caso, aunque no la comparta.</li><li><b>Respondan juntos</b> y planteen su hipótesis: cruzan lo que saben de su personaje con el caso.</li></ol>
 <div class="row"><label class="lb" for="np" style="margin:0">¿Cuántas personas son?</label><input type="text" id="np" inputmode="numeric" value="5" style="width:80px"><button class="btn y" id="roles">Repartir roles</button></div>
 <div class="rgrid" id="rolesout"></div>
 <div class="fields">
 <div><label class="lb" for="k-gana">¿Quién gana?</label><textarea id="k-gana" data-k="gana" data-req></textarea></div>
 <div><label class="lb" for="k-pierde">¿Quién pierde?</label><textarea id="k-pierde" data-k="pierde" data-req></textarea></div>
 <div><label class="lb" for="k-calla">¿Quién calla o no aparece?</label><textarea id="k-calla" data-k="calla"></textarea></div>
-<div><label class="lb" for="k-enfoque">¿Qué enfoque le sirve a nuestro personaje y por qué?</label><textarea id="k-enfoque" data-k="enfoque" data-req></textarea></div>
+<div><label class="lb" for="k-enfoque">Nuestra hipótesis: «Creo que a ___ le importa el enfoque ___ porque ___»</label><textarea id="k-enfoque" data-k="enfoque" data-req></textarea></div>
+<div><label class="lb" for="k-validar">¿Cómo comprobaríamos la hipótesis?</label><textarea id="k-validar" data-k="validar"></textarea></div>
 </div>
 <p class="err" aria-live="polite"></p>
 <div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="m3">Terminar misión ▸</button></div>
@@ -270,9 +268,9 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 </div>
 <p style="font-weight:800">La frase ancla resume tu enfoque, con tu personaje adentro:</p>
 <div class="fields">
-<div><label class="lb" for="a1">Mi historia trata de…</label><input type="text" id="a1" data-k="a1" data-req placeholder="una app de compras baratas"></div>
-<div><label class="lb" for="a2">…pero en el fondo va de…</label><input type="text" id="a2" data-k="a2" data-req placeholder="la pelea entre EE. UU. y China"></div>
-<div><label class="lb" for="a3">…y a mi personaje le importa porque…</label><input type="text" id="a3" data-k="a3" data-req placeholder="de eso depende su negocio"></div>
+<div><label class="lb" for="a1">Mi historia trata de…</label><input type="text" id="a1" data-k="a1" data-req placeholder="un puerto en Perú"></div>
+<div><label class="lb" for="a2">…pero en el fondo va de…</label><input type="text" id="a2" data-k="a2" data-req placeholder="quién controla una infraestructura clave en el Pacífico"></div>
+<div><label class="lb" for="a3">…y a mi personaje le importa porque…</label><input type="text" id="a3" data-k="a3" data-req placeholder="su pueblo está cambiando muy rápido"></div>
 </div>
 <div class="out" id="ancla" aria-live="polite"></div>
 <p class="err" aria-live="polite"></p>
@@ -285,10 +283,10 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <h2>Tu logline y tres ganchos</h2>
 <p class="lead">Primero tu historia en una oración. Después tres ganchos de tipos distintos; en el grupo voten el mejor.</p>
 <div class="fields">
-<div><label class="lb" for="l1">Protagonista</label><input type="text" id="l1" data-k="l1" data-req placeholder="Una costurera de Gamarra"></div>
-<div><label class="lb" for="l2">Quiere…</label><input type="text" id="l2" data-k="l2" data-req placeholder="seguir vendiendo sus polos"></div>
-<div><label class="lb" for="l3">Pero…</label><input type="text" id="l3" data-k="l3" data-req placeholder="una app los vende a la mitad de precio"></div>
-<div><label class="lb" for="l4">Y el giro es que…</label><input type="text" id="l4" data-k="l4" placeholder="esas prendas llegan aquí porque EE. UU. les cerró la puerta"></div>
+<div><label class="lb" for="l1">Protagonista</label><input type="text" id="l1" data-k="l1" data-req placeholder="Lucho, que tiene una cevichería en Chancay"></div>
+<div><label class="lb" for="l2">Quiere…</label><input type="text" id="l2" data-k="l2" data-req placeholder="que su negocio crezca con el puerto"></div>
+<div><label class="lb" for="l3">Pero…</label><input type="text" id="l3" data-k="l3" data-req placeholder="no sabe si el puerto beneficiará al pueblo"></div>
+<div><label class="lb" for="l4">Y el giro es que…</label><input type="text" id="l4" data-k="l4" placeholder="el futuro del puerto se discute en Washington y Beijing"></div>
 </div>
 <div class="out" id="logline" aria-live="polite"></div>
 <p class="k">Tipos de gancho</p>
@@ -334,46 +332,48 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 {
 const $=s=>document.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const KEY='tintacamp-cuaderno-v2';let store={};try{store=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+const KEY='tintacamp-cuaderno-v3';let store={};try{store=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}};
 store.done=store.done||{};store.open=store.open||{m1:true};
 const PERSONAS=[
- ['VA','Valentina, 26','Guayaquil, Ecuador','Vende ropa importada por TikTok e Instagram. Fan del K-pop.','que sus clientas se vayan a comprar directo en Temu.'],
- ['LU','Lucho, 47','Gamarra, Lima, Perú','Tiene un pequeño taller de polos. Hincha de Alianza Lima, vive en Facebook.','competir con prendas que llegan a la mitad de precio.'],
- ['CA','Camila, 31','Bogotá, Colombia','Diseñadora freelance y activista ambiental en Instagram. Escucha podcasts.','la ropa desechable y la basura que deja.'],
- ['MA','Mateo, 19','Santiago, Chile','Estudia ingeniería, es gamer y compra gadgets baratos. Se informa por YouTube.','que ahora sus compras pagan 19 % de IVA.'],
- ['DC','Dona Cida, 61','São Paulo, Brasil','Costurera jubilada. Descubrió Temu por un enlace que le llegó al WhatsApp.','que su pensión le alcance a fin de mes.'],
- ['AN','Andrés, 35','Venezolano en Quito','Repartidor de apps: entrega decenas de paquetes al día. Se informa por TikTok.','el precio de la comida y su estabilidad.'],
- ['SO','Sofía, 34','San José, Costa Rica','Ingeniera en telecomunicaciones. Lee X y newsletters de tecnología.','qué datos guardan las apps y quién los ve.'],
- ['DI','Diego, 23','Ciudad de Guatemala','Estudia Relaciones Internacionales. Usa X y Threads, ama el fútbol.','conseguir una beca para estudiar afuera.']];
+ ['VA','Valentina, 26','Guayaquil, Ecuador','Emprende vendiendo ropa por Instagram. Ama el K-pop y los videos cortos.','que su negocio crezca y la inseguridad.'],
+ ['LU','Lucho, 47','Chancay, Perú','Tiene una cevichería frente al mar. Hincha de Alianza Lima, vive en Facebook.','que su pueblo está cambiando muy rápido.'],
+ ['CA','Camila, 31','Bogotá, Colombia','Diseñadora freelance y activista ambiental en Instagram. Escucha podcasts.','el clima y conseguir clientes estables.'],
+ ['MA','Mateo, 19','Santiago, Chile','Estudia ingeniería y es gamer. Se informa por YouTube y Twitch.','conseguir trabajo en tecnología.'],
+ ['DC','Dona Cida, 61','São Paulo, Brasil','Costurera jubilada. Se informa por audios de WhatsApp de su familia.','que su pensión le alcance a fin de mes.'],
+ ['AN','Andrés, 35','Venezolano en Quito','Repartidor de apps. Se informa por TikTok y grupos de WhatsApp.','su estabilidad y mandar dinero a su familia.'],
+ ['SO','Sofía, 34','San José, Costa Rica','Ingeniera en telecomunicaciones. Lee X y newsletters de tecnología.','la privacidad y el costo de la vida.'],
+ ['DI','Diego, 23','Ciudad de Guatemala','Estudia Relaciones Internacionales. Usa X y Threads, ama el fútbol.','conseguir una beca para estudiar afuera.']
+];
 const CASOS=[
+ ['Puerto de Chancay','Perú · rutas y poder','Inaugurado el 14 de noviembre de 2024 por Xi Jinping y Dina Boluarte. COSCO Shipping, estatal china, tiene el 60 % y la minera peruana Volcan el 40 %. EE. UU. advierte un posible uso dual; la embajada china lo niega. COSCO y el regulador Ositrán pelean en tribunales por la supervisión.',['¿Qué altera: rutas, datos, capacidades o alternativas?','¿Qué capacidad tiene el Estado peruano para supervisarlo?','¿Cómo maneja Perú a sus dos grandes socios, China y EE. UU.?'],'EFE; BioBioChile; Expreso; RPP; Diálogo Américas; Bloomberg'],
  ['Huawei y el 5G','Costa Rica · tecnología','El decreto 44196-MSP-MICITT (31 de agosto de 2023) solo permite equipos 5G de empresas de países que ratificaron el Convenio de Budapest, lo que deja fuera a Huawei. Buena parte de la red 3G y 4G del país es Huawei.',['¿Quién gana y quién pierde: ICE, operadores privados, usuarios?','¿Qué dijeron Sutel, Coprocom y los tribunales?','¿Qué papel juega la disputa entre EE. UU. y China?'],'La Nación; El Financiero CR; Semanario Universidad'],
- ['Temu y la guerra comercial','China · EE. UU. · América Latina','En mayo de 2025, en plena pelea comercial, EE. UU. empezó a cobrar impuestos a los paquetes baratos de China. Ese año, los usuarios de Temu en América Latina más que se duplicaron, y Ecuador, Chile y Brasil empezaron a cobrar.',['¿Por qué China necesita exportar tanto?','¿Qué cambió en la región cuando EE. UU. cerró su mercado?','¿Cuánto margen tienen países que le venden materias primas a China?'],'El Espectador/EFE; Sensor Tower vía Bloomberg Línea; El Financiero'],
- ['Puerto de Chancay','Perú · rutas y comercio','Primera fase inaugurada el 14 de noviembre de 2024, con unos 1.300 millones de dólares. COSCO Shipping Ports tiene el 60 % y Volcan el 40 %.',['¿Qué capacidad local crea en logística y comercio?','¿Qué dependencia puede producir: operador, datos, conectividad?','¿Qué alternativas tiene la región?'],'Operador y fuentes oficiales peruanas (2024)'],
  ['Coca Codo Sinclair','Ecuador · energía y deuda','Central de 1.500 MW. Contrato con Sinohydro por 1.979,7 millones de dólares (2009) y crédito del Eximbank de China por 1.682,7 millones al 6,9 % (2010).',['¿Quién propuso el proyecto y quién asumió el riesgo?','¿Qué capacidad de fiscalización tuvo Ecuador?','¿Qué problemas deben atribuirse a cada actor?'],'CELEC EP (2009); Ministerio de Economía y Finanzas (2010)'],
- ['Tierras raras y chips','Mundo · tecnología','China controla cerca del 70 % de la extracción de tierras raras, el 91 % del refinado y el 94 % de los imanes permanentes. En chips depende de otros: EE. UU., Países Bajos y Japón dominan las máquinas de litografía.',['¿Qué tiene que ver con tu celular o un carro eléctrico?','¿Qué lugar ocupa América Latina en esta cadena?','¿Quién puede presionar a quién?'],'Clase de Bernardo Gortaire, 19 de noviembre'],
- ['Flota pesquera','Galápagos · mar','La FAO estimó en 2024 unos 4.222 buques chinos en pesca de aguas distantes, cerca del 24 % del total estudiado. En 2017 se incautó el Fu Yuan Yu Leng 999 en la Reserva Marina de Galápagos.',['¿Por qué las cifras varían según definición, bandera y registro?','¿Qué es el apagado del AIS y el transbordo?','¿Quién controla y quién no?'],'FAO (2024); Global Fishing Watch'],
- ['TikTok','Plataformas · poder discursivo','Bernie lo usó para preguntar si alcance es lo mismo que influencia.',['¿Quién controla el algoritmo y qué datos recopila?','¿Qué acceso legal o técnico puede tener el Estado chino?','¿Cómo se compara con las plataformas estadounidenses?'],'Presentación de Bernardo Gortaire'],
- ['Taiwán y América Latina','Diplomacia regional','En julio de 2026, 7 de los países que reconocen a Taipéi están en América Latina y el Caribe, entre ellos Guatemala, Paraguay, Belice y Haití. Costa Rica rompió con Taiwán en 2007.',['¿Qué implica el reconocimiento: cooperación, becas, infraestructura?','¿Qué presiones hay para cambiarlo?','¿Qué narrativas compiten?'],'Ministry of Foreign Affairs, Republic of China (Taiwan), 2026']];
+ ['Taiwán y América Latina','Diplomacia regional','En julio de 2026, 7 de los países que reconocen a Taipéi están en América Latina y el Caribe, entre ellos Guatemala, Paraguay, Belice y Haití. Costa Rica rompió con Taiwán en 2007.',['¿Qué implica el reconocimiento: cooperación, becas, infraestructura?','¿Qué presiones hay para cambiarlo?','¿Qué narrativas compiten?'],'Ministry of Foreign Affairs, Republic of China (Taiwan), 2026'],
+ ['Flota pesquera','Galápagos · mar y soberanía','La FAO estimó en 2024 unos 4.222 buques chinos en pesca de aguas distantes, cerca del 24 % del total estudiado. En 2017 se incautó el Fu Yuan Yu Leng 999 en la Reserva Marina de Galápagos.',['¿Por qué las cifras varían según definición, bandera y registro?','¿Qué es el apagado del AIS y el transbordo?','¿Quién controla y quién no?'],'FAO (2024); Global Fishing Watch'],
+ ['Temu y la guerra comercial','China · EE. UU. · América Latina','En mayo de 2025, en plena pelea comercial, EE. UU. empezó a cobrar impuestos a los paquetes baratos de China. Ese año, los usuarios de Temu en América Latina más que se duplicaron, y Ecuador, Chile y Brasil empezaron a cobrar.',['¿Por qué China necesita exportar tanto?','¿Qué cambió en la región cuando EE. UU. cerró su mercado?','¿Cuánto margen tienen países que le venden materias primas a China?'],'El Espectador/EFE; Sensor Tower vía Bloomberg Línea; El Financiero'],
+ ['Tierras raras y chips','Cadenas globales · América Latina','China controla cerca del 70 % de la extracción de tierras raras, el 91 % del refinado y el 94 % de los imanes permanentes. Como dijo Bernie, América Latina queda en posición vulnerable por los altos costos de procesarlas.',['¿Qué tiene que ver con tu celular o un carro eléctrico?','¿Qué lugar ocupa América Latina en esta cadena?','¿Quién puede presionar a quién?'],'Clase de Bernardo Gortaire, 19 de noviembre']
+];
 const ROLES=[['Beijing','La mirada del gobierno chino: cooperación, desarrollo, no injerencia.'],['Washington','La mirada de EE. UU.: seguridad, competencia, influencia.'],['Gobierno local','El gobierno del país donde ocurre: empleo, obras, deuda.'],['La comunidad','Quienes viven el impacto: trabajadores, vecinos, pescadores.'],['La empresa','Contrato, rentabilidad, riesgo.'],['Tu personaje','¿Y a mí qué?']];
 const QUIZ=[
- ['Existe en Xinjiang un programa oficial de «educación y formación profesional».','doc','Documentado: hay normativa publicada, presupuestos e imágenes satelitales.'],
- ['La escala y la duración de las internaciones en Xinjiang.','dis','Disputado: testimonios, filtraciones e informes con métodos distintos.'],
- ['Cuántas personas siguen internadas hoy y en qué condiciones.','nov','No verificable: el acceso independiente está restringido.'],
+ ['COSCO Shipping tiene el 60 % del Puerto de Chancay y la minera Volcan el 40 %.','doc','Documentado: lo confirman la empresa y los registros públicos.'],
+ ['El Puerto de Chancay tendrá uso militar chino.','dis','Disputado: EE. UU. lo advierte; la embajada china dice que es «un mero invento».'],
+ ['Qué hará Beijing con el puerto dentro de diez años.','nov','No verificable: son intenciones futuras que nadie puede comprobar hoy.'],
  ['Cuántas muertes se atribuyen a Mao Zedong.','dis','Disputado: de 35 a 80 millones según la fuente y el método.'],
  ['En 2017 se incautó el buque Fu Yuan Yu Leng 999 en la Reserva Marina de Galápagos.','doc','Documentado: hay registro oficial de la incautación.'],
- ['Cuántos buques chinos pescan en aguas distantes.','dis','Disputado: la FAO estimó 4.222 en 2024, pero cambia según definición y registro.']];
+ ['Cuántos buques chinos pescan en aguas distantes.','dis','Disputado: la FAO estimó 4.222 en 2024, pero cambia según definición y registro.']
+];
 const SLOTS=[['El gancho','Lo que detiene el scroll.'],['¿Qué pasó?','El hecho en simple, como a un amigo.'],['El antes','De dónde viene esto.'],['Los actores','Quién gana, quién pierde, quién calla.'],['El dato fuerte','Una cifra o hecho, con su fuente.'],['¿Y a ti qué?','La conexión con tu personaje.'],['El cierre','Lo que no sabemos y una pregunta.']];
 const CHECK=['El gancho detiene el scroll en 3 segundos.','Se entiende sin saber nada de China.','Le habla a mi personaje.','Hay más de un enfoque o actor.','Cada dato dice de dónde sale.','Digo lo que no sabemos.','Una idea por slide, máximo 35 palabras.'];
 
 
 const MIS=[
  {id:'m1',tag:'MISIÓN 1',name:'¿A quién le hablas?',key:null,
-  ans:[['Nuestro personaje','persona'],['Hipótesis: le importa Temu porque…','importa'],['Su momento «ajá»','aja'],['Cómo lo comprobamos','validar']]},
+  ans:[['Nuestro personaje','persona'],['Quién es','quien'],['Dónde y cuándo se informa','donde'],['Qué le preocupa','preocupa'],['Qué lo engancha','engancha'],['Qué lo haría detener el scroll','scroll'],['Cómo lo conoceríamos','conocer']]},
  {id:'m2',tag:'MISIÓN 2',name:'El antes y el después',key:'PELICULA',
-  ans:[['Nuestro caso','caso'],['El antes','antes'],['El después','despues'],['Lo que nos falta leer','leer']]},
+  ans:[['Nuestro caso','caso'],['El antes','antes'],['El después','despues'],['Por qué es estratégico','estrategico'],['Lo que nos falta leer','leer'],['Registro de IA','ia']]},
  {id:'m3',tag:'MISIÓN 3',name:'Mesa de enfoques',key:'BILLAR',
-  ans:[['Quién gana','gana'],['Quién pierde','pierde'],['Quién calla','calla'],['El enfoque para nuestro personaje','enfoque']]},
+  ans:[['Quién gana','gana'],['Quién pierde','pierde'],['Quién calla','calla'],['Nuestra hipótesis','enfoque'],['Cómo la comprobaríamos','validar']]},
  {id:'juego',tag:'JUEGO',name:'¿Documentado o no?',key:'FUENTES',ans:[]},
  {id:'m4',tag:'MISIÓN 4',name:'Fuentes y frase ancla',key:'ANCLA',
   ans:[['Nuestras fuentes','fuentes'],['Lo que no sabemos','nosabe'],['Pregunta no dirigida','pregunta'],['Frase ancla','#ancla']]},
@@ -416,7 +416,7 @@ $('#edit').addEventListener('click',()=>show(curMis.id));
 $('#nextm').addEventListener('click',()=>{const i=MIS.indexOf(curMis);if(i<MIS.length-1)openMis(MIS[i+1].id)});
 
 /* interactivos */
-$('#personas').innerHTML=PERSONAS.map((p,i)=>`<button class="flip" data-i="${i}" aria-label="${esc(p[1])}: toca para voltear"><div class="fi"><div class="fa"><span class="av">${p[0]}</span><h3>${esc(p[1])}</h3><span class="pl">${esc(p[2])}</span><span class="hint">Toca para voltear</span></div><div class="fb"><p>${esc(p[3])}</p><p><b>Le preocupa:</b> ${esc(p[4])}</p><p><b>¿Por qué le importaría Temu?</b></p></div></div></button>`).join('');
+$('#personas').innerHTML=PERSONAS.map((p,i)=>`<button class="flip" data-i="${i}" aria-label="${esc(p[1])}: toca para voltear"><div class="fi"><div class="fa"><span class="av">${p[0]}</span><h3>${esc(p[1])}</h3><span class="pl">${esc(p[2])}</span><span class="hint">Toca para voltear</span></div><div class="fb"><p>${esc(p[3])}</p><p><b>Le preocupa:</b> ${esc(p[4])}</p><p><b>¿Qué lo haría detener el scroll?</b></p></div></div></button>`).join('');
 $('#personas').addEventListener('click',e=>{const f=e.target.closest('.flip');if(f)f.classList.toggle('open')});
 const setField=(id,v)=>{const k=$(id);if(!k.value){k.value=v;k.dispatchEvent(new Event('input'))}};
 $('#sortear').addEventListener('click',()=>{const i=Math.floor(Math.random()*PERSONAS.length);$$('.flip').forEach(f=>f.classList.toggle('pick',+f.dataset.i===i));
@@ -449,7 +449,7 @@ const renderCheck=()=>{const n=$$('#check input:checked').length;$('#okmsg').tex
 $$('[data-k]').forEach(el=>{const k=el.dataset.k;if(store[k]!==undefined){if(el.type==='checkbox')el.checked=!!store[k];else el.value=store[k]}
  el.addEventListener(el.type==='checkbox'?'change':'input',()=>{store[k]=el.type==='checkbox'?el.checked:el.value;if(el.value&&el.value.trim())el.style.borderColor='';save();renderAncla();renderLog();renderPhone();renderCheck()})});
 renderAncla();renderLog();renderPhone();renderCheck();
-async function copyAll(){const g=k=>val(k);const txt=['CARRUSEL · Tinta Camp III',`Nombre: ${g('nombre')}${g('grupo')?' ('+g('grupo')+')':''}`,`Caso: ${g('caso')}`,`Personaje: ${g('persona')}`,`Hipótesis de audiencia: ${g('importa')}`,`Frase ancla: ${g('#ancla')}`,'',...SLOTS.map((s,i)=>`SLIDE ${i+1} · ${s[0]}\n${g('c'+i)}`),'',`Fuentes: ${g('fuentes')}`].join('\n');
+async function copyAll(){const g=k=>val(k);const txt=['CARRUSEL · Tinta Camp III',`Nombre: ${g('nombre')}${g('grupo')?' ('+g('grupo')+')':''}`,`Caso: ${g('caso')}`,`Personaje: ${g('persona')}`,`Hipótesis: ${g('enfoque')}`,`Frase ancla: ${g('#ancla')}`,'',...SLOTS.map((s,i)=>`SLIDE ${i+1} · ${s[0]}\n${g('c'+i)}`),'',`Fuentes: ${g('fuentes')}`].join('\n');
  const d=$('#dump');d.value=txt;try{await navigator.clipboard.writeText(txt);$('#copied').textContent='¡Copiado!'}catch(e){d.style.display='block';d.select();$('#copied').textContent='Selecciona y copia el texto'}}
 
 /* arranque */

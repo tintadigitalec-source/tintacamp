@@ -86,7 +86,7 @@ p{margin:0}
 .ej p i{color:var(--blue);font-weight:800}
 .ejs{display:block;margin-top:6px;font-size:20px;font-weight:700;font-style:italic;color:#B9A8FF}
 .console .ejs,.yel .ejs{color:#4B2FD6}
-.box .ejs{font-size:19px}
+.box .ejs,.console .box .ejs{font-size:19px;color:#B9A8FF}
 /* nivel */
 .lvbig{font-family:var(--pix);font-weight:700;font-size:150px;line-height:.9;color:var(--y)}
 .lvsub{font-size:72px;font-weight:900;font-style:italic;letter-spacing:-.03em}
@@ -191,7 +191,7 @@ textarea{min-height:110px;resize:none}
 .tpl b{font-family:var(--pix);font-size:28px;line-height:1}
 .tpl h3{font-size:21px}.tpl p{font-size:16px;line-height:1.3;font-weight:600}
 .tpl div:first-child p{color:#0F0E0D}
-.tplx div{aspect-ratio:3/4}.tplx p{font-size:19px!important;line-height:1.3}
+.tplx div{aspect-ratio:3/4}.tplx div:first-child p{font-size:16px!important}.tplx p{font-size:19px!important;line-height:1.3}
 
 /* barra inferior */
 #bar{position:fixed;left:0;right:0;bottom:0;height:56px;background:#9E9E9E;border-top:4px solid #4D4D4D;display:flex;align-items:center;gap:10px;padding:0 12px;color:#0F0E0D;z-index:10}
@@ -306,265 +306,230 @@ textarea{min-height:110px;resize:none}
 </div>
 </section>
 <!-- ============ NIVEL 1 ============ -->
-<section class="s console center" data-lv="N1" data-lvstart="1" data-note="Pantalla de nivel.">
+<section class="s console center" data-lv="N1" data-lvstart="1" data-note="Nivel 1: solo audiencia. Todavía no hay tema ni problemática; eso llega en el Nivel 2.">
 <p class="lvbig" style="color:#0F0E0D">NIVEL 1</p>
 <p class="lvsub">¿A quién le hablas?</p>
 <span class="time">25 min</span>
 </section>
 
-<section class="s squares" data-lv="N1" data-mode="concepto" data-note="Explica el error más común: escribir para todos. Usa la frase de la pantalla. Después pregunta: ¿para quién escribieron su último post?">
+<section class="s squares" data-lv="N1" data-mode="concepto" data-note="El error más común: escribir para todos. Pregunta: ¿para quién escribieron su último post?">
 <p class="k">Concepto 1</p>
 <h2>No existe el «público general»</h2>
 <p class="lead f">Cuando escribes para todos, no le hablas a nadie. Tu texto termina siendo genérico y nadie siente que es para él.</p>
-<p class="lead f">Las redes funcionan al revés: el algoritmo le muestra a cada persona lo que conecta con <b style="color:#fff">su</b> vida. Si tu contenido no se cruza con la vida de alguien, desaparece.</p>
-<div class="wbox f" style="max-width:1100px"><p style="font-size:30px;font-weight:900">Por eso el primer paso no es el tema. Es la persona.</p></div>
-<div class="ej f"><b class="t">EJEMPLO</b><p>Para nadie: <i>«China y América Latina profundizan su relación comercial»</i>. Para alguien: <i>«Si vendes ropa por Instagram, esto te interesa: Temu ya tiene 105 millones de usuarios en la región»</i>.</p></div>
+<p class="lead f">Las redes funcionan al revés: el algoritmo le muestra a cada persona lo que conecta con <b style="color:#fff">su</b> vida.</p>
+<div class="wbox f" style="max-width:1100px"><p style="font-size:30px;font-weight:900">Por eso, antes de pensar en el tema, piensa en la persona.</p></div>
+<div class="ej f"><b class="t">EJEMPLO</b><p>Para todos: <i>«Información relevante para la ciudadanía»</i>. Para alguien: <i>«Para ti, que estudias, trabajas y no tienes tiempo de leer noticias largas»</i>.</p></div>
 </section>
 
-<section class="s stars" data-lv="N1" data-mode="concepto" data-note="Define reader persona. Aclara que es ficticio pero no inventado al azar: se construye mirando a tu comunidad real, tus estadísticas, los comentarios.">
+<section class="s stars" data-lv="N1" data-mode="concepto" data-note="Reader persona: ficticio pero no inventado al azar. Se construye con lo que sabes de tu comunidad real.">
 <p class="k">Concepto 2</p>
 <h2>El reader persona</h2>
 <p class="lead f">Es un <b style="color:#fff">personaje ficticio</b> que representa a la persona a la que quieres llegar.</p>
-<p class="lead f">Es ficticio, pero <b style="color:#fff">no inventado al azar</b>: lo armas con lo que sabes de tu audiencia real, como tus estadísticas, los comentarios, las conversaciones y los datos.</p>
-<p class="lead f">Le pones nombre, edad y ciudad para poder imaginarlo leyendo tu post. Y te preguntas: <b style="color:var(--y)">¿esto le serviría a ella o a él?</b></p>
+<p class="lead f">Es ficticio, pero <b style="color:#fff">no inventado al azar</b>: lo armas con lo que sabes de tu audiencia real, como tus estadísticas, los comentarios y las conversaciones.</p>
+<p class="lead f">Le pones nombre, edad y ciudad para poder imaginarlo leyendo tu post.</p>
 <div class="ej f"><b class="t">EJEMPLO</b><p>Si la mayoría de tus seguidores son universitarios de Quito que comentan sobre becas y empleo, tu reader persona podría ser <i>«Andrea, 22, estudia Comunicación, se informa por TikTok y le preocupa conseguir trabajo»</i>.</p></div>
 </section>
 
-<section class="s squares" data-lv="N1" data-mode="concepto" data-note="Pasa las cuatro preguntas una por una. Detente en la cuarta: es la más importante y la que más se olvida.">
+<section class="s squares" data-lv="N1" data-mode="concepto" data-note="Cuatro preguntas, una por una. Todas son sobre la persona, no sobre un tema.">
 <p class="k">Concepto 3</p>
 <h2>Cuatro preguntas para conocerlo</h2>
 <div style="display:flex;flex-direction:column">
-<div class="step f" style="padding:10px 0"><span class="n">1</span><div><h3>¿Quién es?</h3><p>Edad, ciudad, a qué se dedica, qué le gusta. Lo básico para imaginarlo.</p><span class="ejs">Ej.: Mateo, 19, Santiago de Chile, estudia ingeniería y es gamer.</span></div></div>
-<div class="step f"><span class="n">2</span><div><h3>¿Dónde se informa?</h3><p>TikTok, WhatsApp, radio, LinkedIn… Eso define el formato y el tono.</p><span class="ejs">Ej.: YouTube y Twitch, de noche.</span></div></div>
-<div class="step f"><span class="n">3</span><div><h3>¿Qué le preocupa?</h3><p>Sus miedos, frustraciones y metas. Ahí es donde un tema puede tocarlo.</p><span class="ejs">Ej.: Conseguir trabajo en tecnología.</span></div></div>
-<div class="step f"><span class="n">4</span><div><h3>¿Cuándo le toca el tema?</h3><p>El momento «ajá»: el instante en que tu tema se cruza con su vida.</p><span class="ejs">Ej.: Cuando descubre que los chips de su consola dependen de máquinas que controlan EE. UU., Países Bajos y Japón.</span></div></div>
+<div class="step f" style="padding:10px 0"><span class="n">1</span><div><h3>¿Quién es?</h3><p>Edad, ciudad, a qué se dedica.</p><span class="ejs">Ej.: Mateo, 19, Santiago de Chile, estudia ingeniería.</span></div></div>
+<div class="step f"><span class="n">2</span><div><h3>¿Dónde y cuándo se informa?</h3><p>TikTok, WhatsApp, radio, LinkedIn… Eso define el formato y el tono.</p><span class="ejs">Ej.: YouTube y Twitch, de noche.</span></div></div>
+<div class="step f"><span class="n">3</span><div><h3>¿Qué le preocupa?</h3><p>Sus miedos, frustraciones y metas.</p><span class="ejs">Ej.: Conseguir trabajo en tecnología.</span></div></div>
+<div class="step f"><span class="n">4</span><div><h3>¿Qué le gusta y qué lo engancha?</h3><p>Series, fútbol, memes, música, humor, datos…</p><span class="ejs">Ej.: Videos cortos que explican tecnología con humor.</span></div></div>
 </div>
 </section>
 
-<section class="s yel center" data-lv="N1" data-mode="concepto" data-note="El momento ajá es el corazón del nivel. Insiste: no se trata de inventar una conexión, sino de encontrar una que existe.">
+<section class="s stars" data-lv="N1" data-mode="concepto" data-note="Lo demográfico no basta. Dos personas iguales en el papel consumen de forma muy distinta.">
 <p class="k">Concepto 4</p>
-<p class="big" style="max-width:1250px">El momento «ajá» es cuando un tema lejano <em>se vuelve personal.</em></p>
-<p class="lead f" style="max-width:1150px">No lo inventas: lo encuentras. Siempre hay un punto real donde la geopolítica toca la vida diaria, como un precio, un empleo, una app, el agua o una beca.</p>
-<div class="ej f"><b class="t">EJEMPLO</b><p>Para Sofía, en San José, el 5G era «tema de ingenieros»… hasta que leyó que Sutel advirtió que excluir proveedores podía subirle los costos a los usuarios y atrasar el 5G. Ahí, Huawei se volvió su factura.</p></div>
+<h2>Edad y ciudad no bastan</h2>
+<p class="lead f">Dos personas con la misma edad y la misma ciudad pueden informarse de formas opuestas. Lo que las diferencia son sus gustos, sus valores y sus hábitos.</p>
+<div class="cols c2 f" style="margin-top:6px">
+<div class="wbox"><p class="pixy" style="color:var(--blue);font-size:18px">MUJER, 30, LIMA</p><p>Ve noticias en TikTok, escucha podcasts de true crime y comparte memes.</p></div>
+<div class="wbox"><p class="pixy" style="color:var(--blue);font-size:18px">MUJER, 30, LIMA</p><p>Solo lee newsletters de economía y desconfía de las redes.</p></div>
+</div>
+<p class="lead f" style="color:#fff;font-weight:800">Mismo dato demográfico, dos audiencias distintas.</p>
 </section>
 
-<section class="s squares" data-lv="N1" data-mode="concepto" data-note="Idea clave que pidió María Rosa: el enfoque nace de conocer tanto a la audiencia que puedes plantear una hipótesis sobre qué le importa. Insiste en que es una hipótesis: hay que comprobarla.">
+<section class="s squares" data-lv="N1" data-mode="concepto" data-note="Herramientas del módulo de Tinta sobre reader persona. Aquí sirven para conocer a la audiencia; en el Nivel 3 las usaremos para comprobar hipótesis.">
 <p class="k">Concepto 5</p>
-<h2>Conócela tanto que puedas plantear una hipótesis</h2>
-<p class="lead f">El enfoque de tu historia no sale de lo que a ti te parece interesante. Sale de conocer a tu audiencia: hablar con ella, leer lo que comenta, saber qué le preocupa.</p>
-<p class="lead f">Cuando la conoces bien, puedes plantear una <b style="color:#fff">hipótesis</b>: una apuesta razonada sobre por qué le importaría el tema.</p>
-<div class="wbox f" style="max-width:1250px"><p class="pixy" style="color:var(--red);font-size:20px">FÓRMULA</p><p style="font-size:32px;font-weight:900">«Creo que a ___ le importa ___ porque ___».</p></div>
-<div class="ej f"><b class="t">EJEMPLO</b><p><i>«Creo que a Andrés, repartidor en Quito, le importa Temu porque cada paquete que llega es una entrega más para él».</i></p></div>
-</section>
-<section class="s stars" data-lv="N1" data-mode="concepto" data-note="Estas herramientas vienen del módulo de Tinta sobre reader persona. La idea: una hipótesis se comprueba, no se adivina.">
-<p class="k">Concepto 6</p>
-<h2>¿Cómo compruebas tu hipótesis?</h2>
+<h2>¿Cómo la conoces de verdad?</h2>
 <div class="cols c2" style="gap:0 40px">
 <div class="step f"><span class="n">1</span><div><h3>Habla con ellos</h3><p>Una conversación, un mensaje, un encuentro con tu comunidad.</p></div></div>
 <div class="step f"><span class="n">2</span><div><h3>Lee los comentarios</h3><p>En tus redes y en las de otros medios. Ahí está lo que la gente siente.</p></div></div>
 <div class="step f"><span class="n">3</span><div><h3>Pregunta con encuestas</h3><p>Historias de Instagram o formularios como Tally.</p></div></div>
 <div class="step f"><span class="n">4</span><div><h3>Mira qué se busca</h3><p>Google Trends o AnswerThePublic muestran qué se pregunta la gente.</p></div></div>
 </div>
-<div class="ej f"><b class="t">EJEMPLO</b><p>Para comprobar la hipótesis de Andrés: preguntas en un grupo de WhatsApp de repartidores, lees los comentarios de un TikTok sobre la tasa de 20 dólares y buscas «Temu impuesto» en Google Trends.</p></div>
-<p class="lead f" style="color:#fff;font-weight:800;font-size:26px">Esta pregunta nos acompaña en todos los niveles: ¿esto le importa a mi audiencia, y por qué lo creo?</p>
+<div class="ej f"><b class="t">EJEMPLO</b><p>Si tu audiencia son universitarios: revisas los comentarios de tus últimos posts, haces una encuesta en historias (<i>«¿qué tema quieres que te expliquemos?»</i>) y miras qué buscan en Google Trends.</p></div>
 </section>
-<section class="s squares" data-lv="N1" data-mode="ejemplo" data-note="Ahora sí el ejemplo, separado de la teoría. Construye a Valentina respondiendo las cuatro preguntas en voz alta, una por una.">
+
+<section class="s console" data-lv="N1" data-mode="ejemplo" data-note="Ejemplo completo, solo de audiencia. Todavía no hay tema: solo conocerla.">
 <p class="k">Ejemplo · paso a paso</p>
 <h2>Conozcamos a Valentina</h2>
 <div class="cols c2" style="gap:28px">
 <div style="display:flex;flex-direction:column">
-<div class="step f"><span class="n">1</span><div><h3>¿Quién es?</h3><p>26 años, Guayaquil. Vende ropa importada desde su cuenta de Instagram. Fan del K-pop.</p></div></div>
-<div class="step f"><span class="n">2</span><div><h3>¿Dónde se informa?</h3><p>TikTok e Instagram, de noche, después de despachar pedidos.</p></div></div>
-<div class="step f"><span class="n">3</span><div><h3>¿Qué le preocupa?</h3><p>Que sus clientas dejen de comprarle.</p></div></div>
+<div class="step f" style="padding:10px 0"><span class="n">1</span><div><h3>¿Quién es?</h3><p>26 años, Guayaquil. Emprende vendiendo ropa por Instagram.</p></div></div>
+<div class="step f" style="padding:10px 0"><span class="n">2</span><div><h3>¿Dónde y cuándo?</h3><p>TikTok e Instagram, de noche, después de despachar pedidos.</p></div></div>
+<div class="step f" style="padding:10px 0"><span class="n">3</span><div><h3>¿Qué le preocupa?</h3><p>Que su negocio crezca, pagar sus cuentas y la inseguridad.</p></div></div>
+<div class="step f" style="padding:10px 0"><span class="n">4</span><div><h3>¿Qué la engancha?</h3><p>Videos cortos, humor, K-pop y tips de emprendimiento.</p></div></div>
 </div>
-<div class="wbox f" style="align-self:center"><p class="pixy" style="color:var(--red);font-size:20px">4 · SU MOMENTO «AJÁ»</p><p style="font-size:28px;font-weight:800">Una clienta le dice: «Amiga, eso mismo está en Temu a la mitad».</p><p>Ahí, Temu deja de ser «comercio electrónico chino» y se vuelve <b>su problema</b>.</p><p style="font-size:21px"><b>Hipótesis:</b> «Creo que a Valentina le importa Temu porque le compite directo con su negocio». <b>La comprobaríamos</b> preguntando a emprendedoras como ella.</p></div>
+<div class="wbox f" style="align-self:center"><p class="pixy" style="color:var(--red);font-size:20px">¿QUÉ LA HARÍA DETENER EL SCROLL?</p><p style="font-size:28px;font-weight:800">Algo que le hable de su negocio, en un video corto y con humor.</p><p>Todavía no sabemos de qué tema le vamos a hablar. Pero ya sabemos <b>cómo</b>.</p></div>
 </div>
 </section>
 
-<section class="s stars" data-lv="N1" data-mode="ejemplo" data-note="Esta slide muestra la lección: el dato no cambia, cambia la historia según la persona.">
-<p class="k">Ejemplo · el mismo hecho</p>
-<h2>Un mismo tema, historias distintas</h2>
-<p class="lead">El tema es Temu. Mira cómo cambia la historia según a quién se la cuentas:</p>
+<section class="s stars" data-lv="N1" data-mode="ejemplo" data-note="Tres personajes, tres formas de consumir. La lección: el formato y el tono salen de la audiencia.">
+<p class="k">Ejemplo · tres personas, tres formas de informarse</p>
 <div class="cols c3" style="margin-top:6px">
-<div class="wbox f"><p class="pixy" style="color:var(--blue);font-size:18px">VALENTINA · GUAYAQUIL</p><p style="font-size:26px;font-weight:800">«La app que me está quitando clientas».</p></div>
-<div class="wbox f"><p class="pixy" style="color:var(--blue);font-size:18px">DONA CIDA · SÃO PAULO</p><p style="font-size:26px;font-weight:800">«Lo barato que me ayuda a llegar a fin de mes».</p></div>
-<div class="wbox f"><p class="pixy" style="color:var(--blue);font-size:18px">SOFÍA · SAN JOSÉ</p><p style="font-size:26px;font-weight:800">«¿Qué datos míos se lleva esta app?».</p></div>
+<div class="wbox f"><p class="pixy" style="color:var(--blue);font-size:18px">DONA CIDA · SÃO PAULO</p><p style="font-size:24px;font-weight:800">Se informa por audios de WhatsApp de su familia. Confía en lo que le manda su hija.</p></div>
+<div class="wbox f"><p class="pixy" style="color:var(--blue);font-size:18px">SOFÍA · SAN JOSÉ</p><p style="font-size:24px;font-weight:800">Lee newsletters y X. Quiere datos, fuentes y nada de exageraciones.</p></div>
+<div class="wbox f"><p class="pixy" style="color:var(--blue);font-size:18px">DIEGO · GUATEMALA</p><p style="font-size:24px;font-weight:800">Vive en Threads, ama el fútbol y entiende todo mejor con un meme.</p></div>
 </div>
-<p class="lead f" style="color:#fff;font-weight:800">Los datos son los mismos. Lo que cambia es la puerta de entrada. Y detrás de las tres puertas está la misma pelea entre Washington y Beijing, que veremos en el Nivel 2.</p>
+<p class="lead f" style="color:#fff;font-weight:800">Antes de elegir un tema, ya sabes en qué formato y con qué tono hablarle a cada uno.</p>
 </section>
 
-<section class="s squares" data-lv="N1" data-mode="mision" data-note="Presenta el caso como un caso geopolítico, no de consumo. Fuentes: PDD Holdings (informe 20-F ante la SEC); El Universo; Sensor Tower vía Bloomberg Línea.">
-<p class="k">Misión 1 · el caso</p>
-<h2>Todos trabajamos con el mismo caso: Temu</h2>
-<div class="cols c3" style="margin-top:10px">
-<div class="box f"><span class="n" style="font-size:34px">SHANGHÁI</span><p>Temu es de una empresa china con sede en Shanghái. En 2022 empezó a vender en EE. UU.</p></div>
-<div class="box f"><span class="n" style="font-size:34px">FÁBRICAS</span><p>Su negocio es simple: te vende directo lo que hacen las fábricas chinas, sin intermediarios. Por eso es tan barato.</p></div>
-<div class="box f"><span class="n" style="font-size:34px">105 M</span><p>personas usan Temu cada mes en América Latina. En un año, más que se duplicaron.</p></div>
-</div>
-<p class="lead f" style="color:#fff;font-weight:800">Parece solo una app de compras. Pero, ¿por qué de repente está en todos lados aquí?</p>
-</section>
-<section class="s stars" data-lv="N1" data-mode="mision" data-note="Cuéntalo como a un amigo, sin tecnicismos. Lo importante es la pregunta final: qué parte le toca al personaje de cada grupo. Respaldo: la clase de Bernie (China exporta porque su consumo interno es débil); El Espectador/EFE sobre los impuestos de EE. UU. desde mayo de 2025. Que EE. UU. empujó a Temu hacia acá es lo que creen los analistas, no un hecho comprobado.">
-<p class="k">Misión 1 · te lo cuento</p>
-<h2>¿Por qué de repente Temu está en todos lados?</h2>
-<div style="display:flex;flex-direction:column">
-<div class="step f"><span class="n">1</span><div><h3>Mira: China fabrica muchísimo</h3><p>Más de lo que su propia gente alcanza a comprar. Así que tiene que vender afuera.</p></div></div>
-<div class="step f"><span class="n">2</span><div><h3>EE. UU. se puso bravo</h3><p>En mayo de 2025, en medio de su pelea con China, empezó a cobrarles impuestos a esos paquetes baratos.</p></div></div>
-<div class="step f"><span class="n">3</span><div><h3>¿Y a dónde se fue Temu? Pues… acá</h3><p>Por eso lo ves en todos lados. Nuestros gobiernos también empezaron a cobrar, como Ecuador con 20 dólares por paquete.</p></div></div>
-</div>
-<div class="wbox f" style="max-width:1300px"><p style="font-size:27px;font-weight:900">Ahora piensa en tu personaje: ¿qué parte de esta historia le toca a él o a ella?</p></div>
-</section>
-
-<section class="s console" data-lv="N1" data-mode="mision" data-note="Arma los grupos en las salas. Cada grupo sortea un personaje con el botón de la siguiente slide.">
+<section class="s console" data-lv="N1" data-mode="mision" data-note="Misión solo de audiencia: armar el perfil del personaje. Nada de temas todavía.">
 <p class="k">Misión 1 · instrucciones</p>
-<h2>Un hecho, ocho historias</h2>
+<h2>Conozcan a su personaje</h2>
 <div style="display:flex;flex-direction:column">
-<div class="step f"><span class="n">1</span><div><h3>Sorteen un personaje</h3><p>Cada grupo recibe uno distinto. Volteen la tarjeta y léanla.</p></div></div>
-<div class="step f"><span class="n">2</span><div><h3>Respondan las 4 preguntas</h3><p>Imaginen a esa persona: quién es, dónde se informa, qué le preocupa.</p></div></div>
-<div class="step f"><span class="n">3</span><div><h3>Planteen su hipótesis</h3><p>«Creo que a ___ le importa Temu porque ___». ¿Cómo la comprobarían?</p></div></div>
-<div class="step f"><span class="n">4</span><div><h3>Compartan en 30 segundos</h3><p>Al volver a la sala principal, cada grupo lee su frase.</p></div></div>
+<div class="step f"><span class="n">1</span><div><h3>Sorteen un personaje</h3><p>Cada grupo recibe uno distinto. Volteen la tarjeta.</p></div></div>
+<div class="step f"><span class="n">2</span><div><h3>Completen su perfil</h3><p>Quién es, dónde y cuándo se informa, qué le preocupa y qué lo engancha.</p></div></div>
+<div class="step f"><span class="n">3</span><div><h3>¿Qué lo haría detener el scroll?</h3><p>Formato, tono y estilo que funcionarían con él o ella.</p></div></div>
+<div class="step f"><span class="n">4</span><div><h3>¿Cómo lo conocerían de verdad?</h3><p>¿A quién le preguntarían? ¿Qué comentarios leerían?</p></div></div>
 </div>
 <p class="pixy f" style="font-size:22px;background:#0F0E0D;padding:10px 16px;align-self:flex-start">EN TU CUADERNO → MISIÓN 1 · ya está abierta</p>
 <div class="row f"><span class="time">17 minutos</span><button class="btn red" data-min="17">Iniciar 17:00</button></div>
 </section>
 
-<section class="s squares" data-lv="N1" data-mode="mision" data-note="Presiona Sortear frente a cada grupo. Las tarjetas se voltean al tocarlas. Haz notar la diversidad de países: Ecuador, Perú, Colombia, Chile, Brasil, Venezuela, Costa Rica y Guatemala.">
+<section class="s squares" data-lv="N1" data-mode="mision" data-note="Presiona Sortear frente a cada grupo. Personajes de Ecuador, Perú, Colombia, Chile, Brasil, Venezuela, Costa Rica y Guatemala.">
 <div class="row"><p class="k fill">Misión 1 · los personajes</p><button class="btn y" id="sortear">Sortear personaje</button></div>
 <p class="pickout" id="pickout" aria-live="polite">Toca una tarjeta para voltearla.</p>
 <div class="pgrid" id="personas"></div>
 </section>
 
-
-
-<section class="s ink" data-lv="N1" data-mode="repaso" data-note="Cierra el nivel con estas tres ideas. Cada grupo se queda con su personaje para toda la clase.">
+<section class="s ink" data-lv="N1" data-mode="repaso" data-note="Cada grupo se queda con su personaje para toda la clase. En el Nivel 2 llega el tema.">
 <p class="k">Lo que nos llevamos del Nivel 1</p>
 <div style="display:flex;flex-direction:column">
-<div class="step f"><span class="n">✓</span><div><h3>El primer paso es la persona, no el tema</h3></div></div>
-<div class="step f"><span class="n">✓</span><div><h3>El enfoque nace de una hipótesis sobre tu audiencia</h3></div></div>
-<div class="step f"><span class="n">✓</span><div><h3>El mismo dato abre muchas historias</h3></div></div>
+<div class="step f"><span class="n">✓</span><div><h3>Primero la persona, después el tema</h3></div></div>
+<div class="step f"><span class="n">✓</span><div><h3>Edad y ciudad no bastan: importan sus gustos y hábitos</h3></div></div>
+<div class="step f"><span class="n">✓</span><div><h3>A la audiencia se la conoce hablando con ella</h3></div></div>
 </div>
-<p class="lead f">Tu grupo se queda con su personaje hasta el final de la clase.</p>
+<p class="lead f">Tu grupo se queda con su personaje. En el siguiente nivel llega el tema.</p>
 </section>
 
 <!-- ============ NIVEL 2 ============ -->
-<section class="s console center" data-lv="N2" data-lvstart="1" data-note="Pantalla de nivel.">
+<section class="s console center" data-lv="N2" data-lvstart="1" data-note="Nivel 2: el tema. Aquí entra el análisis de politólogo.">
 <p class="lvbig" style="color:#0F0E0D">NIVEL 2</p>
-<p class="lvsub">El antes y el después</p>
+<p class="lvsub">El tema: el antes y el después</p>
 <span class="time">20 min</span>
 </section>
 
-<section class="s yel center" data-lv="N2" data-mode="concepto" data-note="La metáfora central del nivel.">
+<section class="s yel center" data-lv="N2" data-mode="concepto" data-note="La metáfora central del nivel. El ejemplo es el caso que nos acompañará toda la clase: Chancay.">
 <p class="k">Concepto 1</p>
 <p class="big" style="max-width:1200px">Una noticia es una foto.</p>
 <p class="big f" style="max-width:1200px"><em>El análisis es la película.</em></p>
-<p class="lead f" style="max-width:1100px">La foto te muestra un momento. La película te cuenta cómo se llegó ahí y qué viene después.</p>
-<div class="ej f"><b class="t">EJEMPLO</b><p><b>Foto:</b> «Ecuador cobra 20 dólares por cada paquete de Temu». <b>Película:</b> por qué llegaron tantos paquetes y qué le pasa a tu audiencia con eso. La vemos en la siguiente slide.</p></div>
-</section>
-<section class="s console" data-lv="N2" data-mode="ejemplo" data-note="La película contada como se la contarías a Valentina: el antes y el después, pero siempre volviendo a ella. Si alguien pregunta, aclara que el vínculo entre los impuestos de EE. UU. y el crecimiento de Temu en la región es lo que creen los analistas.">
-<p class="k">Ejemplo · la película de Temu, contada a Valentina</p>
-<div class="tl tl5" style="margin-top:6px">
-<div class="f"><span class="yr">ANTES</span><p>«Valen, hace años China se volvió la fábrica del mundo».</p></div>
-<div class="f"><span class="yr">HOY</span><p>«Fabrica tanto que tiene que venderlo afuera».</p></div>
-<div class="f"><span class="yr">2022</span><p>«Temu empezó vendiendo baratísimo en EE. UU.».</p></div>
-<div class="f"><span class="yr">2025</span><p>«EE. UU. se puso bravo y les cobró impuestos».</p></div>
-<div class="f"><span class="yr">¿Y TÚ?</span><p>«Entonces vino para acá. Por eso tus clientas lo encuentran a la mitad».</p></div>
-</div>
-<div class="cols c2 f" style="gap:20px">
-<div class="wbox" style="box-shadow:6px 6px 0 #0F0E0D"><p class="pixy" style="color:var(--blue);font-size:17px">¿QUÉ VIENE PARA ELLA?</p><p>Ecuador ya cobra 20 dólares por paquete. ¿Eso le ayuda a vender más? Es lo que vamos a averiguar.</p></div>
-<div class="wbox" style="box-shadow:6px 6px 0 #0F0E0D"><p class="pixy" style="color:var(--red);font-size:17px">LA CLAVE</p><p>La historia empieza lejos, en China, pero termina en el negocio de Valentina. Así se cuenta la geopolítica.</p></div>
-</div>
-<p class="src f">Fuentes: clase de Bernardo Gortaire; El Espectador/EFE (2025); Sensor Tower vía Bloomberg Línea; El Universo.</p>
+<p class="lead f" style="max-width:1100px">La foto te muestra un momento. La película te cuenta cómo se llegó ahí, quién está detrás y qué viene después.</p>
+<div class="ej f"><b class="t">EJEMPLO</b><p><b>Foto:</b> «Xi Jinping y Dina Boluarte inauguran el megapuerto de Chancay» (14 de noviembre de 2024). <b>La película</b> la armamos en este nivel.</p></div>
 </section>
 
-<section class="s squares" data-lv="N2" data-mode="concepto" data-note="Así piensa un politólogo frente a un titular. Explica cada pregunta antes de pasar a la siguiente.">
+<section class="s squares" data-lv="N2" data-mode="concepto" data-note="Así piensa un politólogo frente a un titular. Cada pregunta con su ejemplo en Chancay.">
 <p class="k">Concepto 2</p>
 <h2>Tres preguntas del politólogo</h2>
 <div style="display:flex;flex-direction:column">
-<div class="step f"><span class="n">1</span><div><h3>¿De dónde viene?</h3><p>Qué decisión, crisis o acuerdo lo originó. Casi nada pasa de la nada.</p><span class="ejs">Ej.: China fabrica más de lo que su gente compra y necesita vender afuera.</span></div></div>
-<div class="step f"><span class="n">2</span><div><h3>¿Qué cambió ahora?</h3><p>Por qué esto es noticia hoy y no hace un año.</p><span class="ejs">Ej.: En 2025, EE. UU. le cerró la puerta a Temu y Temu creció aquí.</span></div></div>
-<div class="step f"><span class="n">3</span><div><h3>¿Hacia dónde va?</h3><p>Las consecuencias a corto plazo (meses) y a largo plazo (años).</p><span class="ejs">Ej.: Corto: más paquetes y más impuestos. Largo: ¿puede la región ponerse dura con quien le compra su cobre y su soya?</span></div></div>
+<div class="step f"><span class="n">1</span><div><h3>¿De dónde viene?</h3><p>Qué decisión, estrategia o acuerdo lo originó. Casi nada pasa de la nada.</p><span class="ejs">Ej.: La apuesta china por rutas y puertos propios, la Franja y la Ruta, lanzada en 2013.</span></div></div>
+<div class="step f"><span class="n">2</span><div><h3>¿Qué cambió ahora?</h3><p>Por qué esto es noticia hoy y no hace un año.</p><span class="ejs">Ej.: El puerto se inaugura con Xi en Lima, en plena cumbre APEC.</span></div></div>
+<div class="step f"><span class="n">3</span><div><h3>¿Hacia dónde va?</h3><p>Consecuencias a corto y largo plazo.</p><span class="ejs">Ej.: Corto: rutas más rápidas a Asia. Largo: ¿quién controla una infraestructura clave en el Pacífico?</span></div></div>
 </div>
 </section>
 
 <section class="s stars" data-lv="N2" data-mode="concepto" data-note="Conecta con la clase de Bernie del 18 de noviembre sobre planificación a largo plazo.">
-<p class="k">Concepto 3 · ¿por qué importa?</p>
+<p class="k">Concepto 3</p>
 <h2>China piensa en décadas. Nosotros leemos el día.</h2>
 <div class="cols c2" style="margin-top:10px">
-<div class="box f"><h3>Lo que vieron con Bernie</h3><p>China planifica en ciclos largos, con planes quinquenales como el XV Plan 2026-2030, y apoyada en su propia historia.</p></div>
-<div class="box f"><h3>Lo que nos pasa</h3><p>En América Latina solemos leer cada noticia suelta, sin el antes ni el después. Así es fácil que cualquier versión nos convenza.</p></div>
+<div class="box f"><h3>Lo que vieron con Bernie</h3><p>China planifica en ciclos largos, con planes quinquenales como el XV Plan 2026-2030.</p></div>
+<div class="box f"><h3>Lo que nos pasa</h3><p>En América Latina solemos leer cada noticia suelta, sin el antes ni el después. Así cualquier versión nos convence.</p></div>
 </div>
-<div class="ej f"><b class="t">EJEMPLO</b><p>La Franja y la Ruta se lanzó en 2013 y, como se comentó en la clase de Bernie, pasó de 68 países en 2018 a unos 150. Cada obra que vemos en las noticias es parte de un plan de más de una década.</p></div>
-<p class="lead f" style="color:#fff;font-weight:800">Si no ves la película completa, no entiendes la foto.</p>
+<div class="ej f"><b class="t">EJEMPLO</b><p>La Franja y la Ruta se lanzó en 2013 y, como se comentó en la clase de Bernie, pasó de 68 países en 2018 a unos 150. Chancay no es una obra suelta: es parte de un plan de más de una década.</p></div>
 </section>
 
-<section class="s console" data-lv="N2" data-mode="ejemplo" data-note="Construye la línea de tiempo paso a paso. Los datos son de la presentación de Bernie (contratos de CELEC EP y del Ministerio de Finanzas).">
-<p class="k">Ejemplo · paso a paso</p>
-<h2>Coca Codo Sinclair, como película</h2>
-<div class="tl" style="margin-top:10px">
-<div class="f"><span class="yr">2008</span><p>La crisis financiera global reconfigura la presencia de China en el mundo y en América Latina.</p></div>
-<div class="f"><span class="yr">2009</span><p>Ecuador firma un contrato con Sinohydro por 1.979,7 millones de dólares para una central de 1.500 MW.</p></div>
-<div class="f"><span class="yr">2010</span><p>Crédito del Eximbank de China por 1.682,7 millones, al 6,9 %, a 15 años y con seguro de Sinosure.</p></div>
-<div class="f"><span class="yr">¿HOY?</span><p>¿Cuánta energía genera? ¿Qué problemas técnicos y ambientales hubo? ¿Qué deuda quedó?</p></div>
+<section class="s console" data-lv="N2" data-mode="concepto" data-note="Criterio clave de la presentación de Bernie (bloque G). Evita dos errores: el alarmismo (todo lo chino es amenaza) y la ingenuidad (es solo comercio).">
+<p class="k">Concepto 4 · la mirada experta</p>
+<h2>Una obra no es estratégica por ser china</h2>
+<p class="lead f" style="font-weight:700">Bernie lo dice así: es estratégica cuando altera una de estas cuatro cosas.</p>
+<div class="cols c4">
+<div class="box f"><span class="n" style="font-size:30px">RUTAS</span><p>Cambia por dónde circula el comercio.</p><span class="ejs">Ej.: Chancay acortaría en unos 10 días el viaje a Asia.</span></div>
+<div class="box f"><span class="n" style="font-size:30px">DATOS</span><p>Da acceso a información sensible.</p><span class="ejs">Ej.: Quién opera el puerto ve qué carga entra y sale.</span></div>
+<div class="box f"><span class="n" style="font-size:30px">CAPACIDADES</span><p>Crea o quita capacidades a un país.</p><span class="ejs">Ej.: ¿Puede el Estado peruano supervisarlo?</span></div>
+<div class="box f"><span class="n" style="font-size:30px">ALTERNATIVAS</span><p>Abre o cierra opciones a otros.</p><span class="ejs">Ej.: Una salida al Pacífico para parte de la carga de Brasil.</span></div>
 </div>
-<p class="src f">Fuente: CELEC EP, contrato EPC (2009); Ministerio de Economía y Finanzas, contrato de crédito (2010). Presentación de Bernardo Gortaire.</p>
 </section>
 
-<section class="s squares" data-lv="N2" data-mode="ejemplo" data-note="Estas son las preguntas de investigación que propuso Bernie para este caso.">
-<p class="k">Ejemplo · lo que se investiga</p>
-<h2>La película abre preguntas nuevas</h2>
+<section class="s squares" data-lv="N2" data-mode="ejemplo" data-note="La película de Chancay. Fuentes: El Desconcierto/EFE; AOL/Reuters; Ositrán (Congreso, 2024); El Comercio EC; BioBioChile; Bloomberg; Diálogo Américas; Gestión.">
+<p class="k">Ejemplo · la película de Chancay</p>
+<div class="tl tl5" style="margin-top:6px">
+<div class="f"><span class="yr">2013</span><p>China lanza la Franja y la Ruta. Chancay será llamado su «joya de la corona» en Sudamérica.</p></div>
+<div class="f"><span class="yr">2019-2021</span><p>COSCO empieza el proyecto. El Estado peruano le da exclusividad en los servicios esenciales.</p></div>
+<div class="f"><span class="yr">NOV 2024</span><p>Xi y Boluarte lo inauguran. COSCO, estatal china, tiene el 60 %; la minera peruana Volcan, el 40 %.</p></div>
+<div class="f"><span class="yr">NOV 2024</span><p>Un asesor de Trump propone un arancel de 60 % a todo lo que pase por Chancay.</p></div>
+<div class="f"><span class="yr">2024-2026</span><p>COSCO pide quedar fuera de la supervisión de Ositrán. La pelea llega a los tribunales.</p></div>
+</div>
+<p class="src f">Fuentes: EFE; Reuters; Ositrán (2024); BioBioChile; Bloomberg; Diálogo Américas; El Comercio (Perú).</p>
+</section>
+
+<section class="s stars" data-lv="N2" data-mode="ejemplo" data-note="El después: preguntas abiertas. No hay respuesta única; ahí está la investigación.">
+<p class="k">Ejemplo · ¿hacia dónde va?</p>
+<h2>La película abre preguntas de investigación</h2>
 <div style="display:flex;flex-direction:column">
-<div class="step f"><span class="n">?</span><div><h3>¿Quién propuso el proyecto y quién asumió el riesgo?</h3></div></div>
-<div class="step f"><span class="n">?</span><div><h3>¿Cómo se contrató y qué obligaciones produjo el crédito?</h3></div></div>
-<div class="step f"><span class="n">?</span><div><h3>¿Qué capacidad de fiscalización tuvo Ecuador?</h3></div></div>
-<div class="step f"><span class="n">?</span><div><h3>¿Qué problemas deben atribuirse a cada actor?</h3></div></div>
+<div class="step f"><span class="n">?</span><div><h3>¿Quién controla de verdad la operación del puerto?</h3></div></div>
+<div class="step f"><span class="n">?</span><div><h3>¿Qué capacidad tiene el Estado peruano para supervisarlo?</h3></div></div>
+<div class="step f"><span class="n">?</span><div><h3>¿Cómo maneja Perú a sus dos grandes socios: China y EE. UU.?</h3></div></div>
+<div class="step f"><span class="n">?</span><div><h3>¿Qué ganan o pierden Brasil, Chile o Ecuador?</h3></div></div>
 </div>
 </section>
 
-<section class="s console" data-lv="N2" data-mode="mision" data-note="Intenta que los grupos con gente de Costa Rica, Perú o Brasil tomen casos de su país.">
+<section class="s console" data-lv="N2" data-mode="mision" data-note="Intenta que los grupos con gente de Costa Rica, Perú o Brasil tomen casos de su país. Como en el reto de Bernie: IA gratuita para buscar, pero criterio propio y fuentes originales.">
 <p class="k">Misión 2 · instrucciones</p>
 <h2>Elijan un caso y armen su película</h2>
 <div style="display:flex;flex-direction:column">
-<div class="step f"><span class="n">1</span><div><h3>Elijan o sorteen un caso</h3><p>En la siguiente pantalla están los casos, con su dato de partida.</p></div></div>
-<div class="step f"><span class="n">2</span><div><h3>El antes: 2 o 3 hitos</h3><p>Fechas o decisiones que explican cómo se llegó ahí.</p></div></div>
-<div class="step f"><span class="n">3</span><div><h3>El después: qué pasó o puede pasar</h3><p>A corto y a largo plazo.</p></div></div>
-<div class="step f"><span class="n">4</span><div><h3>¿Qué les falta leer?</h3><p>Pueden buscar con IA, como les enseñó Bernie, pero verifiquen cada dato.</p></div></div>
+<div class="step f"><span class="n">1</span><div><h3>Elijan o sorteen un caso latinoamericano</h3><p>En la siguiente pantalla están los casos, con su dato de partida.</p></div></div>
+<div class="step f"><span class="n">2</span><div><h3>El antes y el después</h3><p>2 o 3 hitos que lo explican y qué puede pasar, a corto y largo plazo.</p></div></div>
+<div class="step f"><span class="n">3</span><div><h3>¿Por qué es estratégico?</h3><p>¿Altera rutas, datos, capacidades o alternativas?</p></div></div>
+<div class="step f"><span class="n">4</span><div><h3>Investiguen con IA, como les enseñó Bernie</h3><p>Pero lean la fuente original y anoten qué le preguntaron a la IA.</p></div></div>
 </div>
 <p class="pixy f" style="font-size:22px;background:#0F0E0D;padding:10px 16px;align-self:flex-start">EN TU CUADERNO → MISIÓN 2 · CLAVE: <span style="background:var(--y);color:#0F0E0D;padding:2px 10px">PELICULA</span></p>
 <div class="row f"><span class="time">13 minutos</span><button class="btn red" data-min="13">Iniciar 13:00</button></div>
 </section>
 
 <section class="s squares" data-lv="N2" data-mode="mision" data-note="Toca un cartucho para mostrar el dato y las preguntas.">
-<div class="row"><p class="k fill">Misión 2 · los casos</p><button class="btn y" id="sortcaso">Sortear caso</button></div>
+<div class="row"><p class="k fill">Misión 2 · los casos de América Latina</p><button class="btn y" id="sortcaso">Sortear caso</button></div>
 <div class="cgrid" id="casos"></div>
 <div class="detail" id="detalle" aria-live="polite"><p>Toca un cartucho para ver su dato de partida.</p></div>
 </section>
 
-
-
 <!-- ============ NIVEL 3 ============ -->
-<section class="s console center" data-lv="N3" data-lvstart="1" data-note="Pantalla de nivel.">
+<section class="s console center" data-lv="N3" data-lvstart="1" data-note="Nivel 3: aquí se cruzan la audiencia (N1) y el tema (N2). Por eso aquí aparece la hipótesis.">
 <p class="lvbig" style="color:#0F0E0D">NIVEL 3</p>
-<p class="lvsub">Actores y otros enfoques</p>
+<p class="lvsub">Actores, enfoques e hipótesis</p>
 <span class="time">20 min</span>
 </section>
 
-<section class="s squares" data-lv="N3" data-mode="concepto" data-note="Retoma la imagen que usó Bernie. Pregunta: cuando leen 'China invierte en...', ¿quién exactamente invierte?">
+<section class="s squares" data-lv="N3" data-mode="concepto" data-note="La imagen que usó Bernie. Pregunta: cuando leen «China construyó…», ¿quién exactamente?">
 <p class="k">Concepto 1</p>
 <h2>Los Estados no son bolas de billar</h2>
 <div class="cols c2" style="margin-top:14px;gap:40px">
-<div class="box f"><h3>Como solemos contarlo</h3><p>«China hizo esto». «Ecuador respondió aquello». Como si cada país fuera una bola que choca con otra.</p></div>
-<div class="box f" style="border-color:var(--y)"><h3>Como funciona de verdad</h3><p>Dentro de cada país hay partidos, gobiernos locales, empresas, bancos, militares, comunidades y opinión pública, cada uno con sus intereses.</p></div>
+<div class="box f"><h3>Como solemos contarlo</h3><p>«China hizo esto». «Perú respondió aquello». Como si cada país fuera una bola que choca con otra.</p></div>
+<div class="box f" style="border-color:var(--y)"><h3>Como funciona de verdad</h3><p>Dentro de cada país hay gobiernos, reguladores, empresas, bancos, militares y comunidades, cada uno con sus intereses.</p></div>
 </div>
-<p class="lead f" style="color:#fff;font-weight:800">Pregunta clave: cuando «China» actúa, ¿quién actúa exactamente?</p>
-<div class="ej f"><b class="t">EJEMPLO</b><p><i>«China construyó Coca Codo Sinclair»</i>. En realidad, Sinohydro construyó, el Eximbank de China prestó y Sinosure aseguró. Y del lado ecuatoriano decidieron el gobierno, el Ministerio de Finanzas y CELEC.</p></div>
+<div class="ej f"><b class="t">EJEMPLO</b><p><i>«China construyó Chancay»</i>. En realidad: COSCO Shipping, una estatal china, tiene el 60 %; Volcan, una minera peruana, el 40 %; el Estado peruano le dio exclusividad y su regulador, Ositrán, pelea por supervisarlo.</p></div>
 </section>
 
-<section class="s stars" data-lv="N3" data-mode="concepto" data-note="Esta clasificación de empresas es de la clase de Bernie del 19 de noviembre. Sirve para no ponerle la misma etiqueta a Huawei, Sinohydro o ByteDance.">
+<section class="s stars" data-lv="N3" data-mode="concepto" data-note="Clasificación de la clase de Bernie del 19 de noviembre.">
 <p class="k">Concepto 2</p>
 <h2>No todas las «empresas chinas» son iguales</h2>
 <table class="f" style="margin-top:10px">
-<thead><tr><th>Tipo</th><th>Quién manda</th><th>Ejemplo de la clase de Bernie</th></tr></thead>
+<thead><tr><th>Tipo</th><th>Quién manda</th><th>Ejemplo</th></tr></thead>
 <tbody>
-<tr><td><b>Estatal central</b></td><td>El Estado y el Partido</td><td>Sinohydro, COSCO</td></tr>
+<tr><td><b>Estatal central</b></td><td>El Estado y el Partido</td><td>COSCO (Chancay), Sinohydro (Coca Codo)</td></tr>
 <tr><td><b>Estatal local</b></td><td>Un gobierno provincial o municipal</td><td>Proyectos con presupuesto local</td></tr>
 <tr><td><b>Privada</b></td><td>Accionistas, con comité del Partido dentro</td><td>Huawei, ByteDance (TikTok)</td></tr>
 <tr><td><b>Capital mixto</b></td><td>Combinado</td><td>Hay que revisar quién tiene los votos</td></tr>
@@ -572,113 +537,124 @@ textarea{min-height:110px;resize:none}
 <p class="lead f">Decir «una empresa china» sin más es como decir «una empresa latinoamericana»: dice poco.</p>
 </section>
 
-<section class="s console" data-lv="N3" data-mode="ejemplo" data-note="Primero aparece la flecha simple, luego la red. Es la herramienta 'la red, no la flecha' de Bernie.">
+<section class="s console" data-lv="N3" data-mode="ejemplo" data-note="La red, no la flecha (herramienta de Bernie) aplicada a Chancay.">
 <p class="k">Ejemplo · la red, no la flecha</p>
-<h2>¿Quién estuvo detrás de Coca Codo Sinclair?</h2>
-<div class="wbox f" style="flex-direction:row;align-items:center;gap:24px;max-width:900px"><p style="font-size:34px;font-weight:900">China</p><p style="font-size:40px">→</p><p style="font-size:34px;font-weight:900">Ecuador</p><p class="pixy" style="color:var(--red);font-size:20px;margin-left:auto">DEMASIADO SIMPLE</p></div>
-<div class="cols c2 f" style="gap:30px;margin-top:6px">
-<div><p class="pixy" style="color:var(--blue);font-size:19px;margin-bottom:10px">ACTORES ECUATORIANOS</p><div class="pills az"><span>Gobierno</span><span>Ministerio de Finanzas</span><span>CELEC / Cocasinclair</span><span>Organismos de control</span><span>Comunidades</span></div></div>
-<div><p class="pixy" style="color:var(--red);font-size:19px;margin-bottom:10px">ACTORES CHINOS</p><div class="pills rj"><span>Eximbank de China</span><span>Sinohydro / Power China</span><span>Sinosure</span><span>Contratistas</span></div></div>
+<h2>¿Quién está detrás de Chancay?</h2>
+<div class="wbox f" style="flex-direction:row;align-items:center;gap:24px;max-width:900px"><p style="font-size:34px;font-weight:900">China</p><p style="font-size:40px">→</p><p style="font-size:34px;font-weight:900">Perú</p><p class="pixy" style="color:var(--red);font-size:20px;margin-left:auto">DEMASIADO SIMPLE</p></div>
+<div class="cols c3 f" style="gap:24px;margin-top:6px">
+<div><p class="pixy" style="color:var(--blue);font-size:19px;margin-bottom:10px">PERÚ</p><div class="pills az"><span>Gobierno / MTC</span><span>APN</span><span>Ositrán</span><span>Volcan</span><span>Pueblo de Chancay</span><span>Exportadores</span></div></div>
+<div><p class="pixy" style="color:var(--red);font-size:19px;margin-bottom:10px">CHINA</p><div class="pills rj"><span>COSCO Shipping</span><span>Gobierno chino</span><span>Navieras</span></div></div>
+<div><p class="pixy" style="color:#0F0E0D;font-size:19px;margin-bottom:10px">OTROS</p><div class="pills" style="--c:#0F0E0D"><span style="background:#0F0E0D;color:#fff">Departamento de Estado</span><span style="background:#0F0E0D;color:#fff">Comando Sur</span><span style="background:#0F0E0D;color:#fff">Exportadores de Brasil</span></div></div>
 </div>
-<p class="lead f" style="font-weight:700">Cada actor tomó decisiones distintas. Para contar bien la historia, hay que saber cuál hizo qué.</p>
+<p class="lead f" style="font-weight:700">Cada actor quiere algo distinto. Para contar bien la historia, hay que saber quién hizo qué.</p>
 </section>
 
-<section class="s squares" data-lv="N3" data-mode="concepto" data-note="Explica las tres columnas antes de mostrar los ejemplos.">
+<section class="s squares" data-lv="N3" data-mode="concepto" data-note="Explica las tres columnas antes de ver el ejemplo.">
 <p class="k">Concepto 3</p>
 <h2>Separa tres cosas que solemos mezclar</h2>
 <div class="cols c3" style="margin-top:10px">
-<div class="box f"><span class="n">1</span><h3>Lo que dicen</h3><p>El discurso oficial: comunicados, libros blancos, frases de los líderes.</p></div>
+<div class="box f"><span class="n">1</span><h3>Lo que dicen</h3><p>El discurso oficial: comunicados, frases de los líderes.</p></div>
 <div class="box f"><span class="n">2</span><h3>Lo que inferimos</h3><p>Nuestra interpretación de qué busca ese actor. Es análisis, no un hecho.</p></div>
-<div class="box f"><span class="n">3</span><h3>Lo que observamos</h3><p>La conducta que se puede verificar: contratos, inversiones, votos, leyes.</p></div>
+<div class="box f"><span class="n">3</span><h3>Lo que observamos</h3><p>Lo que se puede verificar: contratos, inversiones, votos, leyes, juicios.</p></div>
 </div>
-<p class="lead f" style="color:#fff;font-weight:800">Un discurso oficial no es lo mismo que una intención, y una capacidad no es lo mismo que su uso.</p>
+<p class="lead f" style="color:#fff;font-weight:800">Un discurso no es lo mismo que una intención, y una capacidad no es lo mismo que su uso.</p>
 </section>
 
-<section class="s stars" data-lv="N3" data-mode="ejemplo" data-note="Ejemplos de la presentación de Bernie. Lee una fila a la vez.">
-<p class="k">Ejemplo · con China</p>
-<h2>Dice, inferimos, observamos</h2>
-<table style="margin-top:10px">
-<thead><tr><th>Lo que China dice</th><th>Lo que inferimos</th><th>Lo que observamos</th></tr></thead>
+<section class="s stars" data-lv="N3" data-mode="ejemplo" data-note="Chancay leído con la herramienta de Bernie. Fuentes: BioBioChile (Xi), Anadolu (Boluarte), Expreso y Gestión (EE. UU.), RPP (embajada china), Bloomberg, Diálogo Américas.">
+<p class="k">Ejemplo · Chancay: dicen, inferimos, observamos</p>
+<table style="margin-top:6px">
+<thead><tr><th>Actor</th><th>Lo que dice</th><th>Lo que inferimos</th><th>Lo que observamos</th></tr></thead>
 <tbody>
-<tr class="f"><td>Cooperación «ganar-ganar»</td><td>Presentar intereses propios como beneficio de todos</td><td>Comercio, infraestructura y financiamiento</td></tr>
-<tr class="f"><td>Soberanía y no intervención</td><td>Limitar la presión política de afuera</td><td>Defensa de su autonomía y rechazo a sanciones</td></tr>
-<tr class="f"><td>Rejuvenecimiento nacional</td><td>Recuperar el estatus de gran potencia</td><td>Modernización económica, tecnológica y militar</td></tr>
+<tr class="f"><td><b>China</b></td><td>«Camino de prosperidad» para Perú y la región</td><td>Busca una plataforma logística propia en el Pacífico sudamericano</td><td>COSCO tiene el 60 % y la exclusividad de servicios esenciales</td></tr>
+<tr class="f"><td><b>EE. UU.</b></td><td>Podría tener uso dual, comercial y militar</td><td>Quiere frenar la influencia china en la región</td><td>Advertencias oficiales y una propuesta de arancel de 60 %</td></tr>
+<tr class="f"><td><b>Perú</b></td><td>«Revolucionará el comercio»</td><td>Quiere ser el hub entre Asia y Sudamérica</td><td>Su regulador y COSCO pelean en tribunales por la supervisión</td></tr>
 </tbody></table>
 </section>
 
-<section class="s yel center" data-lv="N3" data-mode="concepto" data-note="Por qué importan los otros enfoques. Remata con la prueba de simetría de Bernie.">
-<p class="k">Concepto 4 · ¿por qué otros enfoques?</p>
-<p class="big" style="max-width:1250px">Si cuentas una sola versión, <em>terminas repitiendo la narrativa de alguien.</em></p>
-<p class="lead f" style="max-width:1150px">Puede ser la de Beijing, la de Washington o la del gobierno de turno. Escuchar a varios no es ser tibio, es ser riguroso.</p>
-<div class="ej f"><b class="t">EJEMPLO</b><p>Caso Huawei en Costa Rica: el gobierno habla de seguridad nacional, Huawei dice que el decreto usa «criterios no técnicos y arbitrarios» y Coprocom advierte costos y menos competencia. Con una sola de esas voces, cuentas la mitad.</p></div>
-<div class="wbox f" style="max-width:1150px;box-shadow:8px 8px 0 #0F0E0D"><p style="font-size:28px;font-weight:900">Prueba de simetría: ¿exigirías la misma evidencia si el actor fuera otro país?</p></div>
+<section class="s yel center" data-lv="N3" data-mode="concepto" data-note="Por qué importan los otros enfoques. Remata con la prueba de simetría.">
+<p class="k">Concepto 4 · ¿por qué escuchar a todos?</p>
+<p class="big" style="max-width:1250px">Si cuentas una sola versión, <em>repites la narrativa de alguien.</em></p>
+<div class="ej f"><b class="t">EJEMPLO</b><p>Solo con la versión de EE. UU., Chancay es una amenaza militar. Solo con la de la embajada china, ese uso militar es «un mero invento». Solo con la del gobierno peruano, es puro progreso. Las tres son parte de la historia.</p></div>
+<div class="wbox f" style="max-width:1150px;box-shadow:8px 8px 0 #0F0E0D"><p style="font-size:26px;font-weight:900">Prueba de simetría: ¿dirías lo mismo de un puerto operado por una estatal de otro país?</p></div>
 </section>
 
-<section class="s squares" data-lv="N3" data-mode="concepto" data-note="Conecta los enfoques con la audiencia: de todos los enfoques posibles, eliges el que responde a la hipótesis del Nivel 1. No es elegir el enfoque que te gusta a ti.">
-<p class="k">Concepto 5 · la brújula</p>
-<h2>De todos los enfoques, ¿cuál le sirve a tu audiencia?</h2>
-<p class="lead f">Ver a todos los actores no significa contarlo todo. Significa que, después de entender el panorama completo, eliges el enfoque que conecta con tu audiencia.</p>
-<div class="cols c3" style="margin-top:6px">
-<div class="box f"><h3>Para Valentina</h3><p>Cómo la pelea entre EE. UU. y China llega a su negocio.</p></div>
-<div class="box f"><h3>Para Sofía</h3><p>El enfoque de los datos personales y quién controla la tecnología.</p></div>
-<div class="box f"><h3>Para Diego</h3><p>El enfoque de la diplomacia: becas, cooperación y Taiwán.</p></div>
+<section class="s squares" data-lv="N3" data-mode="concepto" data-note="De un mismo caso salen varios enfoques. Todos son válidos; elegir uno es el siguiente paso.">
+<p class="k">Concepto 5</p>
+<h2>Un caso, muchos enfoques</h2>
+<div class="cols c4" style="margin-top:10px">
+<div class="box f"><h3>Comercial</h3><p>Rutas más cortas, exportaciones, empleos.</p></div>
+<div class="box f"><h3>Seguridad</h3><p>El debate sobre el posible uso dual.</p></div>
+<div class="box f"><h3>Soberanía</h3><p>¿Puede el Estado supervisar un puerto privado de una estatal extranjera?</p></div>
+<div class="box f"><h3>Local</h3><p>Qué le pasa al pueblo de Chancay y a su gente.</p></div>
 </div>
-<p class="lead f" style="color:#fff;font-weight:800">Volvemos a la hipótesis del Nivel 1: el enfoque correcto es el que responde a lo que le importa a tu personaje.</p>
+<p class="lead f" style="color:#fff;font-weight:800">¿Con cuál te quedas? Depende de tu audiencia. Ahí entra la hipótesis.</p>
 </section>
-<section class="s console" data-lv="N3" data-mode="mision" data-note="Usa el botón de la siguiente slide para repartir roles según el tamaño de cada grupo.">
+
+<section class="s yel center" data-lv="N3" data-mode="concepto" data-note="Aquí aparece la hipótesis, porque ya conocemos a la audiencia (N1) y el tema (N2). Es una apuesta razonada que se comprueba.">
+<p class="k">Concepto 6 · la hipótesis</p>
+<p class="big" style="max-width:1250px">Conoces tanto a tu audiencia que puedes <em>apostar qué enfoque le importa.</em></p>
+<div class="wbox f" style="max-width:1200px;box-shadow:8px 8px 0 #0F0E0D"><p class="pixy" style="color:var(--red);font-size:20px">FÓRMULA</p><p style="font-size:32px;font-weight:900">«Creo que a ___ le importa el enfoque ___ porque ___».</p></div>
+<div class="ej f"><b class="t">EJEMPLO</b><p><i>«Creo que a Lucho le importa el enfoque local de Chancay, porque su cevichería está en un pueblo que cambia muy rápido»</i>. Y <i>«a Sofía, el de soberanía, porque le preocupa quién controla la infraestructura y los datos»</i>.</p></div>
+</section>
+
+<section class="s stars" data-lv="N3" data-mode="concepto" data-note="Las mismas herramientas del Nivel 1, ahora para comprobar la hipótesis.">
+<p class="k">Concepto 7</p>
+<h2>Una hipótesis se comprueba, no se adivina</h2>
+<p class="lead f">Usa las herramientas del Nivel 1: habla con tu audiencia, lee comentarios, haz encuestas, mira qué se busca.</p>
+<div class="ej f"><b class="t">EJEMPLO</b><p>Para comprobar la hipótesis sobre Lucho: preguntas a comerciantes de Chancay, revisas los grupos de Facebook del pueblo y miras qué se comenta en las noticias locales sobre el puerto.</p></div>
+<p class="lead f" style="color:#fff;font-weight:800">Si la hipótesis no se cumple, no pasa nada: cambias de enfoque.</p>
+</section>
+
+<section class="s console" data-lv="N3" data-mode="mision" data-note="Como dijo Bernie: la geopolítica también es mirar a los que no están en la mesa.">
 <p class="k">Misión 3 · instrucciones</p>
-<h2>Mesa de enfoques</h2>
+<h2>Mesa de enfoques e hipótesis</h2>
 <div style="display:flex;flex-direction:column">
-<div class="step f"><span class="n">1</span><div><h3>Repartan los roles</h3><p>Beijing, Washington, gobierno local, comunidad, empresa y su personaje. El cuaderno los sortea.</p></div></div>
-<div class="step f"><span class="n">2</span><div><h3>Un minuto por persona</h3><p>Cada quien defiende su mirada sobre el caso del grupo, aunque no la comparta.</p></div></div>
-<div class="step f"><span class="n">3</span><div><h3>Respondan juntos</h3><p>¿Quién gana? ¿Quién pierde? ¿Quién calla? Y lo más importante: ¿qué enfoque le sirve a su personaje?</p></div></div>
+<div class="step f"><span class="n">1</span><div><h3>Mesa de enfoques</h3><p>Repartan roles (Beijing, Washington, gobierno local, comunidad, empresa y su personaje). Un minuto por persona.</p></div></div>
+<div class="step f"><span class="n">2</span><div><h3>Mapa de actores</h3><p>¿Quién gana? ¿Quién pierde? ¿Quién calla?</p></div></div>
+<div class="step f"><span class="n">3</span><div><h3>Su hipótesis</h3><p>«Creo que a ___ le importa el enfoque ___ porque ___». ¿Cómo la comprobarían?</p></div></div>
 </div>
 <p class="pixy f" style="font-size:22px;background:#0F0E0D;padding:10px 16px;align-self:flex-start">EN TU CUADERNO → MISIÓN 3 · CLAVE: <span style="background:var(--y);color:#0F0E0D;padding:2px 10px">BILLAR</span></p>
 <div class="row f"><span class="time">13 minutos</span><button class="btn red" data-min="13">Iniciar 13:00</button></div>
 </section>
 
-
-
 <!-- ============ NIVEL 4 ============ -->
-<section class="s console center" data-lv="N4" data-lvstart="1" data-note="Pantalla de nivel.">
+<section class="s console center" data-lv="N4" data-lvstart="1" data-note="Nivel 4: rigor. Fuentes, la pregunta correcta y cómo investigar con IA.">
 <p class="lvbig" style="color:#0F0E0D">NIVEL 4</p>
 <p class="lvsub">Fuentes y la pregunta correcta</p>
 <span class="time">20 min</span>
 </section>
 
-<section class="s squares" data-lv="N4" data-mode="concepto" data-note="Retoma el ejercicio de Bernie del 18 de noviembre, cuando las IA dieron cifras de 35 a 80 millones de muertes atribuidas a Mao.">
+<section class="s squares" data-lv="N4" data-mode="concepto" data-note="Retoma el ejercicio de Bernie del 18 de noviembre.">
 <p class="k">¿Se acuerdan?</p>
 <p class="big" style="max-width:1300px">Le preguntaron a la IA cuántas muertes se atribuyen a Mao. <em>Les dio entre 35 y 80 millones.</em></p>
 <p class="lead f">¿Por qué tanta diferencia?</p>
 <div class="cols c3">
-<div class="box f"><h3>Métodos distintos</h3><p>Cada estudio cuenta de otra forma: hambrunas, persecuciones, años.</p></div>
+<div class="box f"><h3>Métodos distintos</h3><p>Cada estudio cuenta de otra forma.</p></div>
 <div class="box f"><h3>Datos ocultos</h3><p>Los Estados no siempre abren sus archivos.</p></div>
 <div class="box f"><h3>Filtros de la IA</h3><p>Cada herramienta resume fuentes distintas.</p></div>
 </div>
 </section>
 
-<section class="s stars" data-lv="N4" data-mode="concepto" data-note="Esta clasificación es de la slide de Bernie sobre Xinjiang. Explica qué sostiene cada categoría.">
+<section class="s stars" data-lv="N4" data-mode="concepto" data-note="Clasificación de la slide de Bernie sobre Xinjiang, aplicada a Chancay.">
 <p class="k">Concepto 1</p>
 <h2>Antes de publicar, clasifica cada dato</h2>
-<div class="cols c3" style="margin-top:10px">
-<div class="box f" style="border-color:#118A3E"><span class="n" style="color:#4BE07F;font-size:30px">DOCUMENTADO</span><p>Hay pruebas que cualquiera puede revisar.</p><p><b style="color:#fff">Se sostiene con:</b> leyes, presupuestos, contratos, imágenes satelitales, registros oficiales.</p></div>
-<div class="box f" style="border-color:var(--y)"><span class="n" style="font-size:30px">DISPUTADO</span><p>Hay fuentes, pero no coinciden.</p><p><b style="color:#fff">Se sostiene con:</b> testimonios, filtraciones, estudios con métodos distintos.</p></div>
-<div class="box f" style="border-color:var(--pink)"><span class="n" style="color:#FF6FA0;font-size:30px">NO VERIFICABLE</span><p>Nadie independiente puede comprobarlo.</p><p><b style="color:#fff">¿Por qué?</b> No hay acceso para periodistas ni investigadores.</p></div>
+<div class="cols c3" style="margin-top:6px">
+<div class="box f" style="border-color:#118A3E"><span class="n" style="color:#4BE07F;font-size:28px">DOCUMENTADO</span><p>Hay pruebas que cualquiera puede revisar: leyes, contratos, registros.</p></div>
+<div class="box f" style="border-color:var(--y)"><span class="n" style="font-size:28px">DISPUTADO</span><p>Hay fuentes, pero no coinciden.</p></div>
+<div class="box f" style="border-color:var(--pink)"><span class="n" style="color:#FF6FA0;font-size:28px">NO VERIFICABLE</span><p>Nadie independiente puede comprobarlo.</p></div>
 </div>
-<div class="ej f"><b class="t">EJEMPLO</b><p>Con Temu. <b>Documentado:</b> Ecuador cobra 20 dólares por paquete 4x4 desde junio de 2025. <b>Disputado:</b> por qué EE. UU. empezó a cobrar: el gobierno dijo que era por las drogas que entran desde China; otros dicen que es parte de la pelea comercial. <b>No verificable:</b> qué hace la app con los datos de cada usuario.</p></div>
-<p class="lead f" style="color:#fff;font-weight:800;font-size:26px">En redes, decir «esto no se sabe» también genera confianza.</p>
+<div class="ej f"><b class="t">EJEMPLO</b><p>Con Chancay. <b>Documentado:</b> COSCO tiene el 60 % y Volcan el 40 %. <b>Disputado:</b> si tendrá uso militar: EE. UU. lo advierte y la embajada china dice que es «un mero invento». <b>No verificable:</b> qué hará Beijing con el puerto dentro de diez años.</p></div>
 </section>
 
-
-
-<section class="s console" data-lv="N4" data-mode="juego" data-note="El juego está en el cuaderno. Dales 4 minutos y luego revisen juntos cuál les costó más.">
+<section class="s console" data-lv="N4" data-mode="juego" data-note="El juego está en el cuaderno. Dales 4 minutos y revisen juntos cuál les costó más.">
 <p class="k">Juego rápido</p>
 <h2>¿Documentado, disputado o no verificable?</h2>
-<p class="lead f">En tu cuaderno hay seis afirmaciones sobre China y Galápagos. Clasifica cada una y mira tu puntaje.</p>
+<p class="lead f">En tu cuaderno hay seis afirmaciones sobre China y América Latina. Clasifica cada una y mira tu puntaje.</p>
 <p class="pixy f" style="font-size:22px;background:#0F0E0D;padding:10px 16px;align-self:flex-start">EN TU CUADERNO → JUEGO · CLAVE: <span style="background:var(--y);color:#0F0E0D;padding:2px 10px">FUENTES</span></p>
 <div class="row f"><span class="time">4 minutos</span><button class="btn red" data-min="4">Iniciar 4:00</button></div>
 </section>
-<section class="s stars" data-lv="N4" data-mode="concepto" data-note="Seis reglas de la slide 'Cómo se investiga un tema sensible' de Bernie. Pásalas una por una.">
+
+<section class="s stars" data-lv="N4" data-mode="concepto" data-note="Seis reglas de la slide «Cómo se investiga un tema sensible» de Bernie.">
 <p class="k">Concepto 2</p>
 <h2>Seis reglas para usar fuentes</h2>
 <div class="cols c2" style="gap:0 40px">
@@ -691,48 +667,59 @@ textarea{min-height:110px;resize:none}
 </div>
 </section>
 
-<section class="s console" data-lv="N4" data-mode="ejemplo" data-note="Las seis reglas aplicadas a un caso real de la región. Fuentes: La Nación, El Financiero CR, Semanario Universidad.">
-<p class="k">Ejemplo · las reglas con el caso Huawei en Costa Rica</p>
+<section class="s console" data-lv="N4" data-mode="ejemplo" data-note="Las seis reglas aplicadas a otro caso de la región. Fuentes: La Nación, El Financiero CR, Semanario Universidad.">
+<p class="k">Ejemplo · las reglas con Huawei y el 5G en Costa Rica</p>
 <div class="cols c2" style="gap:0 40px">
 <div class="step f"><span class="n">1</span><div><h3>Fuente primaria</h3><p>Leer el decreto 44196-MSP-MICITT, no solo el titular «Costa Rica veta a Huawei».</p></div></div>
-<div class="step f"><span class="n">2</span><div><h3>Intereses opuestos</h3><p>El Micitt, Huawei y entes técnicos como Sutel y Coprocom.</p></div></div>
-<div class="step f"><span class="n">3</span><div><h3>Cifra con método</h3><p>«Huawei es la opción más barata»: ¿según qué licitación? Semanario Universidad revisó el sistema de compras públicas.</p></div></div>
-<div class="step f"><span class="n">4</span><div><h3>Quién lo dice</h3><p>La ministra del Micitt, el vocero de Huawei, un tribunal: cada uno con su interés.</p></div></div>
+<div class="step f"><span class="n">2</span><div><h3>Intereses opuestos</h3><p>El gobierno, Huawei y entes técnicos como Sutel y Coprocom.</p></div></div>
+<div class="step f"><span class="n">3</span><div><h3>Cifra con método</h3><p>«Huawei es la opción más barata»: ¿según qué licitación?</p></div></div>
+<div class="step f"><span class="n">4</span><div><h3>Quién lo dice</h3><p>La ministra, el vocero de Huawei, un tribunal: cada uno con su interés.</p></div></div>
 <div class="step f"><span class="n">5</span><div><h3>Lo que no sabemos</h3><p>Cuánto costará al final el 5G y cómo terminará en los tribunales.</p></div></div>
 <div class="step f"><span class="n">6</span><div><h3>Simetría</h3><p>¿Le exigiríamos lo mismo a Nokia o Ericsson?</p></div></div>
 </div>
 </section>
-<section class="s squares" data-lv="N4" data-mode="concepto" data-note="La pregunta también tiene sesgo. Explica la diferencia antes de mostrar el ejemplo.">
+
+<section class="s squares" data-lv="N4" data-mode="concepto" data-note="La pregunta también tiene sesgo. Explica la diferencia antes del ejemplo.">
 <p class="k">Concepto 3</p>
 <h2>La pregunta también tiene sesgo</h2>
 <div class="cols c2" style="margin-top:10px;gap:30px">
 <div class="box f" style="border-color:var(--pink)"><span class="pixy" style="color:#FF6FA0;font-size:22px">PREGUNTA DIRIGIDA</span><p>Ya trae la respuesta adentro. Solo busca confirmar lo que pensabas.</p></div>
-<div class="box f" style="border-color:var(--y)"><span class="pixy" style="font-size:22px">PREGUNTA NO DIRIGIDA</span><p>Abre la investigación. La respuesta puede sorprenderte, incluso contradecirte.</p></div>
+<div class="box f" style="border-color:var(--y)"><span class="pixy" style="font-size:22px">PREGUNTA NO DIRIGIDA</span><p>Abre la investigación. La respuesta puede contradecirte.</p></div>
 </div>
-<p class="lead f">En redes, una pregunta no dirigida se vuelve un gancho honesto: despierta curiosidad sin prometer lo que no puedes probar.</p>
-<div class="ej f"><b class="t">EJEMPLO</b><p><b>Dirigida:</b> «¿Cómo usa China a Temu para invadir nuestros mercados?». <b>No dirigida:</b> <i>«¿Por qué creció Temu en América Latina en 2025, y qué pueden hacer nuestros gobiernos?»</i></p></div>
+<div class="ej f"><b class="t">EJEMPLO</b><p><b>Dirigida:</b> «¿Cómo usará China a Chancay como base militar?». <b>No dirigida:</b> <i>«¿Qué capacidades le da a COSCO operar Chancay y qué herramientas tiene el Estado peruano para supervisarlo?»</i></p></div>
 </section>
 
 <section class="s console" data-lv="N4" data-mode="ejemplo" data-note="El ejemplo exacto de la plantilla de Bernie.">
 <p class="k">Ejemplo · de la clase de Bernie</p>
 <h2>La misma duda, dos preguntas</h2>
-<div class="wbox f" style="box-shadow:8px 8px 0 var(--pink)"><p class="pixy" style="color:var(--pink);font-size:20px">✗ NO USAR</p><p style="font-size:32px;font-weight:900">«¿Cómo utiliza China la deuda para controlar Ecuador?»</p><p>Da por hecho que hay control. Ya decidió la respuesta.</p></div>
-<div class="wbox f" style="box-shadow:8px 8px 0 var(--blue)"><p class="pixy" style="color:var(--blue);font-size:20px">✓ USAR</p><p style="font-size:28px;font-weight:900">«¿Qué mecanismos financieros, contractuales y políticos modificaron la capacidad de decisión ecuatoriana en los proyectos financiados por bancos chinos entre 2009 y 2025?»</p><p>Se puede investigar con contratos y datos. La respuesta está abierta.</p></div>
+<div class="wbox f" style="box-shadow:8px 8px 0 var(--pink)"><p class="pixy" style="color:var(--pink);font-size:20px">✗ NO USAR</p><p style="font-size:32px;font-weight:900">«¿Cómo utiliza China la deuda para controlar Ecuador?»</p></div>
+<div class="wbox f" style="box-shadow:8px 8px 0 var(--blue)"><p class="pixy" style="color:var(--blue);font-size:20px">✓ USAR</p><p style="font-size:28px;font-weight:900">«¿Qué mecanismos financieros, contractuales y políticos modificaron la capacidad de decisión ecuatoriana en los proyectos financiados por bancos chinos entre 2009 y 2025?»</p></div>
 </section>
 
-<section class="s stars" data-lv="N4" data-mode="mision" data-note="La frase ancla resume el enfoque del grupo y se usa en el Nivel 5.">
+<section class="s stars" data-lv="N4" data-mode="concepto" data-note="Conecta con el reto final de Bernie: IA gratuita, pero criterio periodístico propio y registro de lo que se le preguntó.">
+<p class="k">Concepto 4 · como en el reto de Bernie</p>
+<h2>Investigar con IA, sin delegar el criterio</h2>
+<div class="cols c2" style="gap:0 40px">
+<div class="step f"><span class="n">1</span><div><h3>La IA busca y organiza</h3><p>Te ayuda a encontrar fuentes, resumir y ordenar.</p></div></div>
+<div class="step f"><span class="n">2</span><div><h3>Tú lees la fuente original</h3><p>El contrato, el decreto, el informe. No el resumen.</p></div></div>
+<div class="step f"><span class="n">3</span><div><h3>Tú verificas</h3><p>Cada dato que publicas lo comprobaste tú.</p></div></div>
+<div class="step f"><span class="n">4</span><div><h3>Guarda el historial</h3><p>Qué le preguntaste y qué te respondió. Es tu respaldo.</p></div></div>
+</div>
+<div class="ej f"><b class="t">EJEMPLO</b><p>La IA te dice que «COSCO tiene el 60 % de Chancay». Buscas la fuente: medios peruanos y la propia empresa lo confirman. Anotas ambas cosas en tu registro.</p></div>
+</section>
+
+<section class="s console" data-lv="N4" data-mode="mision" data-note="La frase ancla resume el enfoque del grupo y se usa en el Nivel 5.">
 <p class="k">Misión 4 · instrucciones</p>
 <h2>Fuentes, vacíos y la frase ancla</h2>
 <div style="display:flex;flex-direction:column">
 <div class="step f"><span class="n">1</span><div><h3>Tres fuentes</h3><p>Una primaria y una de cada lado del conflicto.</p></div></div>
 <div class="step f"><span class="n">2</span><div><h3>Lo que no sabemos</h3><p>Los vacíos que van a declarar.</p></div></div>
 <div class="step f"><span class="n">3</span><div><h3>Su pregunta no dirigida</h3><p>Una que se pueda investigar.</p></div></div>
-<div class="step f"><span class="n">4</span><div><h3>La frase ancla</h3><p>Resume su enfoque en una oración, siempre con su personaje adentro.</p></div></div>
+<div class="step f"><span class="n">4</span><div><h3>La frase ancla</h3><p>Su enfoque en una oración, con su personaje adentro.</p></div></div>
 </div>
-<p class="pixy f" style="font-size:22px;background:#0F0E0D;padding:10px 16px;align-self:flex-start">EN TU CUADERNO → MISIÓN 4 · CLAVE: <span style="background:var(--y);color:#0F0E0D;padding:2px 10px">ANCLA</span></p><div class="row f"><span class="time">13 minutos</span><button class="btn red" data-min="13">Iniciar 13:00</button></div>
+<p class="pixy f" style="font-size:22px;background:#0F0E0D;padding:10px 16px;align-self:flex-start">EN TU CUADERNO → MISIÓN 4 · CLAVE: <span style="background:var(--y);color:#0F0E0D;padding:2px 10px">ANCLA</span></p>
+<div class="row f"><span class="time">13 minutos</span><button class="btn red" data-min="13">Iniciar 13:00</button></div>
 </section>
-
-
 
 <!-- ============ PAUSA ============ -->
 <section class="s squares center" data-lv="II" data-lvstart="1" data-note="Pausa de 10 minutos.">
@@ -771,10 +758,10 @@ textarea{min-height:110px;resize:none}
 <p class="k">Concepto 3</p>
 <h2>Los cuatro elementos de una historia</h2>
 <div class="cols c4" style="margin-top:10px">
-<div class="box f"><span class="n">1</span><h3>Protagonista</h3><p>Quién vive la historia: una persona, un pueblo, un barco.</p><span class="ejs">Ej.: Una costurera de Gamarra.</span></div>
-<div class="box f"><span class="n">2</span><h3>Objetivo</h3><p>Qué quiere o necesita.</p><span class="ejs">Ej.: Seguir vendiendo sus polos.</span></div>
-<div class="box f"><span class="n">3</span><h3>Obstáculo</h3><p>Qué se lo impide. Aquí entra tu análisis geopolítico.</p><span class="ejs">Ej.: Una app los vende a la mitad de precio.</span></div>
-<div class="box f" style="border-color:var(--y)"><span class="n">4</span><h3>Giro</h3><p>El dato inesperado que sorprende.</p><span class="ejs">Ej.: Esas prendas llegan aquí porque EE. UU. les cerró la puerta.</span></div>
+<div class="box f"><span class="n">1</span><h3>Protagonista</h3><p>Quién vive la historia: una persona, un pueblo, un barco.</p><span class="ejs">Ej.: Lucho, que tiene una cevichería en Chancay.</span></div>
+<div class="box f"><span class="n">2</span><h3>Objetivo</h3><p>Qué quiere o necesita.</p><span class="ejs">Ej.: Que su negocio crezca con el puerto.</span></div>
+<div class="box f"><span class="n">3</span><h3>Obstáculo</h3><p>Qué se lo impide. Aquí entra tu análisis geopolítico.</p><span class="ejs">Ej.: No sabe si el puerto beneficiará al pueblo o solo a otros.</span></div>
+<div class="box f" style="border-color:var(--y)"><span class="n">4</span><h3>Giro</h3><p>El dato inesperado que sorprende.</p><span class="ejs">Ej.: El futuro del puerto también se discute en Washington y Beijing.</span></div>
 </div>
 <p class="lead f" style="color:#fff;font-weight:800">Si juntas los cuatro en una sola oración, tienes tu <span style="color:var(--y)">logline</span>.</p>
 </section>
@@ -797,7 +784,7 @@ textarea{min-height:110px;resize:none}
 <p class="k">Concepto 4</p>
 <p class="big" style="max-width:1250px">Lo más difícil: <em>elegir qué NO contar.</em></p>
 <p class="lead f" style="max-width:1100px">Tu carrusel no es tu investigación completa. Es la puerta de entrada. Quédate con lo más potente y deja ir lo demás; puede ser otro post.</p>
-<div class="ej f"><b class="t">EJEMPLO</b><p>Sabes mucho de Temu: por qué China exporta tanto, la pelea con EE. UU., los impuestos de cada país y qué pasa con los datos personales. Para Valentina cuentas cómo esa pelea llega a su negocio. Lo de los datos queda para otro post, quizá para Sofía.</p></div>
+<div class="ej f"><b class="t">EJEMPLO</b><p>Sabes mucho de Chancay: la Franja y la Ruta, la exclusividad, la pelea con Ositrán, el debate del uso dual y la amenaza de aranceles. Para Lucho cuentas qué cambia en su pueblo. El debate militar queda para otro post, quizá para Sofía o Diego.</p></div>
 </section>
 
 <section class="s squares" data-lv="N5" data-mode="concepto" data-note="Por qué el gancho importa tanto en redes.">
@@ -805,7 +792,7 @@ textarea{min-height:110px;resize:none}
 <h2>El gancho: los primeros 3 segundos</h2>
 <p class="lead f">En redes, la gente decide en segundos si se queda o sigue bajando. El gancho es la primera línea o la portada del carrusel.</p>
 <p class="lead f">Un buen gancho hace una de estas tres cosas: <b style="color:#fff">despierta curiosidad</b>, <b style="color:#fff">sorprende</b> o <b style="color:#fff">toca algo personal</b>.</p>
-<div class="ej f"><b class="t">EJEMPLO</b><p><b>Sin gancho:</b> «Análisis de la política tributaria al comercio electrónico en América Latina». <b>Con gancho:</b> <i>«Tu paquete de Temu llegó a tu país por una pelea entre Washington y Beijing»</i>.</p></div>
+<div class="ej f"><b class="t">EJEMPLO</b><p><b>Sin gancho:</b> «Implicancias geoestratégicas de la infraestructura portuaria china en el Pacífico sudamericano». <b>Con gancho:</b> <i>«A 80 km de Lima hay un puerto chino que Washington vigila. Te cuento por qué»</i>.</p></div>
 <div class="wbox f" style="max-width:1150px"><p style="font-size:28px;font-weight:900">Regla de oro: si el gancho promete, el carrusel cumple. Un gancho que exagera es clickbait, y en temas de China es desinformación.</p></div>
 </section>
 
@@ -823,7 +810,7 @@ textarea{min-height:110px;resize:none}
 <p class="k">Ejemplo · tipos de gancho (2/2)</p>
 <div class="cols c2" style="margin-top:10px">
 <div class="hook f"><span class="t">EL PERSONAJE</span><q>En 2017 detuvieron en Galápagos a un barco chino con unas 300 toneladas de especies marinas, incluidos tiburones.</q><p>Un barco, una persona o un lugar concreto engancha más que «la flota».</p></div>
-<div class="hook f"><span class="t">LO CERCANO</span><q>Ese paquete de Temu que esperas llegó hasta aquí porque EE. UU. le cerró la puerta. Te cuento la pelea.</q><p>Conecta lo global con algo que tu audiencia tiene en la mano.</p></div>
+<div class="hook f"><span class="t">LO CERCANO</span><q>Un asesor de Trump propuso cobrar 60 % de arancel a todo lo que pase por Chancay. Incluso los espárragos peruanos.</q><p>Conecta lo global con algo que tu audiencia conoce.</p></div>
 </div>
 </section>
 
@@ -833,8 +820,8 @@ textarea{min-height:110px;resize:none}
 <div class="cols c4" style="margin-top:10px">
 <div class="box f"><span class="n">?</span><h3>El misterio</h3><p>Pregunta, pistas y revelación. Para casos poco conocidos.</p><span class="ejs">Ej.: ¿Por qué Costa Rica le dijo que no a Huawei?</span></div>
 <div class="box f"><span class="n">&lt;&gt;</span><h3>Antes y después</h3><p>Tu película del Nivel 2. Para obras y acuerdos.</p><span class="ejs">Ej.: Coca Codo Sinclair, de 2009 a hoy.</span></div>
-<div class="box f"><span class="n">VS</span><h3>Dicen y pasa</h3><p>Tu tabla del Nivel 3. Para desmontar narrativas.</p><span class="ejs">Ej.: «Cooperación ganar-ganar» frente a lo que dicen los contratos.</span></div>
-<div class="box f"><span class="n">@</span><h3>Sigue al personaje</h3><p>Tu personaje del Nivel 1 atraviesa el tema.</p><span class="ejs">Ej.: Un día de Andrés, el repartidor, entre paquetes de Temu.</span></div>
+<div class="box f"><span class="n">VS</span><h3>Dicen y pasa</h3><p>Tu tabla del Nivel 3. Para desmontar narrativas.</p><span class="ejs">Ej.: «Camino de prosperidad» frente a la pelea por supervisar el puerto.</span></div>
+<div class="box f"><span class="n">@</span><h3>Sigue al personaje</h3><p>Tu personaje del Nivel 1 atraviesa el tema.</p><span class="ejs">Ej.: Un día de Lucho en Chancay, con el puerto de fondo.</span></div>
 </div>
 </section>
 
@@ -853,18 +840,18 @@ textarea{min-height:110px;resize:none}
 <p class="lead f" style="font-weight:700">Una idea por slide. Máximo 35 palabras.</p>
 </section>
 
-<section class="s stars" data-lv="N5" data-mode="ejemplo" data-note="Carrusel de ejemplo para Valentina: une su vida (slide 1 y 6) con la geopolítica (slides 3 y 4). Pregunta qué cambiarían.">
-<p class="k">Ejemplo · un carrusel completo para Valentina</p>
+<section class="s stars" data-lv="N5" data-mode="ejemplo" data-note="Carrusel de ejemplo para Lucho (personaje ficticio). Une su vida (1 y 6) con el análisis (2 a 5). Fuentes: BioBioChile, EFE, Expreso, RPP, Diálogo Américas, El Espectador.">
+<p class="k">Ejemplo · un carrusel completo para Lucho</p>
 <div class="tpl tplx" style="margin-top:4px">
-<div class="f"><b>1</b><p style="font-size:17px;font-weight:800">Tu clienta encontró lo mismo que vendes… a la mitad de precio. Te cuento por qué.</p></div>
-<div class="f"><b>2</b><p>Temu, una app china, ya tiene 105 millones de usuarios al mes en la región. En un año, más que se duplicaron.</p></div>
-<div class="f"><b>3</b><p>En mayo de 2025, EE. UU. les cerró la puerta a los paquetes baratos de China. Y las apps miraron hacia acá.</p></div>
-<div class="f"><b>4</b><p>China necesita vender. EE. UU. le pone impuestos. Y nosotros cobramos, pero le vendemos cobre y soya a China.</p></div>
-<div class="f"><b>5</b><p>Ecuador cobra 20 dólares por cada paquete 4x4 desde junio de 2025. Fuente: Comex.</p></div>
-<div class="f"><b>6</b><p>Si vendes ropa, la pelea entre dos potencias ya llegó a tu negocio.</p></div>
-<div class="f"><b>7</b><p>No sabemos qué tan duro puede ponerse la región con China. ¿Tú qué harías? Te leo.</p></div>
+<div class="f"><b>1</b><p style="font-size:17px;font-weight:800">Lucho tiene una cevichería en Chancay. Desde 2024, su pueblo tiene el puerto que vigilan Washington y Beijing.</p></div>
+<div class="f"><b>2</b><p>En noviembre de 2024 se inauguró el megapuerto. COSCO, estatal china, tiene el 60 %.</p></div>
+<div class="f"><b>3</b><p>Muchos lo llaman la joya de la Franja y la Ruta en Sudamérica: la apuesta china por rutas propias.</p></div>
+<div class="f"><b>4</b><p>China habla de «camino de prosperidad». EE. UU. advierte un posible uso militar. El regulador peruano pelea por supervisarlo.</p></div>
+<div class="f"><b>5</b><p>Promete acortar en unos 10 días el viaje de la carga a Asia.</p></div>
+<div class="f"><b>6</b><p>Para Lucho: más gente y más movimiento… y la duda de quién se queda con los beneficios.</p></div>
+<div class="f"><b>7</b><p>Nadie sabe qué uso tendrá el puerto en diez años. ¿Qué le preguntarías al gobierno? Te leo.</p></div>
 </div>
-<p class="lead f" style="color:#fff;font-weight:700">Fíjate: arranca en la vida de Valentina, explica la geopolítica en el medio y vuelve a ella al final.</p>
+<p class="lead f" style="color:#fff;font-weight:700">Fíjate: empieza en la vida de Lucho, explica el análisis en el medio y vuelve a él al final.</p>
 </section>
 <section class="s squares" data-lv="N5" data-mode="concepto" data-note="Bonus para quien quiera hacer reel. El formato AUDIO | VIDEO es el que usa Tinta con sus clientes.">
 <p class="k">Bonus · si lo llevas a reel</p>
@@ -967,28 +954,27 @@ const $=s=>document.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 /* ---------- datos ---------- */
 const PERSONAS=[
- ['VA','Valentina, 26','Guayaquil, Ecuador','Vende ropa importada por TikTok e Instagram. Fan del K-pop.','que sus clientas se vayan a comprar directo en Temu.'],
- ['LU','Lucho, 47','Gamarra, Lima, Perú','Tiene un pequeño taller de polos. Hincha de Alianza Lima, vive en Facebook.','competir con prendas que llegan a la mitad de precio.'],
- ['CA','Camila, 31','Bogotá, Colombia','Diseñadora freelance y activista ambiental en Instagram. Escucha podcasts.','la ropa desechable y la basura que deja.'],
- ['MA','Mateo, 19','Santiago, Chile','Estudia ingeniería, es gamer y compra gadgets baratos. Se informa por YouTube.','que ahora sus compras pagan 19 % de IVA.'],
- ['DC','Dona Cida, 61','São Paulo, Brasil','Costurera jubilada. Descubrió Temu por un enlace que le llegó al WhatsApp.','que su pensión le alcance a fin de mes.'],
- ['AN','Andrés, 35','Venezolano en Quito','Repartidor de apps: entrega decenas de paquetes al día. Se informa por TikTok.','el precio de la comida y su estabilidad.'],
- ['SO','Sofía, 34','San José, Costa Rica','Ingeniera en telecomunicaciones. Lee X y newsletters de tecnología.','qué datos guardan las apps y quién los ve.'],
+ ['VA','Valentina, 26','Guayaquil, Ecuador','Emprende vendiendo ropa por Instagram. Ama el K-pop y los videos cortos.','que su negocio crezca y la inseguridad.'],
+ ['LU','Lucho, 47','Chancay, Perú','Tiene una cevichería frente al mar. Hincha de Alianza Lima, vive en Facebook.','que su pueblo está cambiando muy rápido.'],
+ ['CA','Camila, 31','Bogotá, Colombia','Diseñadora freelance y activista ambiental en Instagram. Escucha podcasts.','el clima y conseguir clientes estables.'],
+ ['MA','Mateo, 19','Santiago, Chile','Estudia ingeniería y es gamer. Se informa por YouTube y Twitch.','conseguir trabajo en tecnología.'],
+ ['DC','Dona Cida, 61','São Paulo, Brasil','Costurera jubilada. Se informa por audios de WhatsApp de su familia.','que su pensión le alcance a fin de mes.'],
+ ['AN','Andrés, 35','Venezolano en Quito','Repartidor de apps. Se informa por TikTok y grupos de WhatsApp.','su estabilidad y mandar dinero a su familia.'],
+ ['SO','Sofía, 34','San José, Costa Rica','Ingeniera en telecomunicaciones. Lee X y newsletters de tecnología.','la privacidad y el costo de la vida.'],
  ['DI','Diego, 23','Ciudad de Guatemala','Estudia Relaciones Internacionales. Usa X y Threads, ama el fútbol.','conseguir una beca para estudiar afuera.']
 ];
 const CASOS=[
+ ['Puerto de Chancay','Perú · rutas y poder','Inaugurado el 14 de noviembre de 2024 por Xi Jinping y Dina Boluarte. COSCO Shipping, estatal china, tiene el 60 % y la minera peruana Volcan el 40 %. EE. UU. advierte un posible uso dual; la embajada china lo niega. COSCO y el regulador Ositrán pelean en tribunales por la supervisión.',['¿Qué altera: rutas, datos, capacidades o alternativas?','¿Qué capacidad tiene el Estado peruano para supervisarlo?','¿Cómo maneja Perú a sus dos grandes socios, China y EE. UU.?'],'EFE; BioBioChile; Expreso; RPP; Diálogo Américas; Bloomberg'],
  ['Huawei y el 5G','Costa Rica · tecnología','El decreto 44196-MSP-MICITT (31 de agosto de 2023) solo permite equipos 5G de empresas de países que ratificaron el Convenio de Budapest, lo que deja fuera a Huawei. Buena parte de la red 3G y 4G del país es Huawei.',['¿Quién gana y quién pierde: ICE, operadores privados, usuarios?','¿Qué dijeron Sutel, Coprocom y los tribunales?','¿Qué papel juega la disputa entre EE. UU. y China?'],'La Nación; El Financiero CR; Semanario Universidad'],
- ['Temu y la guerra comercial','China · EE. UU. · América Latina','En mayo de 2025, en plena pelea comercial, EE. UU. empezó a cobrar impuestos a los paquetes baratos de China. Ese año, los usuarios de Temu en América Latina más que se duplicaron, y Ecuador, Chile y Brasil empezaron a cobrar.',['¿Por qué China necesita exportar tanto?','¿Qué cambió en la región cuando EE. UU. cerró su mercado?','¿Cuánto margen tienen países que le venden materias primas a China?'],'El Espectador/EFE; Sensor Tower vía Bloomberg Línea; El Financiero'],
- ['Puerto de Chancay','Perú · rutas y comercio','Primera fase inaugurada el 14 de noviembre de 2024, con unos 1.300 millones de dólares. COSCO Shipping Ports tiene el 60 % y Volcan el 40 %.',['¿Qué capacidad local crea en logística y comercio?','¿Qué dependencia puede producir: operador, datos, conectividad?','¿Qué alternativas tiene la región?'],'Operador y fuentes oficiales peruanas (2024)'],
  ['Coca Codo Sinclair','Ecuador · energía y deuda','Central de 1.500 MW. Contrato con Sinohydro por 1.979,7 millones de dólares (2009) y crédito del Eximbank de China por 1.682,7 millones al 6,9 % (2010).',['¿Quién propuso el proyecto y quién asumió el riesgo?','¿Qué capacidad de fiscalización tuvo Ecuador?','¿Qué problemas deben atribuirse a cada actor?'],'CELEC EP (2009); Ministerio de Economía y Finanzas (2010)'],
- ['Tierras raras y chips','Mundo · tecnología','China controla cerca del 70 % de la extracción de tierras raras, el 91 % del refinado y el 94 % de los imanes permanentes. En chips depende de otros: EE. UU., Países Bajos y Japón dominan las máquinas de litografía.',['¿Qué tiene que ver con tu celular o un carro eléctrico?','¿Qué lugar ocupa América Latina en esta cadena?','¿Quién puede presionar a quién?'],'Clase de Bernardo Gortaire, 19 de noviembre'],
- ['Flota pesquera','Galápagos · mar','La FAO estimó en 2024 unos 4.222 buques chinos en pesca de aguas distantes, cerca del 24 % del total estudiado. En 2017 se incautó el Fu Yuan Yu Leng 999 en la Reserva Marina de Galápagos.',['¿Por qué las cifras varían según definición, bandera y registro?','¿Qué es el apagado del AIS y el transbordo?','¿Quién controla y quién no?'],'FAO (2024); Global Fishing Watch'],
- ['TikTok','Plataformas · poder discursivo','Bernie lo usó para preguntar si alcance es lo mismo que influencia.',['¿Quién controla el algoritmo y qué datos recopila?','¿Qué acceso legal o técnico puede tener el Estado chino?','¿Cómo se compara con las plataformas estadounidenses?'],'Presentación de Bernardo Gortaire, bloque F'],
- ['Taiwán y América Latina','Diplomacia regional','En julio de 2026, 7 de los países que reconocen a Taipéi están en América Latina y el Caribe, entre ellos Guatemala, Paraguay, Belice y Haití. Costa Rica rompió con Taiwán en 2007.',['¿Qué implica el reconocimiento: cooperación, becas, infraestructura?','¿Qué presiones hay para cambiarlo?','¿Qué narrativas compiten?'],'Ministry of Foreign Affairs, Republic of China (Taiwan), 2026']
+ ['Taiwán y América Latina','Diplomacia regional','En julio de 2026, 7 de los países que reconocen a Taipéi están en América Latina y el Caribe, entre ellos Guatemala, Paraguay, Belice y Haití. Costa Rica rompió con Taiwán en 2007.',['¿Qué implica el reconocimiento: cooperación, becas, infraestructura?','¿Qué presiones hay para cambiarlo?','¿Qué narrativas compiten?'],'Ministry of Foreign Affairs, Republic of China (Taiwan), 2026'],
+ ['Flota pesquera','Galápagos · mar y soberanía','La FAO estimó en 2024 unos 4.222 buques chinos en pesca de aguas distantes, cerca del 24 % del total estudiado. En 2017 se incautó el Fu Yuan Yu Leng 999 en la Reserva Marina de Galápagos.',['¿Por qué las cifras varían según definición, bandera y registro?','¿Qué es el apagado del AIS y el transbordo?','¿Quién controla y quién no?'],'FAO (2024); Global Fishing Watch'],
+ ['Temu y la guerra comercial','China · EE. UU. · América Latina','En mayo de 2025, en plena pelea comercial, EE. UU. empezó a cobrar impuestos a los paquetes baratos de China. Ese año, los usuarios de Temu en América Latina más que se duplicaron, y Ecuador, Chile y Brasil empezaron a cobrar.',['¿Por qué China necesita exportar tanto?','¿Qué cambió en la región cuando EE. UU. cerró su mercado?','¿Cuánto margen tienen países que le venden materias primas a China?'],'El Espectador/EFE; Sensor Tower vía Bloomberg Línea; El Financiero'],
+ ['Tierras raras y chips','Cadenas globales · América Latina','China controla cerca del 70 % de la extracción de tierras raras, el 91 % del refinado y el 94 % de los imanes permanentes. Como dijo Bernie, América Latina queda en posición vulnerable por los altos costos de procesarlas.',['¿Qué tiene que ver con tu celular o un carro eléctrico?','¿Qué lugar ocupa América Latina en esta cadena?','¿Quién puede presionar a quién?'],'Clase de Bernardo Gortaire, 19 de noviembre']
 ];
 
 /* ---------- render interactivos ---------- */
-$('#personas').innerHTML=PERSONAS.map((p,i)=>`<button class="flip" data-i="${i}" aria-label="${esc(p[1])}: toca para voltear"><div class="fi"><div class="fa"><span class="av">${p[0]}</span><h3>${esc(p[1])}</h3><span class="pl">${esc(p[2])}</span><span class="hint">Toca para voltear</span></div><div class="fb"><p>${esc(p[3])}</p><p><b>Le preocupa:</b> ${esc(p[4])}</p><p><b>¿Por qué le importaría Temu?</b></p></div></div></button>`).join('');
+$('#personas').innerHTML=PERSONAS.map((p,i)=>`<button class="flip" data-i="${i}" aria-label="${esc(p[1])}: toca para voltear"><div class="fi"><div class="fa"><span class="av">${p[0]}</span><h3>${esc(p[1])}</h3><span class="pl">${esc(p[2])}</span><span class="hint">Toca para voltear</span></div><div class="fb"><p>${esc(p[3])}</p><p><b>Le preocupa:</b> ${esc(p[4])}</p><p><b>¿Qué lo haría detener el scroll?</b></p></div></div></button>`).join('');
 $('#personas').addEventListener('click',e=>{const f=e.target.closest('.flip');if(f)f.classList.toggle('open')});
 let left=[...PERSONAS.keys()];
 $('#sortear').addEventListener('click',()=>{if(!left.length)left=[...PERSONAS.keys()];const i=left.splice(Math.floor(Math.random()*left.length),1)[0];
