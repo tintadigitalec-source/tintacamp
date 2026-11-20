@@ -193,11 +193,13 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <h2>Un hecho, ocho historias</h2>
 <p class="lead">Todos trabajan con el mismo caso: <b style="color:#fff">Temu</b>.</p>
 <div class="facts">
-<div class="fact"><b>105 M</b><span>usuarios al mes en América Latina (1.er semestre de 2025, +143 %)</span></div>
-<div class="fact"><b>$20</b><span>por paquete 4x4 en Ecuador desde junio de 2025</span></div>
-<div class="fact"><b>19 %</b><span>de IVA en Chile desde octubre de 2025; Brasil tiene la «taxa das blusinhas»</span></div>
+<div class="fact"><b>SHANGHÁI</b><span>Temu es del grupo chino PDD (Pinduoduo, 2015) y conecta fábricas chinas con el mundo</span></div>
+<div class="fact"><b>2/5/2025</b><span>EE. UU. elimina la exención de aranceles a los paquetes baratos de China, en plena guerra comercial</span></div>
+<div class="fact"><b>+143 %</b><span>crecen los usuarios de Temu en América Latina: 105 millones al mes (1.er semestre de 2025)</span></div>
+<div class="fact"><b>TASAS</b><span>Ecuador 20 dólares por paquete, Chile 19 % de IVA, Brasil la «taxa das blusinhas». Pero la región le vende materias primas a China</span></div>
 </div>
-<p class="src">Fuentes: Sensor Tower vía Bloomberg Línea (2025); El Universo y Primicias; Odecu.</p>
+<p class="src">Fuentes: PDD Holdings (SEC); El Espectador/EFE; Sensor Tower vía Bloomberg Línea; El Universo; Odecu.</p>
+<p class="tip"><b>Ojo:</b> detrás de cada paquete hay tres capas: Beijing necesita vender afuera, Washington cerró su mercado y América Latina se volvió el nuevo destino. Tu personaje vive la última capa, pero tu historia tiene que explicar las tres.</p>
 <ol class="how"><li><b>Sorteen un personaje</b> y volteen su tarjeta.</li><li><b>Conózcanlo a fondo:</b> quién es, dónde se informa, qué le preocupa.</li><li><b>Planteen su hipótesis:</b> «Creo que a ___ le importa Temu porque ___».</li><li><b>¿Cómo la comprobarían?</b></li></ol>
 <div class="row"><button class="btn y" id="sortear">Sortear personaje</button><p class="pickout" id="pickout" aria-live="polite"></p></div>
 <div class="pgrid" id="personas"></div>
@@ -269,7 +271,7 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <p style="font-weight:800">La frase ancla resume tu enfoque, con tu personaje adentro:</p>
 <div class="fields">
 <div><label class="lb" for="a1">Mi historia trata de…</label><input type="text" id="a1" data-k="a1" data-req placeholder="una app de compras baratas"></div>
-<div><label class="lb" for="a2">…pero en el fondo va de…</label><input type="text" id="a2" data-k="a2" data-req placeholder="quién pone las reglas del comercio"></div>
+<div><label class="lb" for="a2">…pero en el fondo va de…</label><input type="text" id="a2" data-k="a2" data-req placeholder="la guerra comercial entre EE. UU. y China"></div>
 <div><label class="lb" for="a3">…y a mi personaje le importa porque…</label><input type="text" id="a3" data-k="a3" data-req placeholder="de eso depende su negocio"></div>
 </div>
 <div class="out" id="ancla" aria-live="polite"></div>
@@ -286,7 +288,7 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <div><label class="lb" for="l1">Protagonista</label><input type="text" id="l1" data-k="l1" data-req placeholder="Una costurera de Gamarra"></div>
 <div><label class="lb" for="l2">Quiere…</label><input type="text" id="l2" data-k="l2" data-req placeholder="seguir vendiendo sus polos"></div>
 <div><label class="lb" for="l3">Pero…</label><input type="text" id="l3" data-k="l3" data-req placeholder="una app los vende a la mitad de precio"></div>
-<div><label class="lb" for="l4">Y el giro es que…</label><input type="text" id="l4" data-k="l4" placeholder="los gobiernos empezaron a cobrar impuestos a cada paquete"></div>
+<div><label class="lb" for="l4">Y el giro es que…</label><input type="text" id="l4" data-k="l4" placeholder="esas prendas llegan aquí porque EE. UU. les cerró la puerta"></div>
 </div>
 <div class="out" id="logline" aria-live="polite"></div>
 <p class="k">Tipos de gancho</p>
@@ -346,7 +348,7 @@ const PERSONAS=[
  ['DI','Diego, 23','Ciudad de Guatemala','Estudia Relaciones Internacionales. Usa X y Threads, ama el fútbol.','conseguir una beca para estudiar afuera.']];
 const CASOS=[
  ['Huawei y el 5G','Costa Rica · tecnología','El decreto 44196-MSP-MICITT (31 de agosto de 2023) solo permite equipos 5G de empresas de países que ratificaron el Convenio de Budapest, lo que deja fuera a Huawei. Buena parte de la red 3G y 4G del país es Huawei.',['¿Quién gana y quién pierde: ICE, operadores privados, usuarios?','¿Qué dijeron Sutel, Coprocom y los tribunales?','¿Qué papel juega la disputa entre EE. UU. y China?'],'La Nación; El Financiero CR; Semanario Universidad'],
- ['Temu y los impuestos','América Latina · comercio','105 millones de usuarios al mes en la región (1.er semestre de 2025, +143 %). Ecuador cobra 20 dólares por paquete 4x4, Chile 19 % de IVA y Brasil aplica la «taxa das blusinhas».',['¿A quién protegen estos impuestos y a quién le cuestan?','¿Qué pasa con el comercio local?','¿Por qué los países que exportan materias primas a China tienen menos margen?'],'Sensor Tower vía Bloomberg Línea (2025); El Universo; Odecu'],
+ ['Temu y la guerra comercial','China · EE. UU. · América Latina','EE. UU. eliminó el 2 de mayo de 2025 la exención a los paquetes baratos de China. En el primer semestre de 2025, los usuarios de Temu en América Latina crecieron 143 %. Ecuador, Chile y Brasil empezaron a cobrar tasas.',['¿Por qué China necesita exportar tanto?','¿Qué cambió en la región cuando EE. UU. cerró su mercado?','¿Cuánto margen tienen países que le venden materias primas a China?'],'El Espectador/EFE; Sensor Tower vía Bloomberg Línea; El Financiero'],
  ['Puerto de Chancay','Perú · rutas y comercio','Primera fase inaugurada el 14 de noviembre de 2024, con unos 1.300 millones de dólares. COSCO Shipping Ports tiene el 60 % y Volcan el 40 %.',['¿Qué capacidad local crea en logística y comercio?','¿Qué dependencia puede producir: operador, datos, conectividad?','¿Qué alternativas tiene la región?'],'Operador y fuentes oficiales peruanas (2024)'],
  ['Coca Codo Sinclair','Ecuador · energía y deuda','Central de 1.500 MW. Contrato con Sinohydro por 1.979,7 millones de dólares (2009) y crédito del Eximbank de China por 1.682,7 millones al 6,9 % (2010).',['¿Quién propuso el proyecto y quién asumió el riesgo?','¿Qué capacidad de fiscalización tuvo Ecuador?','¿Qué problemas deben atribuirse a cada actor?'],'CELEC EP (2009); Ministerio de Economía y Finanzas (2010)'],
  ['Tierras raras y chips','Mundo · tecnología','China controla cerca del 70 % de la extracción de tierras raras, el 91 % del refinado y el 94 % de los imanes permanentes. En chips depende de otros: EE. UU., Países Bajos y Japón dominan las máquinas de litografía.',['¿Qué tiene que ver con tu celular o un carro eléctrico?','¿Qué lugar ocupa América Latina en esta cadena?','¿Quién puede presionar a quién?'],'Clase de Bernardo Gortaire, 19 de noviembre'],
