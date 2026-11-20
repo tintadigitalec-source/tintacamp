@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cuaderno de misiones · Tinta Camp III</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,900&family=Silkscreen:wght@400;700&display=swap">
+<style>
+/* VOICE: cuaderno de juego de Tinta Camp, directo y amable.
+   IDEA: el "manual del cartucho": una misión por pantalla, con sus herramientas.
+   PICTURE: consola gris arriba, pantallas negras con marco, botones de mando.
+   COLOUR/TYPE: #FFE600, azul estelar, gris consola; Montserrat 900 + Silkscreen.
+   LAYOUT: una columna de hasta 900px, pestañas de misión fijas arriba. */
+:root{--y:#FFE600;--blue:#1B2DB0;--navy:#0B0C4A;--red:#E01B1B;--pink:#C2004E;--vio:#7B5CFF;--lav:#DCDDFF;--pix:'Silkscreen',monospace;--sans:'Montserrat',system-ui,sans-serif;color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+body{margin:0;color:#fff;font:500 16px/1.55 var(--sans);overflow-x:clip;background-color:#14179A;background-image:radial-gradient(circle,#fff 1px,transparent 1.8px),radial-gradient(circle,#A9AEFF 1.3px,transparent 2.2px),linear-gradient(180deg,#1C22C2 0%,#0B0C4A 100%);background-size:150px 150px,97px 97px,100% 100%;background-attachment:fixed}
+button{font-family:inherit}
+.console{background-color:#9E9E9E;background-image:linear-gradient(#B4B4B4,#B4B4B4),linear-gradient(#B4B4B4,#B4B4B4);background-size:30px 30px,16px 16px;background-position:93% 18%,10% 70%;background-repeat:no-repeat;color:#0F0E0D}
+header{position:sticky;top:0;z-index:10;border-bottom:4px solid #4D4D4D}
+.hud{max-width:900px;margin:0 auto;padding:10px 16px;display:flex;flex-direction:column;gap:8px}
+.hud .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hud img{height:34px;width:auto}
+.hud .ttl{font-family:var(--pix);font-weight:700;font-size:15px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.tabs a{flex:none;font-family:var(--pix);font-weight:700;font-size:13px;text-decoration:none;background:#0F0E0D;color:#fff;padding:8px 10px;min-height:36px;display:inline-flex;align-items:center}
+.tabs a.on{background:var(--y);color:#0F0E0D}
+main{max-width:900px;margin:0 auto;padding:24px 16px 80px;display:flex;flex-direction:column;gap:34px}
+.m{background:#4D4D4D;border-radius:16px 16px 16px 48px;padding:12px;box-shadow:0 8px 0 rgba(0,0,0,.35)}
+.in{background:#080808;border-radius:10px;padding:clamp(20px,5vw,36px);display:flex;flex-direction:column;gap:18px}
+.k{margin:0;font-family:var(--pix);font-size:14px;color:var(--y)}
+h1,h2,h3{margin:0;font-weight:900;letter-spacing:-.03em;line-height:1.08}
+h1{font-size:clamp(30px,7vw,52px)}
+h2{font-size:clamp(24px,5vw,34px)}
+h3{font-size:19px;letter-spacing:-.01em}
+p{margin:0}
+.lead{font-size:17px;color:var(--lav)}
+ol.how{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px;color:var(--lav)}
+ol.how b{color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;border:0;border-radius:999px;font-family:var(--pix);font-weight:700;font-size:15px;color:#fff;background:var(--blue);box-shadow:0 5px 0 #6E6E6E;cursor:pointer}
+.btn.y{background:var(--y);color:#0F0E0D}.btn.red{background:var(--red)}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #6E6E6E}
+.btn:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--y);outline-offset:3px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+label.lb{display:block;margin:0 0 6px;font-family:var(--pix);font-size:13px;color:var(--y)}
+input[type=text],textarea{width:100%;background:#fff;color:#0F0E0D;border:3px solid #0F0E0D;padding:12px 14px;font:600 16px/1.45 var(--sans);box-shadow:5px 5px 0 var(--navy)}
+textarea{min-height:96px;resize:vertical}
+.fields{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.out{background:#fff;color:#0F0E0D;padding:16px 18px;font-weight:800;font-size:18px;line-height:1.4;box-shadow:6px 6px 0 var(--vio)}
+.out .ph{color:#8A8A8A}
+.facts{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+.fact{background:#1A1A1A;border:3px solid #2E2E2E;padding:14px}
+.fact b{font-family:var(--pix);font-size:24px;color:var(--y);display:block;line-height:1.1}
+.fact span{font-size:14px;color:#D8D8D8}
+.src{font-size:13px;color:#9A9A9A;font-weight:600}
+/* personas */
+.pgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr))}
+.flip{perspective:900px;cursor:pointer;background:none;border:0;padding:0;text-align:left;color:inherit;height:210px}
+.fi{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.open .fi{transform:rotateY(180deg)}
+.fa,.fb{position:absolute;inset:0;backface-visibility:hidden;padding:14px;display:flex;flex-direction:column;gap:6px;border:3px solid #0F0E0D}
+.fa{background:#1A1FB8;color:#fff;box-shadow:5px 5px 0 #0F0E0D}
+.fa .av{font-family:var(--pix);font-size:34px;line-height:1;color:var(--y)}
+.fa h3{font-size:20px}.fa .pl{font-family:var(--pix);font-size:12px;color:var(--lav)}
+.fa .hint{margin-top:auto;font-family:var(--pix);font-size:11px;color:var(--y)}
+.fb{background:#fff;color:#0F0E0D;transform:rotateY(180deg);box-shadow:5px 5px 0 var(--pink)}
+.fb p{font-size:14px;line-height:1.35;font-weight:600}
+.flip.pick .fa{background:var(--red)}
+.pickout{font-family:var(--pix);font-size:16px;color:var(--y)}
+/* casos */
+.cgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr))}
+.cart{background:#3F3F3F;border-radius:10px 10px 4px 4px;padding:8px 8px 12px;cursor:pointer;border:0;text-align:left;color:#fff;box-shadow:0 5px 0 #6E6E6E;min-height:92px;display:flex}
+.cart .lb2{background:#0F0E0D;padding:10px 12px;border-radius:6px;flex:1;display:flex;flex-direction:column;gap:4px}
+.cart b{font-weight:900;font-size:17px;line-height:1.15}.cart span{font-family:var(--pix);font-size:11px;color:var(--lav)}
+.cart.on{background:var(--y)}.cart.on .lb2{background:var(--blue)}
+.detail{background:#fff;color:#0F0E0D;padding:18px 20px;box-shadow:6px 6px 0 var(--vio);display:flex;flex-direction:column;gap:8px}
+.detail h3{font-size:22px}.detail p{font-weight:700}.detail ul{margin:0;padding-left:20px;font-weight:600}
+/* roles */
+.rgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr))}
+.role{background:#1A1A1A;border:3px solid #2E2E2E;padding:14px;display:flex;flex-direction:column;gap:4px}
+.role .n{font-family:var(--pix);font-size:20px;color:var(--y)}.role p{font-size:14px;color:#D8D8D8}
+/* quiz */
+.q{background:#1A1A1A;border:3px solid #2E2E2E;padding:16px;display:flex;flex-direction:column;gap:10px}
+.q .s2{font-weight:800;font-size:17px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{min-height:44px;padding:0 12px;background:#2E2E2E;border:3px solid #2E2E2E;color:#fff;font-family:var(--pix);font-size:12px;cursor:pointer}
+.opt.ok{background:#118A3E;border-color:var(--y)}.opt.no{background:var(--pink)}
+.fb2{font-size:14px;color:var(--lav);display:none}.q.done .fb2{display:block}
+.score{font-family:var(--pix);color:var(--y);font-size:18px}
+/* ganchos */
+.hk{display:flex;flex-wrap:wrap;gap:8px}
+.hk span{background:#1A1A1A;border:2px solid #2E2E2E;padding:6px 10px;font-size:14px;font-weight:700}
+/* carrusel */
+.cb{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:start}
+.slots{display:flex;flex-direction:column;gap:12px}
+.slot label{display:flex;justify-content:space-between;gap:8px}
+.slot .wc{font-family:var(--pix);font-size:11px;color:#8C86FF}.slot .wc.over{color:#FF7A7A}
+.slot textarea{min-height:70px}
+.phone{position:sticky;top:130px;background:#3F3F3F;border-radius:32px;padding:14px;box-shadow:0 8px 0 #6E6E6E;max-width:340px;width:100%;justify-self:center}
+.psc{aspect-ratio:4/5;background:#14179A;border-radius:20px;position:relative;display:flex;flex-direction:column;justify-content:center;padding:22px;gap:10px}
+.psc.s0{background:var(--y);color:#0F0E0D}
+.psc .tag{font-family:var(--pix);font-size:11px;opacity:.85}
+.psc .txt{font-weight:900;font-size:20px;line-height:1.2;letter-spacing:-.02em;white-space:pre-wrap;overflow-wrap:anywhere}
+.psc .pg{position:absolute;right:14px;bottom:10px;font-family:var(--pix);font-size:11px}
+.dots{display:flex;justify-content:center;gap:6px;margin:10px 0 4px}.dots i{width:10px;height:10px;background:#6E6E6E;display:block}.dots i.on{background:var(--y)}
+.pnav{display:flex;gap:8px}.pnav button{flex:1;min-height:44px;background:#0F0E0D;color:#fff;border:0;font-family:var(--pix);cursor:pointer}
+.check{display:flex;flex-direction:column;gap:8px}
+.check label{display:flex;gap:12px;align-items:flex-start;background:#1A1A1A;border:3px solid #2E2E2E;padding:12px 14px;cursor:pointer;font-weight:700}
+.check input{width:22px;height:22px;flex:none;accent-color:#FFE600;margin-top:2px}
+footer{text-align:center;padding:24px 16px}footer img{height:48px;width:auto}
+@media(max-width:720px){.cb{grid-template-columns:1fr}.phone{position:relative;top:0}}
+@media(prefers-reduced-motion:reduce){.fi{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="console">
+<div class="hud">
+<div class="top"><img src="../assets/logos-tinta-iri.png" alt="Tinta Digital e IRI"><span class="ttl">CUADERNO DE MISIONES</span></div>
+<nav class="tabs" aria-label="Misiones">
+<a href="#inicio">INICIO</a><a href="#m1">M1</a><a href="#m2">M2</a><a href="#m3">M3</a><a href="#juego">JUEGO</a><a href="#m4">M4</a><a href="#m5">M5</a><a href="#jefe">JEFE</a>
+</nav>
+</div>
+</header>
+
+<main>
+<section class="m" id="inicio"><div class="in">
+<p class="k">Tinta Camp III · Storytelling y creación de contenido</p>
+<h1>Tu cuaderno de misiones</h1>
+<p class="lead">Aquí trabajas los ejercicios de la clase con tu grupo. Todo lo que escribes se guarda solo en este navegador, y al final copias tu carrusel de una vez para mandarlo al WhatsApp.</p>
+<div class="fields">
+<div><label class="lb" for="k-nombre">Tu nombre</label><input type="text" id="k-nombre" data-k="nombre"></div>
+<div><label class="lb" for="k-grupo">Tu grupo o sala</label><input type="text" id="k-grupo" data-k="grupo" placeholder="Ej.: Grupo 3"></div>
+</div>
+</div></section>
+
+<section class="m" id="m1"><div class="in">
+<p class="k">Misión 1 · Nivel 1 · 17 min</p>
+<h2>Un hecho, ocho historias</h2>
+<p class="lead">Todos trabajan con el mismo caso: <b style="color:#fff">Temu</b>.</p>
+<div class="facts">
+<div class="fact"><b>105 M</b><span>usuarios al mes en América Latina (1.er semestre de 2025, +143 %)</span></div>
+<div class="fact"><b>$20</b><span>por paquete 4x4 en Ecuador desde junio de 2025</span></div>
+<div class="fact"><b>19 %</b><span>de IVA en Chile desde octubre de 2025; Brasil tiene la «taxa das blusinhas»</span></div>
+</div>
+<p class="src">Fuentes: Sensor Tower vía Bloomberg Línea (2025); El Universo y Primicias; Odecu.</p>
+<ol class="how"><li><b>Sorteen un personaje</b> y volteen su tarjeta.</li><li><b>Conózcanlo a fondo:</b> quién es, dónde se informa, qué le preocupa.</li><li><b>Planteen su hipótesis:</b> «A ___ le importa Temu porque ___».</li><li><b>¿Cómo la comprobarían?</b> ¿A quién le preguntarían, qué comentarios leerían?</li></ol>
+<div class="row"><button class="btn y" id="sortear">Sortear personaje</button><p class="pickout" id="pickout" aria-live="polite"></p></div>
+<div class="pgrid" id="personas"></div>
+<div class="fields">
+<div><label class="lb" for="k-persona">Mi personaje</label><input type="text" id="k-persona" data-k="persona"></div>
+<div><label class="lb" for="k-importa">Hipótesis: le importa Temu porque…</label><input type="text" id="k-importa" data-k="importa"></div>
+<div><label class="lb" for="k-aja">Su momento «ajá» y dónde lo vería</label><input type="text" id="k-aja" data-k="aja"></div>
+<div><label class="lb" for="k-validar">¿Cómo comprobamos la hipótesis?</label><input type="text" id="k-validar" data-k="validar" placeholder="Hablar con…, leer comentarios en…, encuesta en…"></div>
+</div>
+</div></section>
+
+<section class="m" id="m2"><div class="in">
+<p class="k">Misión 2 · Nivel 2 · 13 min</p>
+<h2>Elijan un caso y armen su película</h2>
+<ol class="how"><li><b>Elijan o sorteen un caso</b> y lean su dato de partida.</li><li><b>El antes:</b> 2 o 3 hitos que lo explican.</li><li><b>El después:</b> qué pasó o puede pasar, a corto y largo plazo.</li><li><b>¿Qué les falta leer?</b> Busquen con IA, pero verifiquen cada dato.</li></ol>
+<div class="row"><button class="btn y" id="sortcaso">Sortear caso</button></div>
+<div class="cgrid" id="casos"></div>
+<div class="detail" id="detalle" aria-live="polite"><p>Toca un cartucho para ver su dato de partida.</p></div>
+<div class="fields">
+<div><label class="lb" for="k-caso">Nuestro caso</label><input type="text" id="k-caso" data-k="caso"></div>
+<div><label class="lb" for="k-leer">¿Qué nos falta leer?</label><input type="text" id="k-leer" data-k="leer"></div>
+<div><label class="lb" for="k-antes">El antes</label><textarea id="k-antes" data-k="antes"></textarea></div>
+<div><label class="lb" for="k-despues">El después</label><textarea id="k-despues" data-k="despues"></textarea></div>
+</div>
+</div></section>
+
+<section class="m" id="m3"><div class="in">
+<p class="k">Misión 3 · Nivel 3 · 13 min</p>
+<h2>Mesa de enfoques</h2>
+<ol class="how"><li><b>Repartan los roles</b> con el botón. Siempre hay alguien que habla por su personaje.</li><li><b>Un minuto por persona:</b> cada quien defiende su mirada sobre el caso, aunque no la comparta.</li><li><b>Respondan juntos:</b> ¿quién gana, quién pierde y quién calla?</li></ol>
+<div class="row"><label class="lb" for="np" style="margin:0">¿Cuántas personas son?</label><input type="text" id="np" inputmode="numeric" value="5" style="width:80px"><button class="btn y" id="roles">Repartir roles</button></div>
+<div class="rgrid" id="rolesout"></div>
+<div class="fields">
+<div><label class="lb" for="k-gana">¿Quién gana?</label><textarea id="k-gana" data-k="gana"></textarea></div>
+<div><label class="lb" for="k-pierde">¿Quién pierde?</label><textarea id="k-pierde" data-k="pierde"></textarea></div>
+<div><label class="lb" for="k-calla">¿Quién calla o no aparece?</label><textarea id="k-calla" data-k="calla"></textarea></div>
+<div><label class="lb" for="k-enfoque">¿Qué enfoque le sirve a nuestro personaje y por qué?</label><textarea id="k-enfoque" data-k="enfoque"></textarea></div>
+</div>
+</div></section>
+
+<section class="m" id="juego"><div class="in">
+<p class="k">Juego · Nivel 4</p>
+<h2>¿Documentado, disputado o no verificable?</h2>
+<p class="lead"><b style="color:#fff">Documentado:</b> hay pruebas que cualquiera puede revisar. <b style="color:#fff">Disputado:</b> hay fuentes, pero no coinciden. <b style="color:#fff">No verificable:</b> nadie independiente puede comprobarlo.</p>
+<p class="score" id="score">0 / 0</p>
+<div id="quiz" style="display:flex;flex-direction:column;gap:12px"></div>
+</div></section>
+
+<section class="m" id="m4"><div class="in">
+<p class="k">Misión 4 · Nivel 4 · 13 min</p>
+<h2>Fuentes, vacíos y la frase ancla</h2>
+<div class="fields">
+<div><label class="lb" for="k-fuentes">3 fuentes: una primaria y una de cada lado</label><textarea id="k-fuentes" data-k="fuentes"></textarea></div>
+<div><label class="lb" for="k-nosabe">Lo que no sabemos</label><textarea id="k-nosabe" data-k="nosabe"></textarea></div>
+<div><label class="lb" for="k-pregunta">Nuestra pregunta no dirigida</label><textarea id="k-pregunta" data-k="pregunta"></textarea></div>
+</div>
+<p style="font-weight:800">La frase ancla resume tu enfoque en una oración:</p>
+<div class="fields">
+<div><label class="lb" for="a1">Mi historia trata de…</label><input type="text" id="a1" data-k="a1" placeholder="una app de compras baratas"></div>
+<div><label class="lb" for="a2">…pero en el fondo va de…</label><input type="text" id="a2" data-k="a2" placeholder="quién pone las reglas del comercio"></div>
+<div><label class="lb" for="a3">…y a mi personaje le importa porque…</label><input type="text" id="a3" data-k="a3" placeholder="de eso depende su negocio"></div>
+</div>
+<div class="out" id="ancla" aria-live="polite"></div>
+</div></section>
+
+<section class="m" id="m5"><div class="in">
+<p class="k">Misión 5 · Nivel 5 · 10 min</p>
+<h2>Tu logline y tres ganchos</h2>
+<p class="lead">Primero tu historia en una oración. Después tres ganchos de tipos distintos; en el grupo voten el mejor.</p>
+<div class="fields">
+<div><label class="lb" for="l1">Protagonista</label><input type="text" id="l1" data-k="l1" placeholder="Una costurera de Gamarra"></div>
+<div><label class="lb" for="l2">Quiere…</label><input type="text" id="l2" data-k="l2" placeholder="seguir vendiendo sus polos"></div>
+<div><label class="lb" for="l3">Pero…</label><input type="text" id="l3" data-k="l3" placeholder="una app los vende a la mitad de precio"></div>
+<div><label class="lb" for="l4">Y el giro es que…</label><input type="text" id="l4" data-k="l4" placeholder="los gobiernos empezaron a cobrar impuestos a cada paquete"></div>
+</div>
+<div class="out" id="logline" aria-live="polite"></div>
+<p class="k" style="margin-top:6px">Tipos de gancho</p>
+<div class="hk"><span>La pregunta</span><span>El dato que choca</span><span>La contradicción</span><span>El personaje</span><span>Lo cercano</span></div>
+<div class="fields">
+<div><label class="lb" for="g1">Gancho 1</label><textarea id="g1" data-k="g1"></textarea></div>
+<div><label class="lb" for="g2">Gancho 2</label><textarea id="g2" data-k="g2"></textarea></div>
+<div><label class="lb" for="g3">Gancho 3</label><textarea id="g3" data-k="g3"></textarea></div>
+</div>
+</div></section>
+
+<section class="m" id="jefe"><div class="in">
+<p class="k">Jefe final · 25 min</p>
+<h2>Tu carrusel en texto</h2>
+<p class="lead">Escribe slide por slide. Al tocar una caja, el celular te muestra cómo se lee. Una idea por slide, máximo 35 palabras.</p>
+<div class="cb">
+<div class="slots" id="slots"></div>
+<div class="phone" aria-label="Vista previa">
+<div class="psc" id="psc"><span class="tag" id="stag"></span><p class="txt" id="stxt"></p><span class="pg" id="spg"></span></div>
+<div class="dots" id="dots"></div>
+<div class="pnav"><button id="prev" aria-label="Anterior">◂ ANT</button><button id="next" aria-label="Siguiente">SIG ▸</button></div>
+</div>
+</div>
+<p class="k">Checklist antes de publicar <span id="okmsg"></span></p>
+<div class="check" id="check"></div>
+<div class="row"><button class="btn red" id="copy">Copiar todo</button><span class="pickout" id="copied" aria-live="polite"></span></div>
+<p class="src">Pégalo en el WhatsApp del grupo. Incluye tu nombre, caso, personaje, frase ancla, los 7 slides y tus fuentes. El lunes convertimos este texto en la pieza gráfica.</p>
+<textarea id="dump" readonly style="display:none;min-height:220px" aria-label="Texto para copiar"></textarea>
+</div></section>
+</main>
+<footer class="console"><img src="../assets/logos-tinta-iri.png" alt="Tinta Digital e Instituto Republicano Internacional"></footer>
+
+<script>
+{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const KEY='tintacamp-cuaderno';let store={};try{store=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}};
+const PERSONAS=[
+ ['VA','Valentina, 26','Guayaquil, Ecuador','Vende ropa importada por TikTok e Instagram. Fan del K-pop.','que sus clientas se vayan a comprar directo en Temu.'],
+ ['LU','Lucho, 47','Gamarra, Lima, Perú','Tiene un pequeño taller de polos. Hincha de Alianza Lima, vive en Facebook.','competir con prendas que llegan a la mitad de precio.'],
+ ['CA','Camila, 31','Bogotá, Colombia','Diseñadora freelance y activista ambiental en Instagram. Escucha podcasts.','la ropa desechable y la basura que deja.'],
+ ['MA','Mateo, 19','Santiago, Chile','Estudia ingeniería, es gamer y compra gadgets baratos. Se informa por YouTube.','que ahora sus compras pagan 19 % de IVA.'],
+ ['DC','Dona Cida, 61','São Paulo, Brasil','Costurera jubilada. Descubrió Temu por un enlace que le llegó al WhatsApp.','que su pensión le alcance a fin de mes.'],
+ ['AN','Andrés, 35','Venezolano en Quito','Repartidor de apps: entrega decenas de paquetes al día. Se informa por TikTok.','el precio de la comida y su estabilidad.'],
+ ['SO','Sofía, 34','San José, Costa Rica','Ingeniera en telecomunicaciones. Lee X y newsletters de tecnología.','qué datos guardan las apps y quién los ve.'],
+ ['DI','Diego, 23','Ciudad de Guatemala','Estudia Relaciones Internacionales. Usa X y Threads, ama el fútbol.','conseguir una beca para estudiar afuera.']];
+const CASOS=[
+ ['Huawei y el 5G','Costa Rica · tecnología','El decreto 44196-MSP-MICITT (31 de agosto de 2023) solo permite equipos 5G de empresas de países que ratificaron el Convenio de Budapest, lo que deja fuera a Huawei. Buena parte de la red 3G y 4G del país es Huawei.',['¿Quién gana y quién pierde: ICE, operadores privados, usuarios?','¿Qué dijeron Sutel, Coprocom y los tribunales?','¿Qué papel juega la disputa entre EE. UU. y China?'],'La Nación; El Financiero CR; Semanario Universidad'],
+ ['Temu y los impuestos','América Latina · comercio','105 millones de usuarios al mes en la región (1.er semestre de 2025, +143 %). Ecuador cobra 20 dólares por paquete 4x4, Chile 19 % de IVA y Brasil aplica la «taxa das blusinhas».',['¿A quién protegen estos impuestos y a quién le cuestan?','¿Qué pasa con el comercio local?','¿Por qué los países que exportan materias primas a China tienen menos margen?'],'Sensor Tower vía Bloomberg Línea (2025); El Universo; Odecu'],
+ ['Puerto de Chancay','Perú · rutas y comercio','Primera fase inaugurada el 14 de noviembre de 2024, con unos 1.300 millones de dólares. COSCO Shipping Ports tiene el 60 % y Volcan el 40 %.',['¿Qué capacidad local crea en logística y comercio?','¿Qué dependencia puede producir: operador, datos, conectividad?','¿Qué alternativas tiene la región?'],'Operador y fuentes oficiales peruanas (2024)'],
+ ['Coca Codo Sinclair','Ecuador · energía y deuda','Central de 1.500 MW. Contrato con Sinohydro por 1.979,7 millones de dólares (2009) y crédito del Eximbank de China por 1.682,7 millones al 6,9 % (2010).',['¿Quién propuso el proyecto y quién asumió el riesgo?','¿Qué capacidad de fiscalización tuvo Ecuador?','¿Qué problemas deben atribuirse a cada actor?'],'CELEC EP (2009); Ministerio de Economía y Finanzas (2010)'],
+ ['Tierras raras y chips','Mundo · tecnología','China controla cerca del 70 % de la extracción de tierras raras, el 91 % del refinado y el 94 % de los imanes permanentes. En chips depende de otros: EE. UU., Países Bajos y Japón dominan las máquinas de litografía.',['¿Qué tiene que ver con tu celular o un carro eléctrico?','¿Qué lugar ocupa América Latina en esta cadena?','¿Quién puede presionar a quién?'],'Clase de Bernardo Gortaire, 19 de noviembre'],
+ ['Flota pesquera','Galápagos · mar','La FAO estimó en 2024 unos 4.222 buques chinos en pesca de aguas distantes, cerca del 24 % del total estudiado. En 2017 se incautó el Fu Yuan Yu Leng 999 en la Reserva Marina de Galápagos.',['¿Por qué las cifras varían según definición, bandera y registro?','¿Qué es el apagado del AIS y el transbordo?','¿Quién controla y quién no?'],'FAO (2024); Global Fishing Watch'],
+ ['TikTok','Plataformas · poder discursivo','Bernie lo usó para preguntar si alcance es lo mismo que influencia.',['¿Quién controla el algoritmo y qué datos recopila?','¿Qué acceso legal o técnico puede tener el Estado chino?','¿Cómo se compara con las plataformas estadounidenses?'],'Presentación de Bernardo Gortaire'],
+ ['Taiwán y América Latina','Diplomacia regional','En julio de 2026, 7 de los países que reconocen a Taipéi están en América Latina y el Caribe, entre ellos Guatemala, Paraguay, Belice y Haití. Costa Rica rompió con Taiwán en 2007.',['¿Qué implica el reconocimiento: cooperación, becas, infraestructura?','¿Qué presiones hay para cambiarlo?','¿Qué narrativas compiten?'],'Ministry of Foreign Affairs, Republic of China (Taiwan), 2026']];
+const ROLES=[['Beijing','La mirada del gobierno chino: cooperación, desarrollo, no injerencia.'],['Washington','La mirada de EE. UU.: seguridad, competencia, influencia.'],['Gobierno local','El gobierno del país donde ocurre: empleo, obras, deuda.'],['La comunidad','Quienes viven el impacto: trabajadores, vecinos, pescadores.'],['La empresa','Contrato, rentabilidad, riesgo.'],['Tu personaje','¿Y a mí qué?']];
+const QUIZ=[
+ ['Existe en Xinjiang un programa oficial de «educación y formación profesional».','doc','Documentado: hay normativa publicada, presupuestos e imágenes satelitales.'],
+ ['La escala y la duración de las internaciones en Xinjiang.','dis','Disputado: testimonios, filtraciones e informes con métodos distintos.'],
+ ['Cuántas personas siguen internadas hoy y en qué condiciones.','nov','No verificable: el acceso independiente está restringido.'],
+ ['Cuántas muertes se atribuyen a Mao Zedong.','dis','Disputado: de 35 a 80 millones según la fuente y el método.'],
+ ['En 2017 se incautó el buque Fu Yuan Yu Leng 999 en la Reserva Marina de Galápagos.','doc','Documentado: hay registro oficial de la incautación.'],
+ ['Cuántos buques chinos pescan en aguas distantes.','dis','Disputado: la FAO estimó 4.222 en 2024, pero cambia según definición y registro.']];
+const SLOTS=[['El gancho','Lo que detiene el scroll.'],['¿Qué pasó?','El hecho en simple, como a un amigo.'],['El antes','De dónde viene esto.'],['Los actores','Quién gana, quién pierde, quién calla.'],['El dato fuerte','Una cifra o hecho, con su fuente.'],['¿Y a ti qué?','La conexión con tu personaje.'],['El cierre','Lo que no sabemos y una pregunta.']];
+const CHECK=['El gancho detiene el scroll en 3 segundos.','Se entiende sin saber nada de China.','Le habla a mi personaje.','Hay más de un enfoque o actor.','Cada dato dice de dónde sale.','Digo lo que no sabemos.','Una idea por slide, máximo 35 palabras.'];
+
+$('#personas').innerHTML=PERSONAS.map((p,i)=>`<button class="flip" data-i="${i}" aria-label="${esc(p[1])}: toca para voltear"><div class="fi"><div class="fa"><span class="av">${p[0]}</span><h3>${esc(p[1])}</h3><span class="pl">${esc(p[2])}</span><span class="hint">Toca para voltear</span></div><div class="fb"><p>${esc(p[3])}</p><p><b>Le preocupa:</b> ${esc(p[4])}</p><p><b>¿Por qué le importaría Temu?</b></p></div></div></button>`).join('');
+$('#personas').addEventListener('click',e=>{const f=e.target.closest('.flip');if(f)f.classList.toggle('open')});
+$('#sortear').addEventListener('click',()=>{const i=Math.floor(Math.random()*PERSONAS.length);$$('.flip').forEach(f=>f.classList.toggle('pick',+f.dataset.i===i));
+ $('#pickout').textContent='Te tocó: '+PERSONAS[i][1]+' · '+PERSONAS[i][2];const k=$('#k-persona');if(!k.value){k.value=PERSONAS[i][1]+' · '+PERSONAS[i][2];k.dispatchEvent(new Event('input'))}});
+$('#casos').innerHTML=CASOS.map((c,i)=>`<button class="cart" data-i="${i}" aria-pressed="false"><div class="lb2"><b>${esc(c[0])}</b><span>${esc(c[1])}</span></div></button>`).join('');
+const showCaso=i=>{const c=CASOS[i];$$('.cart').forEach(b=>{const on=+b.dataset.i===i;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+ $('#detalle').innerHTML=`<h3>${esc(c[0])}</h3><p>${esc(c[2])}</p><ul>${c[3].map(q=>`<li>${esc(q)}</li>`).join('')}</ul><p class="src" style="color:#555">Fuente: ${esc(c[4])}</p>`;
+ const k=$('#k-caso');if(!k.value){k.value=c[0];k.dispatchEvent(new Event('input'))}};
+$('#casos').addEventListener('click',e=>{const b=e.target.closest('.cart');if(b)showCaso(+b.dataset.i)});
+$('#sortcaso').addEventListener('click',()=>showCaso(Math.floor(Math.random()*CASOS.length)));
+$('#roles').addEventListener('click',()=>{const n=Math.max(1,Math.min(6,parseInt($('#np').value,10)||5));const r=[...ROLES].sort(()=>Math.random()-.5);
+ $('#rolesout').innerHTML=r.slice(0,n).map((x,i)=>`<div class="role"><span class="n">Persona ${i+1}</span><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p></div>`).join('')});
+const LAB={doc:'Documentado',dis:'Disputado',nov:'No verificable'};let pts=0,ans=0;
+$('#quiz').innerHTML=QUIZ.map((q,i)=>`<div class="q" data-i="${i}"><p class="s2">${i+1}. ${esc(q[0])}</p><div class="opts">${Object.entries(LAB).map(([k,v])=>`<button class="opt" data-k="${k}">${v}</button>`).join('')}</div><p class="fb2">${esc(q[2])}</p></div>`).join('');
+$('#quiz').addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;const box=b.closest('.q');if(box.classList.contains('done'))return;
+ const q=QUIZ[+box.dataset.i];box.classList.add('done');ans++;box.querySelectorAll('.opt').forEach(o=>{if(o.dataset.k===q[1])o.classList.add('ok');else if(o===b)o.classList.add('no')});
+ if(b.dataset.k===q[1])pts++;$('#score').textContent=`${pts} / ${ans}`+(ans===QUIZ.length?' · ¡juego completado!':'')});
+const fill=(el,ids,tpl)=>{el.innerHTML=tpl(ids.map(id=>{const e=$('#'+id),v=e.value.trim();return v?esc(v):`<span class="ph">${esc(e.placeholder)}</span>`}))};
+const renderAncla=()=>fill($('#ancla'),['a1','a2','a3'],p=>`Mi historia trata de ${p[0]}, pero en el fondo va de ${p[1]}, y a mi personaje le importa porque ${p[2]}.`);
+const renderLog=()=>fill($('#logline'),['l1','l2','l3','l4'],p=>`${p[0]} quiere ${p[1]}, pero ${p[2]}. Y el giro: ${p[3]}.`);
+$('#slots').innerHTML=SLOTS.map((s,i)=>`<div class="slot"><label class="lb" for="c${i}"><span>Slide ${i+1} · ${s[0]}</span><span class="wc" id="wc${i}">0/35</span></label><textarea id="c${i}" data-k="c${i}" data-slide="${i}" placeholder="${esc(s[1])}"></textarea></div>`).join('');
+$('#dots').innerHTML=SLOTS.map(()=>'<i></i>').join('');
+let cur=0;const words=t=>(t.trim().match(/\S+/g)||[]).length;
+const renderPhone=()=>{const t=$('#c'+cur).value.trim();$('#psc').className='psc'+(cur===0?' s0':'');$('#stag').textContent=SLOTS[cur][0].toUpperCase();
+ $('#stxt').textContent=t||SLOTS[cur][1];$('#stxt').style.opacity=t?1:.55;$('#spg').textContent=(cur+1)+'/7';$$('#dots i').forEach((d,i)=>d.classList.toggle('on',i===cur));
+ SLOTS.forEach((_,i)=>{const n=words($('#c'+i).value),w=$('#wc'+i);w.textContent=n+'/35';w.classList.toggle('over',n>35)})};
+$('#prev').addEventListener('click',()=>{cur=(cur+6)%7;renderPhone()});$('#next').addEventListener('click',()=>{cur=(cur+1)%7;renderPhone()});
+$('#slots').addEventListener('focusin',e=>{if(e.target.dataset.slide){cur=+e.target.dataset.slide;renderPhone()}});
+$('#check').innerHTML=CHECK.map((c,i)=>`<label><input type="checkbox" data-k="ck${i}"><span>${esc(c)}</span></label>`).join('');
+const renderCheck=()=>{const n=$$('#check input:checked').length;$('#okmsg').textContent=n===7?'· ¡LISTO PARA PUBLICAR!':`· ${n}/7`};
+$$('[data-k]').forEach(el=>{const k=el.dataset.k;if(store[k]!==undefined){if(el.type==='checkbox')el.checked=!!store[k];else el.value=store[k]}
+ el.addEventListener(el.type==='checkbox'?'change':'input',()=>{store[k]=el.type==='checkbox'?el.checked:el.value;save();renderAncla();renderLog();renderPhone();renderCheck()})});
+renderAncla();renderLog();renderPhone();renderCheck();
+const g=k=>(store[k]||'').trim();
+$('#copy').addEventListener('click',async()=>{const txt=['CARRUSEL · Tinta Camp III',`Nombre: ${g('nombre')} (${g('grupo')})`,`Caso: ${g('caso')}`,`Personaje: ${g('persona')}`,`Hipótesis de audiencia: ${g('importa')}`,`Frase ancla: Mi historia trata de ${g('a1')}, pero en el fondo va de ${g('a2')}, y a mi personaje le importa porque ${g('a3')}.`,'',...SLOTS.map((s,i)=>`SLIDE ${i+1} · ${s[0]}\n${g('c'+i)}`),'',`Fuentes: ${g('fuentes')}`].join('\n');
+ const d=$('#dump');d.value=txt;try{await navigator.clipboard.writeText(txt);$('#copied').textContent='¡Copiado!'}catch(e){d.style.display='block';d.select();$('#copied').textContent='Selecciona y copia el texto'}});
+const secs=['inicio','m1','m2','m3','juego','m4','m5','jefe'].map(id=>document.getElementById(id)),tabs=$$('.tabs a');
+const onScroll=()=>{let a=0;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<160)a=i});tabs.forEach((t,i)=>t.classList.toggle('on',i===a))};
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+}
+</script>
+</body>
+</html>
