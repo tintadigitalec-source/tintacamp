@@ -210,40 +210,41 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 
 <!-- M2 -->
 <section class="screen" data-s="m2"><div class="frame"><div class="in">
-<p class="k">Misión 2 · El antes y el después</p>
-<h2>Elijan un caso y armen su película</h2>
-<ol class="how"><li><b>Elijan o sorteen un caso latinoamericano</b> y lean su dato de partida.</li><li><b>El antes y el después:</b> hitos que lo explican y qué puede pasar.</li><li><b>¿Por qué es estratégico?</b> ¿Altera rutas, datos, capacidades o alternativas?</li><li><b>Investiguen con IA, como les enseñó Bernie:</b> lean la fuente original y anoten qué le preguntaron.</li></ol>
-<div class="row"><button class="btn y" id="sortcaso">Sortear caso</button></div>
+<p class="k">Misión 2 · Pensamiento crítico</p>
+<h2>Del tema a la hipótesis</h2>
+<ol class="how"><li><b>Elijan o sorteen un tema</b> y lean su punto de partida.</li><li><b>Háganle las seis preguntas.</b></li><li><b>Miren el tema con tres enfoques</b> y entrenen su criterio.</li><li><b>Elijan un enfoque y la pregunta</b> que le importa a su personaje.</li><li><b>Escriban su hipótesis</b> y cómo la comprobarían.</li></ol>
+<div class="row"><button class="btn y" id="sortcaso">Sortear tema</button></div>
 <div class="cgrid" id="casos"></div>
-<div class="detail" id="detalle" aria-live="polite"><p>Toca un cartucho para ver su dato de partida.</p></div>
+<div class="detail" id="detalle" aria-live="polite"><p>Toca un cartucho para ver el punto de partida.</p></div>
 <div class="fields">
-<div><label class="lb" for="k-caso">Nuestro caso</label><input type="text" id="k-caso" data-k="caso" data-req></div>
-<div><label class="lb" for="k-leer">¿Qué nos falta leer?</label><input type="text" id="k-leer" data-k="leer"></div>
-<div><label class="lb" for="k-antes">El antes</label><textarea id="k-antes" data-k="antes" data-req></textarea></div>
-<div><label class="lb" for="k-despues">El después</label><textarea id="k-despues" data-k="despues" data-req></textarea></div>
-<div><label class="lb" for="k-estrategico">¿Por qué es estratégico? ¿Altera rutas, datos, capacidades o alternativas?</label><textarea id="k-estrategico" data-k="estrategico" data-req></textarea></div>
-<div><label class="lb" for="k-ia">Registro: qué le preguntamos a la IA y qué verificamos</label><textarea id="k-ia" data-k="ia"></textarea></div>
+<div><label class="lb" for="k-caso">Nuestro tema</label><input type="text" id="k-caso" data-k="caso" data-req></div>
+<div><label class="lb" for="q1">1 · ¿Qué pasó y qué sabemos?</label><textarea id="q1" data-k="q1" data-req></textarea></div>
+<div><label class="lb" for="q2">2 · ¿Quién lo dice y con qué pruebas?</label><textarea id="q2" data-k="q2"></textarea></div>
+<div><label class="lb" for="q3">3 · ¿Quién gana, quién pierde, quién no aparece?</label><textarea id="q3" data-k="q3" data-req></textarea></div>
+<div><label class="lb" for="q4">4 · ¿De dónde viene y hacia dónde va?</label><textarea id="q4" data-k="q4"></textarea></div>
+<div><label class="lb" for="q5">5 · ¿Qué otras miradas hay?</label><textarea id="q5" data-k="q5" data-req></textarea></div>
+<div><label class="lb" for="q6">6 · ¿Qué no sabemos todavía?</label><textarea id="q6" data-k="q6"></textarea></div>
+</div>
+<p class="tip"><b>Enfoques posibles:</b> político, económico, seguridad, social, cultural, local, ambiental, diplomático, poder blando…</p>
+<div class="fields">
+<div><label class="lb" for="k-en1">Enfoque A y su pregunta</label><input type="text" id="k-en1" data-k="en1" data-req placeholder="Ej.: Económico · ¿Quién paga y quién cobra?"></div>
+<div><label class="lb" for="k-en2">Enfoque B y su pregunta</label><input type="text" id="k-en2" data-k="en2" data-req></div>
+<div><label class="lb" for="k-en3">Enfoque C y su pregunta</label><input type="text" id="k-en3" data-k="en3" data-req></div>
+</div>
+<p class="tip"><b>Entrena tu criterio:</b> antes de elegir, respondan estas tres.</p>
+<div class="fields">
+<div><label class="lb" for="k-porhecho">¿Qué se da por hecho sin decirlo?</label><textarea id="k-porhecho" data-k="porhecho"></textarea></div>
+<div><label class="lb" for="k-conviene">¿A quién le conviene la versión más repetida?</label><textarea id="k-conviene" data-k="conviene"></textarea></div>
+<div><label class="lb" for="k-nadie">¿Qué pregunta nadie está haciendo?</label><textarea id="k-nadie" data-k="nadie" data-req></textarea></div>
+</div>
+<div class="fields">
+<div><label class="lb" for="k-enfoque2">Nuestro enfoque</label><input type="text" id="k-enfoque2" data-k="enfoque2" data-req></div>
+<div><label class="lb" for="k-pregunta">La pregunta que le importa a nuestro personaje</label><textarea id="k-pregunta" data-k="pregunta" data-req></textarea></div>
+<div><label class="lb" for="k-hipotesis">Hipótesis: «Creo que ___ porque ___»</label><textarea id="k-hipotesis" data-k="hipotesis" data-req></textarea></div>
+<div><label class="lb" for="k-validar">¿Cómo la comprobaríamos?</label><textarea id="k-validar" data-k="validar"></textarea></div>
 </div>
 <p class="err" aria-live="polite"></p>
 <div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="m2">Terminar misión ▸</button></div>
-</div></div></section>
-
-<!-- M3 -->
-<section class="screen" data-s="m3"><div class="frame"><div class="in">
-<p class="k">Misión 3 · Actores y enfoques</p>
-<h2>Mesa de enfoques e hipótesis</h2>
-<ol class="how"><li><b>Repartan los roles</b> con el botón. Siempre hay alguien que habla por su personaje.</li><li><b>Un minuto por persona:</b> cada quien defiende su mirada sobre el caso, aunque no la comparta.</li><li><b>Respondan juntos</b> y planteen su hipótesis: cruzan lo que saben de su personaje con el caso.</li></ol>
-<div class="row"><label class="lb" for="np" style="margin:0">¿Cuántas personas son?</label><input type="text" id="np" inputmode="numeric" value="5" style="width:80px"><button class="btn y" id="roles">Repartir roles</button></div>
-<div class="rgrid" id="rolesout"></div>
-<div class="fields">
-<div><label class="lb" for="k-gana">¿Quién gana?</label><textarea id="k-gana" data-k="gana" data-req></textarea></div>
-<div><label class="lb" for="k-pierde">¿Quién pierde?</label><textarea id="k-pierde" data-k="pierde" data-req></textarea></div>
-<div><label class="lb" for="k-calla">¿Quién calla o no aparece?</label><textarea id="k-calla" data-k="calla"></textarea></div>
-<div><label class="lb" for="k-enfoque">Nuestra hipótesis: «Creo que a ___ le importa el enfoque ___ porque ___»</label><textarea id="k-enfoque" data-k="enfoque" data-req></textarea></div>
-<div><label class="lb" for="k-validar">¿Cómo comprobaríamos la hipótesis?</label><textarea id="k-validar" data-k="validar"></textarea></div>
-</div>
-<p class="err" aria-live="polite"></p>
-<div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="m3">Terminar misión ▸</button></div>
 </div></div></section>
 
 <!-- JUEGO -->
@@ -257,36 +258,34 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="juego">Ver resultado ▸</button></div>
 </div></div></section>
 
-<!-- M4 -->
-<section class="screen" data-s="m4"><div class="frame"><div class="in">
-<p class="k">Misión 4 · Fuentes y la pregunta</p>
-<h2>Fuentes, vacíos y la frase ancla</h2>
-<div class="fields">
-<div><label class="lb" for="k-fuentes">3 fuentes: una primaria y una de cada lado</label><textarea id="k-fuentes" data-k="fuentes" data-req></textarea></div>
-<div><label class="lb" for="k-nosabe">Lo que no sabemos</label><textarea id="k-nosabe" data-k="nosabe"></textarea></div>
-<div><label class="lb" for="k-pregunta">Nuestra pregunta no dirigida</label><textarea id="k-pregunta" data-k="pregunta" data-req></textarea></div>
+<!-- M3 -->
+<section class="screen" data-s="m3"><div class="frame"><div class="in">
+<p class="k">Misión 3 · Escribe tu artículo</p>
+<h2>Introducción, desarrollo y conclusión</h2>
+<p class="lead">Un artículo corto, como un ensayo, de 250 a 350 palabras. Cada argumento con su evidencia y su fuente. <b style="color:#fff" id="wtotal">0 palabras</b></p>
+<div class="fields" style="grid-template-columns:1fr">
+<div><label class="lb" for="e-titulo">Título</label><input type="text" id="e-titulo" data-k="etitulo"></div>
+<div><label class="lb" for="e-intro">Introducción: contexto, pregunta y tesis (tu hipótesis)</label><textarea id="e-intro" data-k="eintro" data-req data-w style="min-height:130px"></textarea></div>
+<div><label class="lb" for="e-arg1">Desarrollo · argumento 1, con evidencia y fuente</label><textarea id="e-arg1" data-k="earg1" data-req data-w style="min-height:120px"></textarea></div>
+<div><label class="lb" for="e-arg2">Desarrollo · argumento 2, con evidencia y fuente</label><textarea id="e-arg2" data-k="earg2" data-w style="min-height:120px"></textarea></div>
+<div><label class="lb" for="e-contra">Desarrollo · contraargumento: la mirada que no coincide</label><textarea id="e-contra" data-k="econtra" data-req data-w style="min-height:110px"></textarea></div>
+<div><label class="lb" for="e-concl">Conclusión: responde, di lo que no sabemos y vuelve a tu personaje</label><textarea id="e-concl" data-k="econcl" data-req data-w style="min-height:130px"></textarea></div>
+<div><label class="lb" for="k-fuentes">Fuentes</label><textarea id="k-fuentes" data-k="fuentes" data-req></textarea></div>
 </div>
-<p style="font-weight:800">La frase ancla resume tu enfoque, con tu personaje adentro:</p>
-<div class="fields">
-<div><label class="lb" for="a1">Mi historia trata de…</label><input type="text" id="a1" data-k="a1" data-req placeholder="un puerto en Perú"></div>
-<div><label class="lb" for="a2">…pero en el fondo va de…</label><input type="text" id="a2" data-k="a2" data-req placeholder="quién controla una infraestructura clave en el Pacífico"></div>
-<div><label class="lb" for="a3">…y a mi personaje le importa porque…</label><input type="text" id="a3" data-k="a3" data-req placeholder="su pueblo está cambiando muy rápido"></div>
-</div>
-<div class="out" id="ancla" aria-live="polite"></div>
 <p class="err" aria-live="polite"></p>
-<div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="m4">Terminar misión ▸</button></div>
+<div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="m3">Terminar artículo ▸</button></div>
 </div></div></section>
 
-<!-- M5 -->
-<section class="screen" data-s="m5"><div class="frame"><div class="in">
-<p class="k">Misión 5 · Del análisis a la historia</p>
+<!-- M4 -->
+<section class="screen" data-s="m4"><div class="frame"><div class="in">
+<p class="k">Misión 4 · Del artículo a la historia</p>
 <h2>Tu logline y tres ganchos</h2>
-<p class="lead">Primero tu historia en una oración. Después tres ganchos de tipos distintos; en el grupo voten el mejor.</p>
+<p class="lead">A partir de tu artículo: primero la historia en una oración, después tres ganchos de tipos distintos. En el grupo voten el mejor.</p>
 <div class="fields">
-<div><label class="lb" for="l1">Protagonista</label><input type="text" id="l1" data-k="l1" data-req placeholder="Lucho, que tiene una cevichería en Chancay"></div>
-<div><label class="lb" for="l2">Quiere…</label><input type="text" id="l2" data-k="l2" data-req placeholder="que su negocio crezca con el puerto"></div>
-<div><label class="lb" for="l3">Pero…</label><input type="text" id="l3" data-k="l3" data-req placeholder="no sabe si el puerto beneficiará al pueblo"></div>
-<div><label class="lb" for="l4">Y el giro es que…</label><input type="text" id="l4" data-k="l4" placeholder="el futuro del puerto se discute en Washington y Beijing"></div>
+<div><label class="lb" for="l1">Protagonista</label><input type="text" id="l1" data-k="l1" data-req placeholder="Diego, estudiante en Guatemala"></div>
+<div><label class="lb" for="l2">Quiere…</label><input type="text" id="l2" data-k="l2" data-req placeholder="estudiar afuera con una beca"></div>
+<div><label class="lb" for="l3">Pero…</label><input type="text" id="l3" data-k="l3" data-req placeholder="no sabe qué condiciones trae una beca de otro Estado"></div>
+<div><label class="lb" for="l4">Y el giro es que…</label><input type="text" id="l4" data-k="l4" placeholder="hay 44 institutos en la región que ofrecen justo eso"></div>
 </div>
 <div class="out" id="logline" aria-live="polite"></div>
 <p class="k">Tipos de gancho</p>
@@ -296,16 +295,17 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <div><label class="lb" for="g2">Gancho 2</label><textarea id="g2" data-k="g2"></textarea></div>
 <div><label class="lb" for="g3">Gancho 3</label><textarea id="g3" data-k="g3"></textarea></div>
 <div><label class="lb" for="k-ganador">El gancho ganador del grupo</label><textarea id="k-ganador" data-k="ganador" data-req></textarea></div>
+<div><label class="lb" for="k-estructura">Estructura elegida</label><input type="text" id="k-estructura" data-k="estructura" placeholder="Misterio, antes y después, dicen y pasa, o sigue al personaje"></div>
 </div>
 <p class="err" aria-live="polite"></p>
-<div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="m5">Terminar misión ▸</button></div>
+<div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="m4">Terminar misión ▸</button></div>
 </div></div></section>
 
 <!-- JEFE -->
 <section class="screen" data-s="jefe"><div class="frame"><div class="in">
 <p class="k">Jefe final</p>
 <h2>Tu carrusel en texto</h2>
-<p class="lead">Escribe slide por slide. Al tocar una caja, el celular te muestra cómo se lee. Una idea por slide, máximo 35 palabras. El lunes lo convertimos en pieza gráfica.</p>
+<p class="lead">Convierte tu artículo en 7 slides. Al tocar una caja, el celular te muestra cómo se lee. Una idea por slide, máximo 35 palabras. El lunes lo convertimos en pieza gráfica.</p>
 <div class="cb">
 <div class="slots" id="slots"></div>
 <div class="phone" aria-label="Vista previa">
@@ -332,7 +332,7 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 {
 const $=s=>document.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const KEY='tintacamp-cuaderno-v3';let store={};try{store=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+const KEY='tintacamp-cuaderno-v4';let store={};try{store=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}};
 store.done=store.done||{};store.open=store.open||{m1:true};
 const PERSONAS=[
@@ -371,17 +371,16 @@ const CHECK=['El gancho detiene el scroll en 3 segundos.','Se entiende sin saber
 const MIS=[
  {id:'m1',tag:'MISIÓN 1',name:'¿A quién le hablas?',key:null,
   ans:[['Nuestro personaje','persona'],['Quién es','quien'],['Dónde y cuándo se informa','donde'],['Qué le preocupa','preocupa'],['Qué lo engancha','engancha'],['Qué lo haría detener el scroll','scroll'],['Cómo lo conoceríamos','conocer']]},
- {id:'m2',tag:'MISIÓN 2',name:'El antes y el después',key:'PELICULA',
-  ans:[['Nuestro caso','caso'],['El antes','antes'],['El después','despues'],['Por qué es estratégico','estrategico'],['Lo que nos falta leer','leer'],['Registro de IA','ia']]},
- {id:'m3',tag:'MISIÓN 3',name:'Mesa de enfoques',key:'BILLAR',
-  ans:[['Quién gana','gana'],['Quién pierde','pierde'],['Quién calla','calla'],['Nuestra hipótesis','enfoque'],['Cómo la comprobaríamos','validar']]},
+ {id:'m2',tag:'MISIÓN 2',name:'Del tema a la hipótesis',key:'PREGUNTA',
+  ans:[['Nuestro tema','caso'],['Enfoque A','en1'],['Enfoque B','en2'],['Enfoque C','en3'],['La pregunta que nadie hace','nadie'],['Nuestro enfoque','enfoque2'],['La pregunta para nuestro personaje','pregunta'],['Nuestra hipótesis','hipotesis'],['Cómo la comprobaríamos','validar']]},
  {id:'juego',tag:'JUEGO',name:'¿Documentado o no?',key:'FUENTES',ans:[]},
- {id:'m4',tag:'MISIÓN 4',name:'Fuentes y frase ancla',key:'ANCLA',
-  ans:[['Nuestras fuentes','fuentes'],['Lo que no sabemos','nosabe'],['Pregunta no dirigida','pregunta'],['Frase ancla','#ancla']]},
- {id:'m5',tag:'MISIÓN 5',name:'Logline y ganchos',key:'GANCHO',
-  ans:[['Logline','#logline'],['Gancho 1','g1'],['Gancho 2','g2'],['Gancho 3','g3'],['El gancho ganador','ganador']]},
+ {id:'m3',tag:'MISIÓN 3',name:'Escribe tu artículo',key:'ENSAYO',
+  ans:[['Título','etitulo'],['Introducción','eintro'],['Argumento 1','earg1'],['Argumento 2','earg2'],['Contraargumento','econtra'],['Conclusión','econcl'],['Fuentes','fuentes']]},
+ {id:'m4',tag:'MISIÓN 4',name:'Logline y ganchos',key:'HISTORIA',
+  ans:[['Logline','#logline'],['Gancho 1','g1'],['Gancho 2','g2'],['Gancho 3','g3'],['El gancho ganador','ganador'],['Estructura','estructura']]},
  {id:'jefe',tag:'JEFE FINAL',name:'Tu carrusel en texto',key:'CARRUSEL',ans:[]}
 ];
+
 const norm=t=>t.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,'').toUpperCase();
 
 /* pantallas */
@@ -427,15 +426,13 @@ const showCaso=i=>{const c=CASOS[i];$$('.cart').forEach(b=>{const on=+b.dataset.
  $('#detalle').innerHTML=`<h3>${esc(c[0])}</h3><p>${esc(c[2])}</p><ul>${c[3].map(q=>`<li>${esc(q)}</li>`).join('')}</ul><p class="src" style="color:#555">Fuente: ${esc(c[4])}</p>`;setField('#k-caso',c[0])};
 $('#casos').addEventListener('click',e=>{const b=e.target.closest('.cart');if(b)showCaso(+b.dataset.i)});
 $('#sortcaso').addEventListener('click',()=>showCaso(Math.floor(Math.random()*CASOS.length)));
-$('#roles').addEventListener('click',()=>{const n=Math.max(1,Math.min(6,parseInt($('#np').value,10)||5));const r=[...ROLES].sort(()=>Math.random()-.5);
- $('#rolesout').innerHTML=r.slice(0,n).map((x,i)=>`<div class="role"><span class="n">Persona ${i+1}</span><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p></div>`).join('')});
 const LAB={doc:'Documentado',dis:'Disputado',nov:'No verificable'};let pts=0,ans=0;const wrong=new Set();
 $('#quiz').innerHTML=QUIZ.map((q,i)=>`<div class="q" data-i="${i}"><p class="s2">${i+1}. ${esc(q[0])}</p><div class="opts">${Object.entries(LAB).map(([k,v])=>`<button class="opt" data-k="${k}">${v}</button>`).join('')}</div><p class="fb2">${esc(q[2])}</p></div>`).join('');
 $('#quiz').addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;const box=b.closest('.q');if(box.classList.contains('done'))return;
  const i=+box.dataset.i,q=QUIZ[i];box.classList.add('done');ans++;box.querySelectorAll('.opt').forEach(o=>{if(o.dataset.k===q[1])o.classList.add('ok');else if(o===b)o.classList.add('no')});
  if(b.dataset.k===q[1])pts++;else wrong.add(i);$('#score').textContent=`${pts} / ${ans}`});
 const fill=(el,ids,tpl)=>{el.innerHTML=tpl(ids.map(id=>{const e=$('#'+id),v=e.value.trim();return v?esc(v):`<span class="ph">${esc(e.placeholder)}</span>`}))};
-const renderAncla=()=>fill($('#ancla'),['a1','a2','a3'],p=>`Mi historia trata de ${p[0]}, pero en el fondo va de ${p[1]}, y a mi personaje le importa porque ${p[2]}.`);
+const renderAncla=()=>{const n=$$('[data-w]').reduce((t,e)=>t+words(e.value),0),w=$('#wtotal');if(w){w.textContent=n+' palabras';w.style.color=n>350?'#FF7A7A':(n>=250?'#7CFF9E':'#fff')}};
 const renderLog=()=>fill($('#logline'),['l1','l2','l3','l4'],p=>`${p[0]} quiere ${p[1]}, pero ${p[2]}. Y el giro: ${p[3]}.`);
 $('#slots').innerHTML=SLOTS.map((s,i)=>`<div class="slot"><label class="lb" for="c${i}"><span>Slide ${i+1} · ${s[0]}</span><span class="wc" id="wc${i}">0/35</span></label><textarea id="c${i}" data-k="c${i}" data-slide="${i}" placeholder="${esc(s[1])}"></textarea></div>`).join('');
 $('#dots').innerHTML=SLOTS.map(()=>'<i></i>').join('');
@@ -450,7 +447,7 @@ const renderCheck=()=>{const n=$$('#check input:checked').length;$('#okmsg').tex
 $$('[data-k]').forEach(el=>{const k=el.dataset.k;if(store[k]!==undefined){if(el.type==='checkbox')el.checked=!!store[k];else el.value=store[k]}
  el.addEventListener(el.type==='checkbox'?'change':'input',()=>{store[k]=el.type==='checkbox'?el.checked:el.value;if(el.value&&el.value.trim())el.style.borderColor='';save();renderAncla();renderLog();renderPhone();renderCheck()})});
 renderAncla();renderLog();renderPhone();renderCheck();
-async function copyAll(){const g=k=>val(k);const txt=['CARRUSEL · Tinta Camp III',`Nombre: ${g('nombre')}${g('grupo')?' ('+g('grupo')+')':''}`,`Caso: ${g('caso')}`,`Personaje: ${g('persona')}`,`Hipótesis: ${g('enfoque')}`,`Frase ancla: ${g('#ancla')}`,'',...SLOTS.map((s,i)=>`SLIDE ${i+1} · ${s[0]}\n${g('c'+i)}`),'',`Fuentes: ${g('fuentes')}`].join('\n');
+async function copyAll(){const g=k=>val(k);const txt=['CARRUSEL · Tinta Camp III',`Nombre: ${g('nombre')}${g('grupo')?' ('+g('grupo')+')':''}`,`Caso: ${g('caso')}`,`Personaje: ${g('persona')}`,`Hipótesis: ${g('hipotesis')}`,'',...SLOTS.map((s,i)=>`SLIDE ${i+1} · ${s[0]}\n${g('c'+i)}`),'',`Fuentes: ${g('fuentes')}`].join('\n');
  const d=$('#dump');d.value=txt;try{await navigator.clipboard.writeText(txt);$('#copied').textContent='¡Copiado!'}catch(e){d.style.display='block';d.select();$('#copied').textContent='Selecciona y copia el texto'}}
 
 /* arranque */
