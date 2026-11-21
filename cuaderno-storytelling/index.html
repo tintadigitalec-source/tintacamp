@@ -180,7 +180,7 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <span class="pad" aria-hidden="true">🔒</span>
 <p class="k" id="locktitle"></p>
 <h2>Esta misión está bloqueada</h2>
-<p class="lead">Escribe la clave que María Rosa dará en la clase.</p>
+<p class="lead">Escribe la clave que María Rosa dará en la clase. Si no funciona, recarga la página.</p>
 <input type="text" id="clave" aria-label="Clave" autocomplete="off" spellcheck="false">
 <p class="err" id="e-clave" aria-live="polite"></p>
 <div class="row" style="justify-content:center"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn y" id="unlock">Desbloquear</button></div>
@@ -335,6 +335,11 @@ const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const KEY='tintacamp-cuaderno-v4';let store={};try{store=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}};
 store.done=store.done||{};store.open=store.open||{m1:true};
+// Recupera lo escrito en la versión anterior del cuaderno (v3), si existe
+try{const old=JSON.parse(localStorage.getItem('tintacamp-cuaderno-v3')||'null');
+if(old&&!store.migrated){['nombre','grupo','persona','quien','donde','preocupa','engancha','scroll','conocer','caso','pregunta','fuentes','validar','l1','l2','l3','l4','g1','g2','g3','ganador'].forEach(k=>{if(old[k]&&!store[k])store[k]=old[k]});
+if(old.done&&old.done.m1)store.done.m1=true;if(old.done&&old.done.juego){store.done.juego=true;store.open.juego=true}
+store.migrated=true;save()}}catch(e){}
 const PERSONAS=[
  ['VA','Valentina, 26','Guayaquil, Ecuador','Emprende vendiendo ropa por Instagram. Ama el K-pop y los videos cortos.','que su negocio crezca y la inseguridad.'],
  ['LU','Lucho, 47','Chancay, Perú','Tiene una cevichería frente al mar. Hincha de Alianza Lima, vive en Facebook.','que su pueblo está cambiando muy rápido.'],
