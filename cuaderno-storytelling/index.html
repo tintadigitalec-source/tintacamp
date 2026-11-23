@@ -279,21 +279,14 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <!-- M4 -->
 <section class="screen" data-s="m4"><div class="frame"><div class="in">
 <p class="k">Misión 4 · Del artículo a la historia</p>
-<h2>Tu logline y tres ganchos</h2>
-<p class="lead">A partir de tu artículo: primero el conflicto, después la historia en una oración y al final tres ganchos. En el grupo voten el mejor.</p>
-<p class="k">El conflicto</p>
+<h2>Tu tensión y tres ganchos</h2>
+<p class="lead">A partir de tu ensayo: primero la tensión, en tres pasos; después tres ganchos dichos directo a tu audiencia. En el grupo voten el mejor.</p>
+<p class="k">Tu tensión, en tres pasos</p>
 <div class="fields">
-<div><label class="lb" for="k-ctipo">¿Qué tipo de conflicto tiene tu historia?</label><input type="text" id="k-ctipo" data-k="ctipo" data-req placeholder="Querer contra poder, lo que se dice contra lo que pasa, interés contra interés o dilema"></div>
-<div><label class="lb" for="k-conflicto">Tu conflicto en una frase</label><textarea id="k-conflicto" data-k="conflicto" data-req placeholder="Diego quiere la beca, pero no sabe qué viene con ella"></textarea></div>
+<div><label class="lb" for="k-cree">a · ¿Qué cree o da por hecho tu audiencia?</label><textarea id="k-cree" data-k="cree" data-req placeholder="Que es una beca gratis para aprender chino. Una oportunidad y ya."></textarea></div>
+<div><label class="lb" for="k-descubri">b · ¿Qué descubriste en tu ensayo que lo complica?</label><textarea id="k-descubri" data-k="descubri" data-req placeholder="La financia una fundación ligada al gobierno chino, y en EE. UU. casi todos cerraron."></textarea></div>
+<div><label class="lb" for="k-conflicto">c · Júntalo en una frase: «Si ___, ¿por qué ___?» o «Parece ___, pero ___»</label><textarea id="k-conflicto" data-k="conflicto" data-req placeholder="Si es gratis, ¿quién la está pagando… y por qué?"></textarea></div>
 </div>
-<p class="k">Tu logline</p>
-<div class="fields">
-<div><label class="lb" for="l1">Protagonista</label><input type="text" id="l1" data-k="l1" data-req placeholder="Diego, estudiante en Lima"></div>
-<div><label class="lb" for="l2">Quiere…</label><input type="text" id="l2" data-k="l2" data-req placeholder="estudiar afuera con una beca"></div>
-<div><label class="lb" for="l3">Pero…</label><input type="text" id="l3" data-k="l3" data-req placeholder="no sabe qué hay detrás de la beca del Instituto Confucio"></div>
-<div><label class="lb" for="l4">Y el giro es que…</label><input type="text" id="l4" data-k="l4" placeholder="esa beca la paga directamente otro Estado"></div>
-</div>
-<div class="out" id="logline" aria-live="polite"></div>
 <p class="k">Tres ganchos</p>
 <p class="tip"><b>Los 4 ingredientes:</b> le habla a tu personaje · abre una tensión · es concreto · es honesto.</p>
 <div class="hk"><span>La pregunta</span><span>El dato que choca</span><span>La contradicción</span><span>El personaje</span><span>Lo cercano</span></div>
@@ -302,7 +295,7 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <div><label class="lb" for="g2">Gancho 2</label><textarea id="g2" data-k="g2"></textarea></div>
 <div><label class="lb" for="g3">Gancho 3</label><textarea id="g3" data-k="g3"></textarea></div>
 <div><label class="lb" for="k-ganador">El gancho ganador del grupo</label><textarea id="k-ganador" data-k="ganador" data-req></textarea></div>
-<div><label class="lb" for="k-estructura">Estructura elegida</label><input type="text" id="k-estructura" data-k="estructura" placeholder="Misterio, antes y después, dicen y pasa, o sigue al personaje"></div>
+<div><label class="lb" for="k-estructura">Los argumentos de tu desarrollo, en orden (uno por slide)</label><textarea id="k-estructura" data-k="estructura" placeholder="1. Quién financia · 2. Por qué: poder blando · 3. Cierres en EE. UU. · 4. Por qué cerraron"></textarea></div>
 </div>
 <p class="err" aria-live="polite"></p>
 <div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="m4">Terminar misión ▸</button></div>
@@ -376,9 +369,9 @@ const QUIZ=[
  ['En 2017 se incautó el buque Fu Yuan Yu Leng 999 en la Reserva Marina de Galápagos.','doc','Documentado: hay registro oficial de la incautación.'],
  ['Cuántos buques chinos pescan en aguas distantes.','dis','Disputado: la FAO estimó 4.222 en 2024, pero cambia según definición y registro.']
 ];
-const SLOTS=[['Gancho','Tu conflicto, comprimido. Lo que detiene el scroll.'],['Contexto','Qué pasó y qué hay que saber. Ej.: «Primero: sí…»'],['Contexto (opcional)','El antes: de dónde viene esto.'],['Argumento 1','Una idea, con su dato y su fuente.'],['Argumento 2','Una idea, con su dato y su fuente.'],['Argumento 3','Una idea, con su dato y su fuente.'],['Argumento 4 (opcional)','Una idea, con su dato y su fuente.'],['Argumento 5 (opcional)','Una idea, con su dato y su fuente.'],['Contraargumento','La otra mirada. Ej.: «Peeero ojo…»'],['Lo que no sabemos','Lo que todavía falta saber.'],['¿Y a ti qué?','Qué significa para tu personaje.'],['Cierre','Una pregunta para comentar.']];
+const SLOTS=[['Gancho','Tu conflicto, comprimido. Lo que detiene el scroll.'],['Contexto','Qué pasó y qué hay que saber. Ej.: «Primero: sí…»'],['Contexto (opcional)','El antes: de dónde viene esto.'],['Argumento 1','Una idea, con su dato y su fuente.'],['Argumento 2','Una idea, con su dato y su fuente.'],['Argumento 3','Una idea, con su dato y su fuente.'],['Argumento 4 (opcional)','Una idea, con su dato y su fuente.'],['Argumento 5 (opcional)','Una idea, con su dato y su fuente.'],['Contraargumento','La otra mirada. Ej.: «Peeero ojo…»'],['Lo que no sabemos','Lo que todavía falta saber.'],['¿Y a ti qué?','Qué significa para tu audiencia.'],['Cierre','Una pregunta para comentar.']];
 const REQ=[0,1,3,4,5,8,9,10,11];
-const CHECK=['El gancho es mi conflicto y detiene el scroll en 3 segundos.','Se entiende sin saber nada de China.','Le habla a mi personaje.','Hay un contraargumento («Peeero ojo»).','Cada dato dice de dónde sale.','Digo lo que no sabemos.','Una idea por slide, máximo 35 palabras.'];
+const CHECK=['El gancho es mi conflicto y detiene el scroll en 3 segundos.','Se entiende sin saber nada de China.','Le habla directo a mi audiencia.','Hay un contraargumento («Peeero ojo»).','Cada dato dice de dónde sale.','Digo lo que no sabemos.','Una idea por slide, máximo 35 palabras.'];
 
 
 const MIS=[
@@ -389,8 +382,8 @@ const MIS=[
  {id:'juego',tag:'JUEGO',name:'¿Documentado o no?',key:'FUENTES',ans:[]},
  {id:'m3',tag:'MISIÓN 3',name:'Escribe tu artículo',key:'ENSAYO',
   ans:[['Título','etitulo'],['Introducción','eintro'],['Argumento 1','earg1'],['Argumento 2','earg2'],['Contraargumento','econtra'],['Conclusión','econcl'],['Fuentes','fuentes']]},
- {id:'m4',tag:'MISIÓN 4',name:'Conflicto, logline y ganchos',key:'HISTORIA',
-  ans:[['Tipo de conflicto','ctipo'],['El conflicto','conflicto'],['Logline','#logline'],['Gancho 1','g1'],['Gancho 2','g2'],['Gancho 3','g3'],['El gancho ganador','ganador'],['Estructura','estructura']]},
+ {id:'m4',tag:'MISIÓN 4',name:'Tensión y ganchos',key:'HISTORIA',
+  ans:[['Lo que cree tu audiencia','cree'],['Lo que descubriste','descubri'],['Tu tensión','conflicto'],['Gancho 1','g1'],['Gancho 2','g2'],['Gancho 3','g3'],['El gancho ganador','ganador'],['Los argumentos de tu desarrollo','estructura']]},
  {id:'jefe',tag:'JEFE FINAL',name:'Tu carrusel en texto',key:'CARRUSEL',ans:[]}
 ];
 
@@ -446,7 +439,7 @@ $('#quiz').addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)r
  if(b.dataset.k===q[1])pts++;else wrong.add(i);$('#score').textContent=`${pts} / ${ans}`});
 const fill=(el,ids,tpl)=>{el.innerHTML=tpl(ids.map(id=>{const e=$('#'+id),v=e.value.trim();return v?esc(v):`<span class="ph">${esc(e.placeholder)}</span>`}))};
 const renderAncla=()=>{const n=$$('[data-w]').reduce((t,e)=>t+words(e.value),0),w=$('#wtotal');if(w){w.textContent=n+' palabras';w.style.color=n>350?'#FF7A7A':(n>=250?'#7CFF9E':'#fff')}};
-const renderLog=()=>fill($('#logline'),['l1','l2','l3','l4'],p=>`${p[0]} quiere ${p[1]}, pero ${p[2]}. Y el giro: ${p[3]}.`);
+const renderLog=()=>{};
 $('#slots').innerHTML=SLOTS.map((s,i)=>`<div class="slot"><label class="lb" for="c${i}"><span>Slide ${i+1} · ${s[0]}</span><span class="wc" id="wc${i}">0/35</span></label><textarea id="c${i}" data-k="c${i}" data-slide="${i}" placeholder="${esc(s[1])}"></textarea></div>`).join('');
 $('#dots').innerHTML=SLOTS.map(()=>'<i></i>').join('');
 let cur=0;const words=t=>(t.trim().match(/\S+/g)||[]).length;
