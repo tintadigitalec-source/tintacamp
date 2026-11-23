@@ -312,7 +312,7 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <section class="screen" data-s="jefe"><div class="frame"><div class="in">
 <p class="k">Jefe final</p>
 <h2>Tu carrusel en texto</h2>
-<p class="lead">Convierte tu artículo en 7 slides. Al tocar una caja, el celular te muestra cómo se lee. Una idea por slide, máximo 35 palabras. El lunes lo convertimos en pieza gráfica.</p>
+<p class="lead">Convierte tu artículo en un carrusel de 9 a 12 slides, sin simplificar tu análisis: un argumento por slide. Las marcadas como opcionales puedes dejarlas vacías. Al tocar una caja, el celular te muestra cómo se lee. Máximo 35 palabras por slide.</p>
 <div class="cb">
 <div class="slots" id="slots"></div>
 <div class="phone" aria-label="Vista previa">
@@ -376,8 +376,9 @@ const QUIZ=[
  ['En 2017 se incautó el buque Fu Yuan Yu Leng 999 en la Reserva Marina de Galápagos.','doc','Documentado: hay registro oficial de la incautación.'],
  ['Cuántos buques chinos pescan en aguas distantes.','dis','Disputado: la FAO estimó 4.222 en 2024, pero cambia según definición y registro.']
 ];
-const SLOTS=[['El gancho','Lo que detiene el scroll.'],['¿Qué pasó?','El hecho en simple, como a un amigo.'],['El antes','De dónde viene esto.'],['Los actores','Quién gana, quién pierde, quién calla.'],['El dato fuerte','Una cifra o hecho, con su fuente.'],['¿Y a ti qué?','La conexión con tu personaje.'],['El cierre','Lo que no sabemos y una pregunta.']];
-const CHECK=['El gancho detiene el scroll en 3 segundos.','Se entiende sin saber nada de China.','Le habla a mi personaje.','Hay más de un enfoque o actor.','Cada dato dice de dónde sale.','Digo lo que no sabemos.','Una idea por slide, máximo 35 palabras.'];
+const SLOTS=[['Gancho','Tu conflicto, comprimido. Lo que detiene el scroll.'],['Contexto','Qué pasó y qué hay que saber. Ej.: «Primero: sí…»'],['Contexto (opcional)','El antes: de dónde viene esto.'],['Argumento 1','Una idea, con su dato y su fuente.'],['Argumento 2','Una idea, con su dato y su fuente.'],['Argumento 3','Una idea, con su dato y su fuente.'],['Argumento 4 (opcional)','Una idea, con su dato y su fuente.'],['Argumento 5 (opcional)','Una idea, con su dato y su fuente.'],['Contraargumento','La otra mirada. Ej.: «Peeero ojo…»'],['Lo que no sabemos','Lo que todavía falta saber.'],['¿Y a ti qué?','Qué significa para tu personaje.'],['Cierre','Una pregunta para comentar.']];
+const REQ=[0,1,3,4,5,8,9,10,11];
+const CHECK=['El gancho es mi conflicto y detiene el scroll en 3 segundos.','Se entiende sin saber nada de China.','Le habla a mi personaje.','Hay un contraargumento («Peeero ojo»).','Cada dato dice de dónde sale.','Digo lo que no sabemos.','Una idea por slide, máximo 35 palabras.'];
 
 
 const MIS=[
@@ -414,12 +415,12 @@ $('#start').addEventListener('click',()=>{if(!(store.nombre||'').trim()){$('#e-i
 const val=k=>k.startsWith('#')?$(k).textContent.trim():(store[k]||'').trim();
 $$('[data-finish]').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.finish,sc=$(`[data-s="${id}"]`),err=$('.err',sc);
  if(id==='juego'){if(ans<QUIZ.length){err.textContent=`Te faltan ${QUIZ.length-ans} afirmaciones por clasificar.`;return}}
- else if(id==='jefe'){const n=SLOTS.filter((_,i)=>(store['c'+i]||'').trim()).length;if(n<7){err.textContent=`Te faltan ${7-n} slides por escribir.`;return}}
+ else if(id==='jefe'){const miss=REQ.filter(i=>!(store['c'+i]||'').trim());if(miss.length){err.textContent=`Te faltan estas slides: ${miss.map(i=>SLOTS[i][0]).join(', ')}.`;return}}
  else{const miss=$$('[data-req]',sc).filter(i=>!i.value.trim());if(miss.length){err.textContent='Completa los campos marcados para terminar la misión.';miss.forEach(i=>i.style.borderColor='#E01B1B');miss[0].focus();return}}
  err.textContent='';store.done[id]=true;save();xp();curMis=MIS.find(m=>m.id===id);renderRes();show('resumen')}));
 const renderRes=()=>{const m=curMis,who=`${esc(store.nombre||'')}${store.grupo?' · '+esc(store.grupo):''}`;let body='';
  if(m.id==='juego')body=`<div class="ans"><p class="q2">PUNTAJE</p><p style="font-size:40px">${pts} de ${QUIZ.length}</p></div><div class="ans"><p class="q2">LO QUE MÁS NOS COSTÓ</p><p>${esc(QUIZ.filter((q,i)=>wrong.has(i)).map(q=>q[0]).join('\n')||'¡Nada! Todo bien clasificado.')}</p></div>`;
- else if(m.id==='jefe')body=`<div class="ans"><p class="q2">CASO · PERSONAJE</p><p>${esc(val('caso')||'—')} · ${esc(val('persona')||'—')}</p></div><div class="cards7">${SLOTS.map((s,i)=>`<div><b>${i+1}</b><p>${esc(val('c'+i))}</p></div>`).join('')}</div>`;
+ else if(m.id==='jefe')body=`<div class="ans"><p class="q2">CASO · PERSONAJE</p><p>${esc(val('caso')||'—')} · ${esc(val('persona')||'—')}</p></div><div class="cards7">${SLOTS.map((s,i)=>[s,i]).filter(([s,i])=>val('c'+i)).map(([s,i],k)=>`<div><b>${k+1}</b><p>${esc(val('c'+i))}</p></div>`).join('')}</div>`;
  else body=m.ans.map(([q,k])=>{const v=val(k);return `<div class="ans"><p class="q2">${esc(q.toUpperCase())}</p><p class="${v?'':'empty'}">${v?esc(v):'(sin respuesta)'}</p></div>`}).join('');
  $('#res').innerHTML=`<p class="clear">${m.id==='jefe'?'¡JEFE VENCIDO!':'MISIÓN CUMPLIDA'}</p><p class="who">${m.tag} · ${esc(m.name)} · ${who}</p>${body}${m.id==='jefe'?'<div class="row"><button class="btn red" id="copy">Copiar todo para WhatsApp</button><span class="pickout" id="copied" aria-live="polite"></span></div><textarea id="dump" readonly style="display:none;min-height:200px" aria-label="Texto para copiar"></textarea><p class="lead">El lunes convertimos este texto en la pieza gráfica.</p>':'<p class="lead">Comparte esta pantalla con tu grupo o léela en la sala principal.</p>'}`;
  const i=MIS.indexOf(m);$('#nextm').style.display=i<MIS.length-1?'':'none';
@@ -450,7 +451,7 @@ $('#slots').innerHTML=SLOTS.map((s,i)=>`<div class="slot"><label class="lb" for=
 $('#dots').innerHTML=SLOTS.map(()=>'<i></i>').join('');
 let cur=0;const words=t=>(t.trim().match(/\S+/g)||[]).length;
 const renderPhone=()=>{const t=$('#c'+cur).value.trim();$('#psc').className='psc'+(cur===0?' s0':'');$('#stag').textContent=SLOTS[cur][0].toUpperCase();
- $('#stxt').textContent=t||SLOTS[cur][1];$('#stxt').style.opacity=t?1:.55;$('#spg').textContent=(cur+1)+'/7';$$('#dots i').forEach((d,i)=>d.classList.toggle('on',i===cur));
+ $('#stxt').textContent=t||SLOTS[cur][1];$('#stxt').style.opacity=t?1:.55;$('#spg').textContent=(cur+1)+'/'+SLOTS.length;$$('#dots i').forEach((d,i)=>d.classList.toggle('on',i===cur));
  SLOTS.forEach((_,i)=>{const n=words($('#c'+i).value),w=$('#wc'+i);w.textContent=n+'/35';w.classList.toggle('over',n>35)})};
 $('#prev').addEventListener('click',()=>{cur=(cur+6)%7;renderPhone()});$('#next').addEventListener('click',()=>{cur=(cur+1)%7;renderPhone()});
 $('#slots').addEventListener('focusin',e=>{if(e.target.dataset.slide){cur=+e.target.dataset.slide;renderPhone()}});
@@ -459,7 +460,7 @@ const renderCheck=()=>{const n=$$('#check input:checked').length;$('#okmsg').tex
 $$('[data-k]').forEach(el=>{const k=el.dataset.k;if(store[k]!==undefined){if(el.type==='checkbox')el.checked=!!store[k];else el.value=store[k]}
  el.addEventListener(el.type==='checkbox'?'change':'input',()=>{store[k]=el.type==='checkbox'?el.checked:el.value;if(el.value&&el.value.trim())el.style.borderColor='';save();renderAncla();renderLog();renderPhone();renderCheck()})});
 renderAncla();renderLog();renderPhone();renderCheck();
-async function copyAll(){const g=k=>val(k);const txt=['CARRUSEL · Tinta Camp III',`Nombre: ${g('nombre')}${g('grupo')?' ('+g('grupo')+')':''}`,`Caso: ${g('caso')}`,`Personaje: ${g('persona')}`,`Hipótesis: ${g('hipotesis')}`,'',...SLOTS.map((s,i)=>`SLIDE ${i+1} · ${s[0]}\n${g('c'+i)}`),'',`Fuentes: ${g('fuentes')}`].join('\n');
+async function copyAll(){const g=k=>val(k);const txt=['CARRUSEL · Tinta Camp III',`Nombre: ${g('nombre')}${g('grupo')?' ('+g('grupo')+')':''}`,`Caso: ${g('caso')}`,`Personaje: ${g('persona')}`,`Hipótesis: ${g('hipotesis')}`,'',...SLOTS.map((s,i)=>[s,i]).filter(([s,i])=>g('c'+i)).map(([s,i],k)=>`SLIDE ${k+1} · ${s[0].replace(' (opcional)','')}\n${g('c'+i)}`),'',`Fuentes: ${g('fuentes')}`].join('\n');
  const d=$('#dump');d.value=txt;try{await navigator.clipboard.writeText(txt);$('#copied').textContent='¡Copiado!'}catch(e){d.style.display='block';d.select();$('#copied').textContent='Selecciona y copia el texto'}}
 
 /* arranque */
