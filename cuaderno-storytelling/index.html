@@ -280,7 +280,13 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <section class="screen" data-s="m4"><div class="frame"><div class="in">
 <p class="k">Misión 4 · Del artículo a la historia</p>
 <h2>Tu logline y tres ganchos</h2>
-<p class="lead">A partir de tu artículo: primero la historia en una oración, después tres ganchos de tipos distintos. En el grupo voten el mejor.</p>
+<p class="lead">A partir de tu artículo: primero el conflicto, después la historia en una oración y al final tres ganchos. En el grupo voten el mejor.</p>
+<p class="k">El conflicto</p>
+<div class="fields">
+<div><label class="lb" for="k-ctipo">¿Qué tipo de conflicto tiene tu historia?</label><input type="text" id="k-ctipo" data-k="ctipo" data-req placeholder="Querer contra poder, lo que se dice contra lo que pasa, interés contra interés o dilema"></div>
+<div><label class="lb" for="k-conflicto">Tu conflicto en una frase</label><textarea id="k-conflicto" data-k="conflicto" data-req placeholder="Diego quiere la beca, pero no sabe qué viene con ella"></textarea></div>
+</div>
+<p class="k">Tu logline</p>
 <div class="fields">
 <div><label class="lb" for="l1">Protagonista</label><input type="text" id="l1" data-k="l1" data-req placeholder="Diego, estudiante en Lima"></div>
 <div><label class="lb" for="l2">Quiere…</label><input type="text" id="l2" data-k="l2" data-req placeholder="estudiar afuera con una beca"></div>
@@ -288,7 +294,8 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <div><label class="lb" for="l4">Y el giro es que…</label><input type="text" id="l4" data-k="l4" placeholder="esa beca la paga directamente otro Estado"></div>
 </div>
 <div class="out" id="logline" aria-live="polite"></div>
-<p class="k">Tipos de gancho</p>
+<p class="k">Tres ganchos</p>
+<p class="tip"><b>Los 4 ingredientes:</b> le habla a tu personaje · abre una tensión · es concreto · es honesto.</p>
 <div class="hk"><span>La pregunta</span><span>El dato que choca</span><span>La contradicción</span><span>El personaje</span><span>Lo cercano</span></div>
 <div class="fields">
 <div><label class="lb" for="g1">Gancho 1</label><textarea id="g1" data-k="g1" data-req></textarea></div>
@@ -381,8 +388,8 @@ const MIS=[
  {id:'juego',tag:'JUEGO',name:'¿Documentado o no?',key:'FUENTES',ans:[]},
  {id:'m3',tag:'MISIÓN 3',name:'Escribe tu artículo',key:'ENSAYO',
   ans:[['Título','etitulo'],['Introducción','eintro'],['Argumento 1','earg1'],['Argumento 2','earg2'],['Contraargumento','econtra'],['Conclusión','econcl'],['Fuentes','fuentes']]},
- {id:'m4',tag:'MISIÓN 4',name:'Logline y ganchos',key:'HISTORIA',
-  ans:[['Logline','#logline'],['Gancho 1','g1'],['Gancho 2','g2'],['Gancho 3','g3'],['El gancho ganador','ganador'],['Estructura','estructura']]},
+ {id:'m4',tag:'MISIÓN 4',name:'Conflicto, logline y ganchos',key:'HISTORIA',
+  ans:[['Tipo de conflicto','ctipo'],['El conflicto','conflicto'],['Logline','#logline'],['Gancho 1','g1'],['Gancho 2','g2'],['Gancho 3','g3'],['El gancho ganador','ganador'],['Estructura','estructura']]},
  {id:'jefe',tag:'JEFE FINAL',name:'Tu carrusel en texto',key:'CARRUSEL',ans:[]}
 ];
 
