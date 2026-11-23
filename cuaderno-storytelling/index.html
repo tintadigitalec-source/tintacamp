@@ -134,6 +134,15 @@ textarea{min-height:96px;resize:vertical}
 .ans .q2{font-family:var(--pix);font-size:13px;color:var(--blue);margin-bottom:4px}
 .ans p{font-size:clamp(18px,2.6vw,24px);font-weight:800;line-height:1.35;white-space:pre-wrap;overflow-wrap:anywhere}
 .ans p.empty{color:#999;font-weight:600}
+.sendbox{background:#111;border:3px dashed var(--y);padding:12px 16px;margin:14px 0}
+.sendbox p{margin:0 0 8px}
+.pf-card{background:#fff;color:#0F0E0D;border:4px solid #0F0E0D;box-shadow:6px 6px 0 var(--vio);padding:16px;margin:0 0 18px}
+.pf-card .meta{font-size:13px;color:#555;margin:0 0 6px}
+.pf-card .hook{font-size:20px;font-weight:900;margin:6px 0 10px}
+.pf-slides{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
+.pf-slides div{background:#F3F0EA;border:2px solid #0F0E0D;padding:8px;font-size:13px;line-height:1.35;white-space:pre-wrap;overflow-wrap:anywhere}
+.pf-slides b{display:block;font-size:11px;color:#c8102e;margin-bottom:4px}
+.profe-link{background:none;border:0;color:#9a9a9a;font-size:12px;text-decoration:underline;cursor:pointer;margin-top:14px}
 .cards7{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr))}
 .cards7 div{aspect-ratio:4/5;background:#14179A;border:3px solid #0F0E0D;padding:12px;display:flex;flex-direction:column;gap:6px;box-shadow:4px 4px 0 #0F0E0D}
 .cards7 div:first-child{background:var(--y);color:#0F0E0D}
@@ -164,6 +173,7 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 </div>
 <p class="err" id="e-inicio" aria-live="polite"></p>
 <div class="nav"><span></span><button class="btn red" id="start">PRESS START ▸</button></div>
+<button class="profe-link" id="to-profe" type="button">Vista de la profe</button>
 </div></div></section>
 
 <!-- MAPA -->
@@ -172,6 +182,7 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <h2>Elige tu misión</h2>
 <p class="lead">Las misiones con candado se abren con la clave que se da en clase.</p>
 <div class="map" id="map"></div>
+<button class="profe-link" data-go="profe" type="button">Vista de la profe</button>
 </div></div></section>
 
 <!-- CLAVE -->
@@ -325,6 +336,22 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <div class="res" id="res"></div>
 <div class="nav"><button class="btn ghost" id="edit">◂ Editar respuestas</button><button class="btn y" id="nextm">Siguiente misión ▸</button></div>
 </div></div></section>
+<section class="screen" data-s="profe"><div class="frame"><div class="squares in" style="background-color:#050505">
+<p class="k">Vista de la profe</p>
+<h2>Entregas del jefe final</h2>
+<div id="pf-lock">
+<p class="lead">Escribe la clave de la profe para ver los carruseles que enviaron los grupos.</p>
+<div class="fields"><div><label class="lb" for="pf-key">Clave</label><input type="text" id="pf-key" autocomplete="off"></div></div>
+<p class="err" id="pf-err" aria-live="polite"></p>
+<div class="nav"><button class="btn ghost" data-go="inicio">◂ Volver</button><button class="btn red" id="pf-open">Ver entregas ▸</button></div>
+</div>
+<div id="pf-view" style="display:none">
+<div class="row" style="gap:10px;flex-wrap:wrap;margin-bottom:12px"><input type="text" id="pf-filter" placeholder="Buscar por nombre, grupo o tema" aria-label="Buscar entregas" style="flex:1;min-width:200px"><button class="btn y" id="pf-refresh">Actualizar</button><a class="btn ghost" id="pf-csv" target="_blank" rel="noopener">Descargar todo (CSV)</a></div>
+<p class="lead" id="pf-status" aria-live="polite"></p>
+<div id="pf-list"></div>
+<div class="nav"><button class="btn ghost" data-go="inicio">◂ Volver</button><span></span></div>
+</div>
+</div></div></section>
 </main>
 <footer class="console"><img src="../assets/logos-tinta-iri.png" alt="Tinta Digital e Instituto Republicano Internacional"></footer>
 
@@ -415,9 +442,10 @@ const renderRes=()=>{const m=curMis,who=`${esc(store.nombre||'')}${store.grupo?'
  if(m.id==='juego')body=`<div class="ans"><p class="q2">PUNTAJE</p><p style="font-size:40px">${pts} de ${QUIZ.length}</p></div><div class="ans"><p class="q2">LO QUE MÁS NOS COSTÓ</p><p>${esc(QUIZ.filter((q,i)=>wrong.has(i)).map(q=>q[0]).join('\n')||'¡Nada! Todo bien clasificado.')}</p></div>`;
  else if(m.id==='jefe')body=`<div class="ans"><p class="q2">CASO · PERSONAJE</p><p>${esc(val('caso')||'—')} · ${esc(val('persona')||'—')}</p></div><div class="cards7">${SLOTS.map((s,i)=>[s,i]).filter(([s,i])=>val('c'+i)).map(([s,i],k)=>`<div><b>${k+1}</b><p>${esc(val('c'+i))}</p></div>`).join('')}</div>`;
  else body=m.ans.map(([q,k])=>{const v=val(k);return `<div class="ans"><p class="q2">${esc(q.toUpperCase())}</p><p class="${v?'':'empty'}">${v?esc(v):'(sin respuesta)'}</p></div>`}).join('');
- $('#res').innerHTML=`<p class="clear">${m.id==='jefe'?'¡JEFE VENCIDO!':'MISIÓN CUMPLIDA'}</p><p class="who">${m.tag} · ${esc(m.name)} · ${who}</p>${body}${m.id==='jefe'?'<div class="row"><button class="btn red" id="copy">Copiar todo para WhatsApp</button><span class="pickout" id="copied" aria-live="polite"></span></div><textarea id="dump" readonly style="display:none;min-height:200px" aria-label="Texto para copiar"></textarea><p class="lead">En el laboratorio práctico final convertimos este texto en pieza gráfica.</p>':'<p class="lead">Comparte esta pantalla con tu grupo o léela en la sala principal.</p>'}`;
+ $('#res').innerHTML=`<p class="clear">${m.id==='jefe'?'¡JEFE VENCIDO!':'MISIÓN CUMPLIDA'}</p><p class="who">${m.tag} · ${esc(m.name)} · ${who}</p>${body}${m.id==='jefe'?'<div class="sendbox"><p id="send-st" aria-live="polite"></p><button class="btn y" id="send">Enviar a Tinta</button></div><div class="row"><button class="btn red" id="copy">Copiar todo para WhatsApp</button><span class="pickout" id="copied" aria-live="polite"></span></div><textarea id="dump" readonly style="display:none;min-height:200px" aria-label="Texto para copiar"></textarea><p class="lead">En el laboratorio práctico final convertimos este texto en pieza gráfica.</p>':'<p class="lead">Comparte esta pantalla con tu grupo o léela en la sala principal.</p>'}`;
  const i=MIS.indexOf(m);$('#nextm').style.display=i<MIS.length-1?'':'none';
- const c=$('#copy');if(c)c.addEventListener('click',copyAll)};
+ const c=$('#copy');if(c)c.addEventListener('click',copyAll);
+ const sb=$('#send');if(sb){sb.addEventListener('click',sendToTinta);if(!cfgOK())sb.style.display='none';sendToTinta()}};
 $('#edit').addEventListener('click',()=>show(curMis.id));
 $('#nextm').addEventListener('click',()=>{const i=MIS.indexOf(curMis);if(i<MIS.length-1)openMis(MIS[i+1].id)});
 
@@ -453,6 +481,31 @@ const renderCheck=()=>{const n=$$('#check input:checked').length;$('#okmsg').tex
 $$('[data-k]').forEach(el=>{const k=el.dataset.k;if(store[k]!==undefined){if(el.type==='checkbox')el.checked=!!store[k];else el.value=store[k]}
  el.addEventListener(el.type==='checkbox'?'change':'input',()=>{store[k]=el.type==='checkbox'?el.checked:el.value;if(el.value&&el.value.trim())el.style.borderColor='';save();renderAncla();renderLog();renderPhone();renderCheck()})});
 renderAncla();renderLog();renderPhone();renderCheck();
+// ==== Envío a Tinta (Google Form) y vista de la profe ====
+const TINTA_CFG={form:'',entries:{nombre:'',grupo:'',tema:'',audiencia:'',gancho:'',carrusel:''},csv:'',profe:'TINTAPROFE'};
+const cfgOK=()=>!!(TINTA_CFG.form&&TINTA_CFG.entries.carrusel);
+const slidesTxt=()=>SLOTS.map((s,i)=>[s,i]).filter(([s,i])=>val('c'+i)).map(([s,i],k)=>`SLIDE ${k+1} · ${s[0].replace(' (opcional)','')}\n${val('c'+i)}`).join('\n\n');
+async function sendToTinta(){const st=$('#send-st');if(!cfgOK()){if(st)st.textContent='El envío automático no está activo. Usa «Copiar todo» y pégalo en el grupo.';return}
+ const E=TINTA_CFG.entries,f=new URLSearchParams();const put=(id,v)=>{if(id)f.append('entry.'+id,v||'')};
+ put(E.nombre,val('nombre'));put(E.grupo,val('grupo'));put(E.tema,val('caso'));put(E.audiencia,val('persona'));put(E.gancho,val('c0'));put(E.carrusel,slidesTxt()+(val('fuentes')?'\n\nFuentes: '+val('fuentes'):''));
+ if(st)st.textContent='Enviando…';
+ try{await fetch(TINTA_CFG.form.replace(/\/viewform.*$/,'/formResponse'),{method:'POST',mode:'no-cors',body:f});store.sent=Date.now();save();if(st)st.textContent='✓ Tu carrusel se envió a Tinta. Si lo editas, vuelve a enviarlo.'}
+ catch(e){if(st)st.textContent='No se pudo enviar. Revisa tu conexión y toca «Enviar a Tinta» otra vez.'}}
+const parseCSV=t=>{const rows=[];let r=[],c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}else if(ch==='"')q=true;else if(ch===','){r.push(c);c=''}else if(ch==='\n'){r.push(c);rows.push(r);r=[];c=''}else if(ch!=='\r')c+=ch}if(c||r.length){r.push(c);rows.push(r)}return rows};
+let PF=[];
+async function loadProfe(){const s=$('#pf-status');if(!TINTA_CFG.csv){s.textContent='Todavía no está conectada la hoja de respuestas.';return}
+ s.textContent='Cargando entregas…';
+ try{const r=await fetch(TINTA_CFG.csv+(TINTA_CFG.csv.includes('?')?'&':'?')+'t='+Date.now());const rows=parseCSV(await r.text());PF=rows.slice(1).filter(x=>x.some(v=>v.trim()));renderProfe();s.textContent=`${PF.length} entrega${PF.length===1?'':'s'}. La hoja puede tardar unos minutos en mostrar los envíos nuevos.`}
+ catch(e){s.textContent='No se pudo leer la hoja de respuestas. Revisa que esté publicada como CSV.'}}
+function renderProfe(){const q=($('#pf-filter').value||'').toLowerCase(),L=$('#pf-list');L.textContent='';
+ PF.slice().reverse().filter(x=>x.join(' ').toLowerCase().includes(q)).forEach(x=>{const [ts,nom,gru,tema,aud,gan,car]=x;const d=document.createElement('div');d.className='pf-card';
+  const m=document.createElement('p');m.className='meta';m.textContent=`${nom||'Sin nombre'}${gru?' · '+gru:''} · ${ts||''}`;d.append(m);
+  const t=document.createElement('p');t.className='meta';t.textContent=`Tema: ${tema||'—'} · Audiencia: ${aud||'—'}`;d.append(t);
+  const g=document.createElement('p');g.className='hook';g.textContent=gan||'';d.append(g);
+  const sl=document.createElement('div');sl.className='pf-slides';(car||'').split(/\n\s*\n/).filter(Boolean).forEach(b=>{const c=document.createElement('div');const lines=b.split('\n');const head=document.createElement('b');head.textContent=lines[0];c.append(head,document.createTextNode(lines.slice(1).join('\n')));sl.append(c)});d.append(sl);L.append(d)});}
+$('#to-profe').addEventListener('click',()=>show('profe'));
+$('#pf-open').addEventListener('click',()=>{if(norm($('#pf-key').value)===norm(TINTA_CFG.profe)){$('#pf-lock').style.display='none';$('#pf-view').style.display='';if(TINTA_CFG.csv)$('#pf-csv').href=TINTA_CFG.csv;else $('#pf-csv').style.display='none';loadProfe()}else $('#pf-err').textContent='Clave incorrecta.'});
+$('#pf-refresh').addEventListener('click',loadProfe);$('#pf-filter').addEventListener('input',renderProfe);
 async function copyAll(){const g=k=>val(k);const txt=['CARRUSEL · Tinta Camp III',`Nombre: ${g('nombre')}${g('grupo')?' ('+g('grupo')+')':''}`,`Caso: ${g('caso')}`,`Personaje: ${g('persona')}`,`Hipótesis: ${g('hipotesis')}`,'',...SLOTS.map((s,i)=>[s,i]).filter(([s,i])=>g('c'+i)).map(([s,i],k)=>`SLIDE ${k+1} · ${s[0].replace(' (opcional)','')}\n${g('c'+i)}`),'',`Fuentes: ${g('fuentes')}`].join('\n');
  const d=$('#dump');d.value=txt;try{await navigator.clipboard.writeText(txt);$('#copied').textContent='¡Copiado!'}catch(e){d.style.display='block';d.select();$('#copied').textContent='Selecciona y copia el texto'}}
 
