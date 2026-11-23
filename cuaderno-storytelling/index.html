@@ -109,6 +109,10 @@ textarea{min-height:96px;resize:vertical}
 .hk{display:flex;flex-wrap:wrap;gap:8px}.hk span{background:#1A1A1A;border:2px solid #2E2E2E;padding:6px 10px;font-size:14px;font-weight:700}
 
 /* carrusel */
+.fmt{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 16px}.fmt button{font:inherit;font-weight:900;font-size:16px;padding:12px 18px;border:3px solid #0F0E0D;background:#fff;color:#0F0E0D;cursor:pointer;box-shadow:4px 4px 0 #0F0E0D}.fmt button.on{background:var(--y)}
+.slot .vid{display:none;margin-top:6px}.vmode .slot .vid{display:block}.slot .vid textarea{min-height:52px;border-style:dashed}
+.dur{font-family:var(--pix);font-size:13px;background:#0F0E0D;color:#fff;padding:8px 12px;display:none;align-self:flex-start}.vmode .dur{display:inline-block;position:sticky;top:70px;z-index:5}.vmode .psc{aspect-ratio:9/16}
+.psc .vtx{font-size:13px;font-weight:700;opacity:.8;display:none}.vmode .psc .vtx{display:block}
 .cb{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:start}
 .slots{display:flex;flex-direction:column;gap:12px}
 .slot label{display:flex;justify-content:space-between;gap:8px}
@@ -315,12 +319,15 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <!-- JEFE -->
 <section class="screen" data-s="jefe"><div class="frame"><div class="in">
 <p class="k">Jefe final</p>
-<h2>Tu carrusel en texto</h2>
-<p class="lead">Convierte tu artículo en un carrusel de 9 a 12 slides, sin simplificar tu análisis: un argumento por slide. Las marcadas como opcionales puedes dejarlas vacías. Al tocar una caja, el celular te muestra cómo se lee. Un titular corto y hasta 80 palabras por slide: el carrusel de Tinta usa unas 60.</p>
+<h2 id="j-h">Tu carrusel en texto</h2>
+<p class="lb">Elige tu formato</p>
+<div class="fmt" role="group" aria-label="Formato"><button type="button" data-fmt="carrusel">▦ Carrusel</button><button type="button" data-fmt="video">▶ Guion de video</button></div>
+<p class="lead" id="j-lead"></p>
+<p class="dur" id="dur" aria-live="polite"></p>
 <div class="cb">
 <div class="slots" id="slots"></div>
 <div class="phone" aria-label="Vista previa">
-<div class="psc" id="psc"><span class="tag" id="stag"></span><p class="txt" id="stxt"></p><span class="pg" id="spg"></span></div>
+<div class="psc" id="psc"><span class="tag" id="stag"></span><p class="txt" id="stxt"></p><p class="vtx" id="svtx"></p><span class="pg" id="spg"></span></div>
 <div class="dots" id="dots"></div>
 <div class="pnav"><button id="prev" aria-label="Anterior">◂ ANT</button><button id="next" aria-label="Siguiente">SIG ▸</button></div>
 </div>
@@ -328,7 +335,7 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <p class="k">Checklist antes de entregar <span id="okmsg"></span></p>
 <div class="check" id="check"></div>
 <p class="err" aria-live="polite"></p>
-<div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="jefe">Terminar carrusel ▸</button></div>
+<div class="nav"><button class="btn ghost" data-go="mapa">◂ Mapa</button><button class="btn red" data-finish="jefe" id="j-fin">Terminar carrusel ▸</button></div>
 </div></div></section>
 
 <!-- RESUMEN -->
@@ -340,7 +347,7 @@ footer{text-align:center;padding:20px 16px}footer img{height:44px;width:auto}
 <p class="k">Vista de la profe</p>
 <h2>Entregas del jefe final</h2>
 <div id="pf-lock">
-<p class="lead">Escribe la clave de la profe para ver los carruseles que enviaron los grupos.</p>
+<p class="lead">Escribe la clave de la profe para ver los carruseles y guiones que enviaron los grupos.</p>
 <div class="fields"><div><label class="lb" for="pf-key">Clave</label><input type="text" id="pf-key" autocomplete="off"></div></div>
 <p class="err" id="pf-err" aria-live="polite"></p>
 <div class="nav"><button class="btn ghost" data-go="inicio">◂ Volver</button><button class="btn red" id="pf-open">Ver entregas ▸</button></div>
@@ -398,7 +405,9 @@ const QUIZ=[
 ];
 const SLOTS=[['Gancho','Tu tensión, dicha en una frase. Lo que detiene el scroll.'],['Contexto','Qué pasó y qué hay que saber. Ej.: «Primero: sí…»'],['Contexto (opcional)','El antes: de dónde viene esto.'],['Argumento 1','Una idea, con su dato y su fuente.'],['Argumento 2','Una idea, con su dato y su fuente.'],['Argumento 3','Una idea, con su dato y su fuente.'],['Argumento 4 (opcional)','Una idea, con su dato y su fuente.'],['Argumento 5 (opcional)','Una idea, con su dato y su fuente.'],['Contraargumento','La otra mirada. Ej.: «Peeero ojo…»'],['Lo que no sabemos','Lo que todavía falta saber.'],['¿Y a ti qué?','Qué significa para tu audiencia.'],['Cierre','Una pregunta para comentar.']];
 const REQ=[0,1,3,4,5,8,9,10,11];
-const CHECK=['El gancho es mi tensión y detiene el scroll en 3 segundos.','Se entiende sin saber nada de China.','Le habla directo a mi audiencia.','Hay un contraargumento («Peeero ojo»).','Cada dato dice de dónde sale.','Digo lo que no sabemos.','Una idea por slide, con un titular corto y hasta 80 palabras.'];
+const CHECK_C=['El gancho es mi tensión y detiene el scroll en 3 segundos.','Se entiende sin saber nada de China.','Le habla directo a mi audiencia.','Hay un contraargumento («Peeero ojo»).','Cada dato dice de dónde sale.','Digo lo que no sabemos.','Una idea por slide, con un titular corto y hasta 80 palabras.'];
+const CHECK_V=['El gancho es mi tensión y se entiende en los primeros 3 segundos.','Se entiende sin saber nada de China.','Le habla directo a mi audiencia.','Hay un contraargumento («Peeero ojo»).','Cada dato tiene su fuente en pantalla.','Digo lo que no sabemos.','Frases cortas, una idea por escena, y dura entre 60 y 90 segundos.'];
+const CHECK=CHECK_C;const isV=()=>store.formato==='video';const U=()=>isV()?'Escena':'Slide';
 
 
 const MIS=[
@@ -411,7 +420,7 @@ const MIS=[
   ans:[['Título','etitulo'],['Introducción','eintro'],['Argumento 1','earg1'],['Argumento 2','earg2'],['Contraargumento','econtra'],['Conclusión','econcl'],['Fuentes','fuentes']]},
  {id:'m4',tag:'MISIÓN 4',name:'Tensión y ganchos',key:'HISTORIA',
   ans:[['Tu tesis','tesis4'],['La superficie','cree'],['El dato que choca','descubri'],['La tensión','conflicto'],['Gancho 1','g1'],['Gancho 2','g2'],['Gancho 3','g3'],['El gancho ganador','ganador'],['Los argumentos de tu desarrollo','estructura']]},
- {id:'jefe',tag:'JEFE FINAL',name:'Tu carrusel en texto',key:'CARRUSEL',ans:[]}
+ {id:'jefe',tag:'JEFE FINAL',name:'Tu carrusel o guion en texto',key:'CARRUSEL',ans:[]}
 ];
 
 const norm=t=>t.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,'').toUpperCase();
@@ -435,12 +444,12 @@ $('#start').addEventListener('click',()=>{if(!(store.nombre||'').trim()){$('#e-i
 const val=k=>k.startsWith('#')?$(k).textContent.trim():(store[k]||'').trim();
 $$('[data-finish]').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.finish,sc=$(`[data-s="${id}"]`),err=$('.err',sc);
  if(id==='juego'){if(ans<QUIZ.length){err.textContent=`Te faltan ${QUIZ.length-ans} afirmaciones por clasificar.`;return}}
- else if(id==='jefe'){const miss=REQ.filter(i=>!(store['c'+i]||'').trim());if(miss.length){err.textContent=`Te faltan estas slides: ${miss.map(i=>SLOTS[i][0]).join(', ')}.`;return}}
+ else if(id==='jefe'){const miss=REQ.filter(i=>!(store['c'+i]||'').trim());if(miss.length){err.textContent=`Te faltan estas ${isV()?'escenas':'slides'}: ${miss.map(i=>SLOTS[i][0]).join(', ')}.`;return}}
  else{const miss=$$('[data-req]',sc).filter(i=>!i.value.trim());if(miss.length){err.textContent='Completa los campos marcados para terminar la misión.';miss.forEach(i=>i.style.borderColor='#E01B1B');miss[0].focus();return}}
  err.textContent='';store.done[id]=true;save();xp();curMis=MIS.find(m=>m.id===id);renderRes();show('resumen')}));
 const renderRes=()=>{const m=curMis,who=`${esc(store.nombre||'')}${store.grupo?' · '+esc(store.grupo):''}`;let body='';
  if(m.id==='juego')body=`<div class="ans"><p class="q2">PUNTAJE</p><p style="font-size:40px">${pts} de ${QUIZ.length}</p></div><div class="ans"><p class="q2">LO QUE MÁS NOS COSTÓ</p><p>${esc(QUIZ.filter((q,i)=>wrong.has(i)).map(q=>q[0]).join('\n')||'¡Nada! Todo bien clasificado.')}</p></div>`;
- else if(m.id==='jefe')body=`<div class="ans"><p class="q2">CASO · PERSONAJE</p><p>${esc(val('caso')||'—')} · ${esc(val('persona')||'—')}</p></div><div class="cards7">${SLOTS.map((s,i)=>[s,i]).filter(([s,i])=>val('c'+i)).map(([s,i],k)=>`<div><b>${k+1}</b><p>${esc(val('c'+i))}</p></div>`).join('')}</div>`;
+ else if(m.id==='jefe')body=`<div class="ans"><p class="q2">CASO · PERSONAJE</p><p>${esc(val('caso')||'—')} · ${esc(val('persona')||'—')}</p></div><div class="ans"><p class="q2">FORMATO</p><p>${isV()?'Guion de video':'Carrusel'}</p></div><div class="cards7">${SLOTS.map((s,i)=>[s,i]).filter(([s,i])=>val('c'+i)).map(([s,i],k)=>`<div><b>${k+1}</b><p>${esc(isV()?'AUDIO: '+val('c'+i)+(val('v'+i)?'\nVIDEO: '+val('v'+i):''):val('c'+i))}</p></div>`).join('')}</div>`;
  else body=m.ans.map(([q,k])=>{const v=val(k);return `<div class="ans"><p class="q2">${esc(q.toUpperCase())}</p><p class="${v?'':'empty'}">${v?esc(v):'(sin respuesta)'}</p></div>`}).join('');
  $('#res').innerHTML=`<p class="clear">${m.id==='jefe'?'¡JEFE VENCIDO!':'MISIÓN CUMPLIDA'}</p><p class="who">${m.tag} · ${esc(m.name)} · ${who}</p>${body}${m.id==='jefe'?'<div class="sendbox"><p id="send-st" aria-live="polite"></p><button class="btn y" id="send">Enviar a Tinta</button></div><div class="row"><button class="btn red" id="copy">Copiar todo para WhatsApp</button><span class="pickout" id="copied" aria-live="polite"></span></div><textarea id="dump" readonly style="display:none;min-height:200px" aria-label="Texto para copiar"></textarea><p class="lead">En el laboratorio práctico final convertimos este texto en pieza gráfica.</p>':'<p class="lead">Comparte esta pantalla con tu grupo o léela en la sala principal.</p>'}`;
  const i=MIS.indexOf(m);$('#nextm').style.display=i<MIS.length-1?'':'none';
@@ -468,28 +477,36 @@ $('#quiz').addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)r
 const fill=(el,ids,tpl)=>{el.innerHTML=tpl(ids.map(id=>{const e=$('#'+id),v=e.value.trim();return v?esc(v):`<span class="ph">${esc(e.placeholder)}</span>`}))};
 const renderAncla=()=>{const n=$$('[data-w]').reduce((t,e)=>t+words(e.value),0),w=$('#wtotal');if(w){w.textContent=n+' palabras';w.style.color=n>350?'#FF7A7A':(n>=250?'#7CFF9E':'#fff')}};
 const renderLog=()=>{};
-$('#slots').innerHTML=SLOTS.map((s,i)=>`<div class="slot"><label class="lb" for="c${i}"><span>Slide ${i+1} · ${s[0]}</span><span class="wc" id="wc${i}">0/80</span></label><textarea id="c${i}" data-k="c${i}" data-slide="${i}" placeholder="${esc(s[1])}"></textarea></div>`).join('');
+$('#slots').innerHTML=SLOTS.map((s,i)=>`<div class="slot"><label class="lb" for="c${i}"><span>Slide ${i+1} · ${s[0]}</span><span class="wc" id="wc${i}">0/80</span></label><textarea id="c${i}" data-k="c${i}" data-slide="${i}" placeholder="${esc(s[1])}"></textarea><div class="vid"><label class="lb" for="v${i}">VIDEO · lo que se ve</label><textarea id="v${i}" data-k="v${i}" data-slide="${i}" placeholder="Tú a cámara, un mapa, un documento, texto en pantalla, la fuente…"></textarea></div></div>`).join('');
 $('#dots').innerHTML=SLOTS.map(()=>'<i></i>').join('');
 let cur=0;const words=t=>(t.trim().match(/\S+/g)||[]).length;
-const renderPhone=()=>{const t=$('#c'+cur).value.trim();$('#psc').className='psc'+(cur===0?' s0':'');$('#stag').textContent=SLOTS[cur][0].toUpperCase();
+const renderFmt=()=>{const v=isV(),J=$('[data-s="jefe"]');J.classList.toggle('vmode',v);$$('[data-fmt]').forEach(b=>b.classList.toggle('on',b.dataset.fmt===(v?'video':'carrusel')));
+ $('#j-h').textContent=v?'Tu guion de video en texto':'Tu carrusel en texto';$('#j-fin').textContent=v?'Terminar guion ▸':'Terminar carrusel ▸';
+ $('#j-lead').textContent=v?'Convierte tu artículo en un guion de 60 a 90 segundos, sin simplificar tu análisis: un argumento por escena. En cada escena escribes el AUDIO (lo que dices, frases cortas) y el VIDEO (lo que se ve: tú a cámara, un mapa, un documento, la fuente en pantalla). Las marcadas como opcionales puedes dejarlas vacías.':'Convierte tu artículo en un carrusel de 9 a 12 slides, sin simplificar tu análisis: un argumento por slide. Las marcadas como opcionales puedes dejarlas vacías. Al tocar una caja, el celular te muestra cómo se lee. Un titular corto y hasta 80 palabras por slide: el carrusel de Tinta usa unas 60.';
+ SLOTS.forEach((s,i)=>{$('#c'+i).closest('.slot').querySelector('label span').textContent=`${U()} ${i+1} · ${s[0]}${v?' · AUDIO':''}`});
+ $$('#check label span').forEach((sp,i)=>sp.textContent=(v?CHECK_V:CHECK_C)[i])};
+const renderPhone=()=>{const t=$('#c'+cur).value.trim(),v=isV();$('#psc').className='psc'+(cur===0?' s0':'');$('#stag').textContent=(v?'AUDIO · ':'')+SLOTS[cur][0].toUpperCase();$('#svtx').textContent=v?'🎬 '+($('#v'+cur).value.trim()||'Lo que se ve'):'';
  $('#stxt').textContent=t||SLOTS[cur][1];$('#stxt').style.opacity=t?1:.55;$('#spg').textContent=(cur+1)+'/'+SLOTS.length;$$('#dots i').forEach((d,i)=>d.classList.toggle('on',i===cur));
- SLOTS.forEach((_,i)=>{const n=words($('#c'+i).value),w=$('#wc'+i);w.textContent=n+'/80';w.classList.toggle('over',n>80)})};
-$('#prev').addEventListener('click',()=>{cur=(cur+6)%7;renderPhone()});$('#next').addEventListener('click',()=>{cur=(cur+1)%7;renderPhone()});
+ SLOTS.forEach((_,i)=>{const n=words($('#c'+i).value),w=$('#wc'+i);w.textContent=v?n+' pal.':n+'/80';w.classList.toggle('over',!v&&n>80)});
+ const tot=SLOTS.reduce((t,_,i)=>t+words($('#c'+i).value),0),sec=Math.round(tot/2.5),d=$('#dur');d.textContent=`AUDIO: ${tot} palabras · unos ${sec} segundos${sec>90?' · ¡pasa de 90! recorta':(sec>=60?' · ¡bien!':' · la meta: 60 a 90')}`;d.style.color=sec>90?'#FF7A7A':(sec>=60?'#7CFF9E':'#fff')};
+$('#prev').addEventListener('click',()=>{cur=(cur+SLOTS.length-1)%SLOTS.length;renderPhone()});$('#next').addEventListener('click',()=>{cur=(cur+1)%SLOTS.length;renderPhone()});
+$$('[data-fmt]').forEach(b=>b.addEventListener('click',()=>{store.formato=b.dataset.fmt;save();renderFmt();renderPhone()}));
 $('#slots').addEventListener('focusin',e=>{if(e.target.dataset.slide){cur=+e.target.dataset.slide;renderPhone()}});
 $('#check').innerHTML=CHECK.map((c,i)=>`<label><input type="checkbox" data-k="ck${i}"><span>${esc(c)}</span></label>`).join('');
 const renderCheck=()=>{const n=$$('#check input:checked').length;$('#okmsg').textContent=n===7?'· ¡LISTO!':`· ${n}/7`};
 $$('[data-k]').forEach(el=>{const k=el.dataset.k;if(store[k]!==undefined){if(el.type==='checkbox')el.checked=!!store[k];else el.value=store[k]}
  el.addEventListener(el.type==='checkbox'?'change':'input',()=>{store[k]=el.type==='checkbox'?el.checked:el.value;if(el.value&&el.value.trim())el.style.borderColor='';save();renderAncla();renderLog();renderPhone();renderCheck()})});
-renderAncla();renderLog();renderPhone();renderCheck();
+renderAncla();renderLog();renderFmt();renderPhone();renderCheck();
 // ==== Envío a Tinta (Google Form) y vista de la profe ====
 const TINTA_CFG={form:'https://docs.google.com/forms/d/e/1FAIpQLSfaH1tKBAXpbKwL8nUoF5X1rShkZQHlkiaBZDGjDwP3emOA7Q/viewform',entries:{nombre:'627831773',grupo:'1076377078',tema:'1413890302',audiencia:'1337567561',gancho:'1011564577',carrusel:'358109289'},csv:'https://docs.google.com/spreadsheets/d/1Guc5iO_qnhrr7G0jDX_lfSyXB54A_BVbx1RKq6wFb00/gviz/tq?tqx=out:csv&gid=2063487245',profe:'TINTAPROFE'};
 const cfgOK=()=>!!(TINTA_CFG.form&&TINTA_CFG.entries.carrusel);
-const slidesTxt=()=>SLOTS.map((s,i)=>[s,i]).filter(([s,i])=>val('c'+i)).map(([s,i],k)=>`SLIDE ${k+1} · ${s[0].replace(' (opcional)','')}\n${val('c'+i)}`).join('\n\n');
+const pieceTxt=(g=val)=>SLOTS.map((s,i)=>[s,i]).filter(([s,i])=>g('c'+i)).map(([s,i],k)=>isV()?`ESCENA ${k+1} · ${s[0].replace(' (opcional)','')}\nAUDIO: ${g('c'+i)}${g('v'+i)?'\nVIDEO: '+g('v'+i):''}`:`SLIDE ${k+1} · ${s[0].replace(' (opcional)','')}\n${g('c'+i)}`).join('\n\n');
+const slidesTxt=()=>(isV()?'FORMATO · Guion de video\n':'FORMATO · Carrusel\n')+'\n'+pieceTxt();
 async function sendToTinta(){const st=$('#send-st');if(!cfgOK()){if(st)st.textContent='El envío automático no está activo. Usa «Copiar todo» y pégalo en el grupo.';return}
  const E=TINTA_CFG.entries,f=new URLSearchParams();const put=(id,v)=>{if(id)f.append(''+id,v||'')};
  put(E.nombre,val('nombre'));put(E.grupo,val('grupo'));put(E.tema,val('caso'));put(E.audiencia,val('persona'));put(E.gancho,val('c0'));put(E.carrusel,slidesTxt()+(val('fuentes')?'\n\nFuentes: '+val('fuentes'):''));
  if(st)st.textContent='Enviando…';
- try{await fetch(TINTA_CFG.form.replace(/\/viewform.*$/,'/formResponse'),{method:'POST',mode:'no-cors',body:f});store.sent=Date.now();save();if(st)st.textContent='✓ Tu carrusel se envió a Tinta. Si lo editas, vuelve a enviarlo.'}
+ try{await fetch(TINTA_CFG.form.replace(/\/viewform.*$/,'/formResponse'),{method:'POST',mode:'no-cors',body:f});store.sent=Date.now();save();if(st)st.textContent=`✓ Tu ${isV()?'guion':'carrusel'} se envió a Tinta. Si lo editas, vuelve a enviarlo.`}
  catch(e){if(st)st.textContent='No se pudo enviar. Revisa tu conexión y toca «Enviar a Tinta» otra vez.'}}
 const parseCSV=t=>{const rows=[];let r=[],c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}else if(ch==='"')q=true;else if(ch===','){r.push(c);c=''}else if(ch==='\n'){r.push(c);rows.push(r);r=[];c=''}else if(ch!=='\r')c+=ch}if(c||r.length){r.push(c);rows.push(r)}return rows};
 let PF=[];
@@ -506,7 +523,7 @@ function renderProfe(){const q=($('#pf-filter').value||'').toLowerCase(),L=$('#p
 $('#to-profe').addEventListener('click',()=>show('profe'));
 $('#pf-open').addEventListener('click',()=>{if(norm($('#pf-key').value)===norm(TINTA_CFG.profe)){$('#pf-lock').style.display='none';$('#pf-view').style.display='';if(TINTA_CFG.csv)$('#pf-csv').href=TINTA_CFG.csv;else $('#pf-csv').style.display='none';loadProfe()}else $('#pf-err').textContent='Clave incorrecta.'});
 $('#pf-refresh').addEventListener('click',loadProfe);$('#pf-filter').addEventListener('input',renderProfe);
-async function copyAll(){const g=k=>val(k);const txt=['CARRUSEL · Tinta Camp III',`Nombre: ${g('nombre')}${g('grupo')?' ('+g('grupo')+')':''}`,`Caso: ${g('caso')}`,`Personaje: ${g('persona')}`,`Hipótesis: ${g('hipotesis')}`,'',...SLOTS.map((s,i)=>[s,i]).filter(([s,i])=>g('c'+i)).map(([s,i],k)=>`SLIDE ${k+1} · ${s[0].replace(' (opcional)','')}\n${g('c'+i)}`),'',`Fuentes: ${g('fuentes')}`].join('\n');
+async function copyAll(){const g=k=>val(k);const txt=[(isV()?'GUION DE VIDEO':'CARRUSEL')+' · Tinta Camp III',`Nombre: ${g('nombre')}${g('grupo')?' ('+g('grupo')+')':''}`,`Caso: ${g('caso')}`,`Personaje: ${g('persona')}`,`Hipótesis: ${g('hipotesis')}`,'',pieceTxt(g),'',`Fuentes: ${g('fuentes')}`].join('\n');
  const d=$('#dump');d.value=txt;try{await navigator.clipboard.writeText(txt);$('#copied').textContent='¡Copiado!'}catch(e){d.style.display='block';d.select();$('#copied').textContent='Selecciona y copia el texto'}}
 
 /* arranque */
