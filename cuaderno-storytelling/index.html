@@ -482,11 +482,11 @@ $$('[data-k]').forEach(el=>{const k=el.dataset.k;if(store[k]!==undefined){if(el.
  el.addEventListener(el.type==='checkbox'?'change':'input',()=>{store[k]=el.type==='checkbox'?el.checked:el.value;if(el.value&&el.value.trim())el.style.borderColor='';save();renderAncla();renderLog();renderPhone();renderCheck()})});
 renderAncla();renderLog();renderPhone();renderCheck();
 // ==== Envío a Tinta (Google Form) y vista de la profe ====
-const TINTA_CFG={form:'',entries:{nombre:'',grupo:'',tema:'',audiencia:'',gancho:'',carrusel:''},csv:'',profe:'TINTAPROFE'};
+const TINTA_CFG={form:'https://docs.google.com/forms/d/e/1FAIpQLSfaH1tKBAXpbKwL8nUoF5X1rShkZQHlkiaBZDGjDwP3emOA7Q/viewform',entries:{nombre:'627831773',grupo:'1076377078',tema:'1413890302',audiencia:'1337567561',gancho:'1011564577',carrusel:'358109289'},csv:'',profe:'TINTAPROFE'};
 const cfgOK=()=>!!(TINTA_CFG.form&&TINTA_CFG.entries.carrusel);
 const slidesTxt=()=>SLOTS.map((s,i)=>[s,i]).filter(([s,i])=>val('c'+i)).map(([s,i],k)=>`SLIDE ${k+1} · ${s[0].replace(' (opcional)','')}\n${val('c'+i)}`).join('\n\n');
 async function sendToTinta(){const st=$('#send-st');if(!cfgOK()){if(st)st.textContent='El envío automático no está activo. Usa «Copiar todo» y pégalo en el grupo.';return}
- const E=TINTA_CFG.entries,f=new URLSearchParams();const put=(id,v)=>{if(id)f.append('entry.'+id,v||'')};
+ const E=TINTA_CFG.entries,f=new URLSearchParams();const put=(id,v)=>{if(id)f.append(''+id,v||'')};
  put(E.nombre,val('nombre'));put(E.grupo,val('grupo'));put(E.tema,val('caso'));put(E.audiencia,val('persona'));put(E.gancho,val('c0'));put(E.carrusel,slidesTxt()+(val('fuentes')?'\n\nFuentes: '+val('fuentes'):''));
  if(st)st.textContent='Enviando…';
  try{await fetch(TINTA_CFG.form.replace(/\/viewform.*$/,'/formResponse'),{method:'POST',mode:'no-cors',body:f});store.sent=Date.now();save();if(st)st.textContent='✓ Tu carrusel se envió a Tinta. Si lo editas, vuelve a enviarlo.'}
