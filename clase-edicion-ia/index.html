@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edita tus videos con Claude · Press Start</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,900&family=Instrument+Serif:ital@1&family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* VOICE: clase de Tinta Digital en clave videojuego, como Tinta Camp "Press Start"
+   IDEA: la clase es un juego de niveles; editar un reel = pasar pantallas
+   PICTURE: consola, mapa de niveles y un celular que muestra cada efecto en vivo
+   COLOUR/TYPE: azul estrellado, consola gris, amarillo #FFE600, rojo; Montserrat 900 + Silkscreen
+   LAYOUT: escenario 1600x900 escalado, HUD con XP, una idea por pantalla */
+:root{--y:#FFE600;--blue:#1B2DB0;--navy:#0B0C4A;--red:#E01B1B;--pink:#C2004E;--g1:#4D4D4D;--blk:#080808;--lav:#DCDDFF;--vio:#7B5CFF;--pix:'Silkscreen',monospace;--sans:'Montserrat',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:var(--sans);color:#fff}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#000}
+#stage{position:relative;width:1600px;height:900px;flex:none;transform-origin:center center;overflow:hidden;background:#0F0E0D}
+.slide{position:absolute;inset:0;display:none;overflow:hidden}
+.slide.on{display:block;animation:boot .45s steps(6) both}
+@keyframes boot{0%{clip-path:inset(0 0 100% 0);filter:brightness(2)}100%{clip-path:inset(0 0 0 0);filter:none}}
+.in{position:absolute;inset:0;padding:110px 120px 90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;text-align:center}
+.stars{background-color:#14179A;background-image:radial-gradient(circle,#fff 1.4px,transparent 2.4px),radial-gradient(circle,#A9AEFF 1.6px,transparent 2.8px),linear-gradient(#2A31C9,#2A31C9),linear-gradient(#2A31C9,#2A31C9),linear-gradient(#2A31C9,#2A31C9),linear-gradient(#2A31C9,#2A31C9),linear-gradient(180deg,#1C22C2 0%,#0B0C4A 100%);background-size:190px 190px,123px 123px,30px 30px,20px 20px,40px 40px,24px 24px,100% 100%;background-position:12px 30px,60px 8px,7% 22%,93% 16%,86% 80%,10% 84%,0 0;background-repeat:repeat,repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat}
+.squares{background-color:#050505;background-image:linear-gradient(#262626,#262626),linear-gradient(#262626,#262626),linear-gradient(#262626,#262626),linear-gradient(#1E1E1E,#1E1E1E),linear-gradient(#262626,#262626),linear-gradient(#1E1E1E,#1E1E1E),linear-gradient(#262626,#262626);background-size:60px 60px,24px 24px,40px 40px,76px 76px,18px 18px,32px 32px,48px 48px;background-position:5% 14%,40% 7%,90% 18%,9% 80%,62% 94%,95% 66%,52% 42%;background-repeat:no-repeat}
+.console{background-color:#9E9E9E;background-image:linear-gradient(#B4B4B4,#B4B4B4),linear-gradient(#B4B4B4,#B4B4B4),linear-gradient(#B4B4B4,#B4B4B4),linear-gradient(#B4B4B4,#B4B4B4),linear-gradient(#B4B4B4,#B4B4B4);background-size:40px 40px,22px 22px,54px 54px,30px 30px,18px 18px;background-position:93% 12%,86% 26%,8% 86%,97% 72%,30% 8%;background-repeat:no-repeat;color:#0F0E0D}
+.vline{position:absolute;top:0;bottom:0;width:3px;background:var(--vio)}
+.bars{position:absolute;top:74px;display:flex;gap:14px}
+.bars i{display:block;width:28px;height:76px;background:#1F1F1F;border-bottom:5px solid #3F3F3F}
+.console .bars i{background:var(--g1);border-bottom-color:#2A2A2A}
+.cross{position:relative;flex:none;width:132px;height:132px}
+.cross:before,.cross:after{content:"";position:absolute;background:#3F3F3F;box-shadow:0 6px 0 #6E6E6E}
+.cross:before{left:44px;top:0;width:44px;height:132px}.cross:after{left:0;top:44px;width:132px;height:44px}
+.btns{position:relative;flex:none;width:150px;height:120px}
+.btns i{position:absolute;width:62px;height:62px;border-radius:50%;background:var(--pink);border:9px solid #6E6E6E}
+.btns i:first-child{left:0;bottom:0}.btns i:last-child{right:0;top:0}
+#hud{position:absolute;left:0;right:0;top:0;height:74px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;z-index:20;pointer-events:none}
+#lvl{font-family:var(--pix);font-weight:700;font-size:20px;background:var(--y);color:#0F0E0D;padding:8px 18px;box-shadow:0 5px 0 rgba(0,0,0,.35)}
+#xpwrap{display:flex;align-items:center;gap:14px;font-family:var(--pix);font-size:16px}
+#xp{width:360px;height:18px;background:rgba(0,0,0,.55);border:3px solid #fff;padding:2px}
+#xpbar{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,var(--y) 0 14px,transparent 14px 18px);transition:width .4s steps(8)}
+#oneup{font-family:var(--pix);font-weight:700;font-size:18px;background:rgba(0,0,0,.55);padding:8px 14px}
+#oneup b{color:var(--y)}
+#tag{position:absolute;right:40px;bottom:26px;font-family:var(--pix);font-size:16px;z-index:20;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.6)}
+#ctrl{position:absolute;left:40px;bottom:22px;z-index:20;display:flex;gap:10px;opacity:.3;transition:opacity .2s}
+#ctrl:hover{opacity:1}
+#ctrl button{font-family:var(--pix);font-size:15px;background:rgba(0,0,0,.7);color:#fff;border:2px solid #fff;padding:6px 12px;cursor:pointer}
+.light #xpwrap{color:#0F0E0D}.light #xp{border-color:#0F0E0D}.light #xpbar{background:repeating-linear-gradient(90deg,var(--blue) 0 14px,transparent 14px 18px)}.light #tag{color:#0F0E0D;text-shadow:none}
+.pix{font-family:var(--pix);font-weight:700}
+.kick{font-family:var(--pix);font-size:24px;color:var(--y);margin:0}
+.console .kick{color:var(--blue)}
+h1,h2{margin:0;font-weight:900;letter-spacing:-.035em;line-height:.98}
+h2{font-size:72px}
+h2 .pix,h1 .pix{color:var(--y);letter-spacing:-.02em}
+.console h2 .pix{color:var(--blue)}
+.serif{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.01em}
+.lead{font-size:30px;line-height:1.4;font-weight:600;color:var(--lav);margin:0;max-width:1180px}
+.console .lead{color:#1a1a1a}
+.lead b{color:#fff;font-weight:800}.console .lead b{color:#0F0E0D}
+.yl{color:var(--y)}
+.frame{background:var(--g1);border-radius:18px 18px 18px 60px;padding:24px;box-shadow:inset 0 0 40px rgba(0,0,0,.35)}
+.screen{background:var(--blk);border-radius:12px;padding:40px 52px;color:#fff}
+.win{background:var(--g1);border-radius:12px 12px 12px 30px;padding:12px;text-align:left;color:#fff}
+.win>div{background:var(--blk);border-radius:8px;padding:26px;height:100%;display:flex;flex-direction:column;gap:12px}
+.win .n{font-family:var(--pix);font-weight:700;font-size:36px;color:var(--y);line-height:1}
+.win h3{margin:0;font-size:29px;font-weight:900;letter-spacing:-.02em;line-height:1.1}
+.win p{margin:0;font-size:22px;line-height:1.4;font-weight:600;color:#cfcfcf}
+.win.blue{background:var(--navy)}.win.blue>div{background:var(--blue)}
+.win.blue p{color:var(--lav)}
+.grid{display:grid;gap:22px;width:100%}
+.pill{display:inline-block;font-family:var(--pix);font-weight:700;font-size:22px;background:var(--y);color:#0F0E0D;padding:10px 22px}
+.chip{display:inline-flex;align-items:center;justify-content:center;min-height:62px;padding:0 40px;border-radius:999px;font-family:var(--pix);font-weight:700;font-size:26px;color:#fff;background:var(--blue);box-shadow:0 6px 0 #6E6E6E;border:0;cursor:pointer}
+.chip.red{background:var(--red)}
+.chip:active{transform:translateY(4px);box-shadow:0 2px 0 #6E6E6E}
+.chat{display:flex;align-items:center;gap:22px;background:#fff;color:#0F0E0D;border-radius:22px 22px 22px 4px;padding:24px 34px;font-size:34px;font-weight:800;text-align:left;box-shadow:8px 8px 0 var(--navy);max-width:1200px}
+.blink{animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.f{opacity:0;transform:translateY(16px);transition:opacity .25s,transform .25s steps(4)}
+.f.show{opacity:1;transform:none}
+/* prompt boxes */
+.prompt{position:relative;background:#000;border:4px solid var(--y);padding:26px 30px 26px;text-align:left;font-family:var(--mono);font-size:23px;line-height:1.55;color:#fff;box-shadow:8px 8px 0 rgba(0,0,0,.5)}
+.prompt .c{color:var(--y);font-weight:700}
+.copy{position:absolute;right:-4px;top:-46px;font-family:var(--pix);font-size:15px;background:var(--y);color:#0F0E0D;border:0;padding:9px 14px;cursor:pointer;box-shadow:0 4px 0 #8a7c00}
+/* checklist */
+.check{display:flex;align-items:center;gap:22px;background:#000;border:3px solid #fff;padding:16px 22px;text-align:left;cursor:pointer;font-size:26px;font-weight:700;color:#fff;font-family:var(--sans);width:100%}
+.check .bx{flex:none;width:42px;height:42px;border:4px solid var(--y);display:flex;align-items:center;justify-content:center;font-family:var(--pix);font-size:24px;color:#0F0E0D}
+.check.ok{border-color:var(--y)}.check.ok .bx{background:var(--y)}.check.ok .bx:after{content:"✓"}
+.check.ok .t{color:#9E9E9E;text-decoration:line-through}
+.check .t b{color:var(--y)}
+/* phone */
+.phone{position:relative;flex:none;width:300px;height:560px;background:#111;border-radius:40px;padding:14px;box-shadow:0 0 0 6px #6E6E6E,12px 12px 0 rgba(0,0,0,.45)}
+.scr{position:relative;width:100%;height:100%;border-radius:28px;overflow:hidden;background:linear-gradient(180deg,#2A31C9,#0B0C4A)}
+.cam{position:absolute;inset:0;transform-origin:50% 45%}
+.cam .wall{position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,#3a44d8 0 40px,transparent 41px),radial-gradient(circle at 80% 35%,#2a31c9 0 22px,transparent 23px),linear-gradient(180deg,#2A31C9,#14179A)}
+.cam .head{position:absolute;left:50%;top:150px;width:110px;height:120px;margin-left:-55px;background:#E9B48A;border-radius:44% 44% 40% 40%;box-shadow:inset -10px -8px 0 #c9946a}
+.cam .hair{position:absolute;left:50%;top:136px;width:122px;height:52px;margin-left:-61px;background:#1a1a1a;border-radius:50px 50px 10px 10px}
+.cam .body{position:absolute;left:50%;top:268px;width:200px;height:320px;margin-left:-100px;background:var(--red);border-radius:80px 80px 0 0;box-shadow:inset -14px 0 0 #b31414}
+.cam .eye{position:absolute;top:205px;width:12px;height:12px;background:#111}
+.subs{position:absolute;left:0;right:0;top:395px;text-align:center;font-weight:900;font-size:24px;color:#fff;text-shadow:0 3px 0 #000,0 0 6px #000;z-index:3}
+.subs b{color:var(--y)}
+.ov{position:absolute;inset:0;pointer-events:none;z-index:4;opacity:0}
+.raw{position:absolute;left:16px;top:16px;z-index:5;font-family:var(--pix);font-size:14px;background:var(--red);padding:4px 10px}
+/* effects demo */
+.fx-zoom .cam{animation:zoom 2s steps(1) infinite}
+@keyframes zoom{0%{transform:none}30%{transform:scale(1.18)}80%{transform:none}}
+.fx-zoom-lento .cam{animation:zl 3s ease-in-out infinite}
+@keyframes zl{0%{transform:none}90%{transform:scale(1.32)}100%{transform:none}}
+.fx-vibrar .cam{animation:shake .12s linear infinite}
+@keyframes shake{0%{transform:translate(0,0) scale(1.06)}25%{transform:translate(7px,-5px) scale(1.06)}50%{transform:translate(-6px,6px) scale(1.06)}75%{transform:translate(5px,4px) scale(1.06)}}
+.fx-lento .cam{animation:bob 2.4s ease-in-out infinite}.fx-rapido .cam{animation:bob .3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-14px)}}
+.spd{position:absolute;right:16px;top:16px;z-index:6;font-family:var(--pix);font-size:22px;background:var(--y);color:#0F0E0D;padding:4px 10px;display:none}
+.fx-lento .spd,.fx-rapido .spd{display:block}
+.fx-flash .o-flash{animation:flash 1.6s steps(8) infinite;background:#fff}
+@keyframes flash{0%{opacity:1}30%,100%{opacity:0}}
+.fx-barrido .o-sweep{opacity:1;background:var(--red);width:60%;animation:sweep 1.6s linear infinite}
+@keyframes sweep{0%{transform:translateX(-110%)}60%,100%{transform:translateX(190%)}}
+.fx-bn .cam{filter:grayscale(1) contrast(1.1)}
+.fx-glitch .cam{animation:gl .5s steps(2) infinite}
+@keyframes gl{0%{filter:hue-rotate(0);transform:translate(0)}25%{filter:hue-rotate(90deg) saturate(2);transform:translate(-8px,2px)}50%{filter:none;transform:translate(6px,-3px) skewX(4deg)}75%{filter:hue-rotate(-60deg) saturate(3);transform:translate(-3px,0)}}
+.fx-vineta .o-vig{opacity:1;background:radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,.85) 100%)}
+.fx-desenfoque .cam{filter:blur(7px)}
+.fx-marco .o-frame{opacity:1;box-shadow:inset 0 0 0 12px var(--red)}
+.fx-pantalla-dividida .o-split{opacity:1;bottom:auto;height:50%;background:repeating-linear-gradient(45deg,#FFE600 0 20px,#e6cf00 20px 40px);display:flex;align-items:center;justify-content:center;font-family:var(--pix);font-size:20px;color:#0F0E0D}
+.fx-pantalla-dividida .cam{transform:translateY(25%)}
+.o-big{display:flex;align-items:center;justify-content:center;font-weight:900;font-size:76px;color:var(--y);text-shadow:5px 5px 0 #000;letter-spacing:-.03em}
+.fx-texto .o-big{opacity:1;animation:pop 1.6s infinite}
+@keyframes pop{0%{transform:scale(.3)}12%{transform:scale(1.15)}20%,100%{transform:scale(1)}}
+.o-hl{display:flex;align-items:flex-start;justify-content:center;padding-top:110px}
+.o-hl span{background:var(--red);color:#fff;font-weight:900;font-size:30px;padding:8px 16px}
+.fx-resaltar .o-hl{opacity:1;animation:pop 1.6s infinite}
+.o-low{top:auto;bottom:70px;left:-10px;right:auto;width:230px}
+.o-low div{background:#fff;color:#0F0E0D;font-weight:900;font-size:22px;padding:10px 16px}
+.o-low i{display:block;background:var(--red);font-style:normal;font-size:16px;font-weight:700;padding:6px 16px;width:80%}
+.fx-rotulo .o-low{opacity:1;animation:slin 2.4s infinite}
+@keyframes slin{0%{transform:translateX(-100%)}15%,100%{transform:none}}
+.o-count{display:flex;align-items:center;justify-content:center;font-weight:900;font-size:180px;color:#fff;text-shadow:8px 8px 0 #000}
+.fx-cuenta .o-count{opacity:1}
+.o-ring{left:95px;top:120px;right:auto;bottom:auto;width:110px;height:110px;border:7px solid var(--y);border-radius:50%}
+.fx-senalar .o-ring{opacity:1;animation:pop 1.6s infinite}
+.o-bar{bottom:auto;height:10px;background:var(--y);transform-origin:left;transform:scaleX(0)}
+.fx-barra .o-bar{opacity:1;animation:bar 3s linear infinite}
+@keyframes bar{to{transform:scaleX(1)}}
+/* catalog */
+.tabs{display:flex;gap:12px}
+.tab{font-family:var(--pix);font-size:18px;background:#000;color:#fff;border:3px solid #fff;padding:10px 16px;cursor:pointer}
+.tab.sel{background:var(--y);color:#0F0E0D;border-color:var(--y)}
+.fxbtns{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:100%}
+.fxb{font-family:var(--mono);font-weight:700;font-size:21px;text-align:left;background:var(--blue);color:#fff;border:0;border-left:8px solid var(--navy);padding:12px 16px;cursor:pointer;box-shadow:0 4px 0 var(--navy)}
+.fxb.sel{background:var(--y);color:#0F0E0D;border-left-color:var(--red)}
+.fxb[hidden]{display:none}
+.det{background:#000;border:4px solid var(--y);padding:22px 26px;text-align:left;display:flex;flex-direction:column;gap:12px;width:100%}
+.det .cd{font-family:var(--mono);font-weight:700;font-size:30px;color:var(--y)}
+.det p{margin:0;font-size:22px;line-height:1.4;font-weight:600}
+.det .ask{font-family:var(--mono);font-size:19px;color:var(--lav);background:#14179A;padding:10px 14px}
+/* skill anatomy */
+.code{background:#000;border:4px solid #fff;padding:22px 26px;text-align:left;font-family:var(--mono);font-size:22px;line-height:1.6;width:620px;flex:none}
+.code .ln{display:block;padding:0 8px;cursor:pointer;border-left:6px solid transparent}
+.code .ln:hover,.code .ln.sel{background:#1B2DB0;border-left-color:var(--y)}
+.code .k{color:var(--y)}
+/* flip */
+.flip{cursor:pointer}
+.flip .back{display:none}.flip.open .front{display:none}.flip.open .back{display:flex}
+.stamp{position:absolute;right:-30px;top:-40px;font-family:var(--pix);font-weight:700;font-size:52px;color:var(--red);border:7px solid var(--red);padding:4px 18px;transform:rotate(-10deg) scale(0);transition:transform .2s steps(4);background:rgba(255,255,255,.9)}
+.stamp.on{transform:rotate(-10deg) scale(1)}
+/* timer */
+.timer{display:flex;align-items:center;gap:22px;background:#000;border:4px solid var(--y);padding:12px 22px;box-shadow:8px 8px 0 rgba(0,0,0,.5)}
+.timer .t{font-family:var(--pix);font-weight:700;font-size:60px;color:var(--y);min-width:230px;text-align:center;line-height:1}
+.timer button{font-family:var(--pix);font-size:22px;background:var(--y);color:#0F0E0D;border:0;width:58px;height:58px;cursor:pointer;box-shadow:0 5px 0 #8a7c00}
+.timer .lbl{font-family:var(--pix);font-size:16px;color:#fff;max-width:120px;line-height:1.2;text-align:left}
+.timer.warn{border-color:var(--red)}.timer.warn .t{color:var(--red);animation:blink .6s steps(2) infinite}
+.timer.done{border-color:var(--red);background:var(--red)}.timer.done .t{color:#fff;font-size:40px}
+/* map */
+.map{position:relative;width:1340px;height:300px}
+.map svg{position:absolute;inset:0}
+.node{position:absolute;width:150px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;background:none;border:0;color:#fff;font-family:var(--sans)}
+.node .sq{width:86px;height:86px;background:var(--blue);border:5px solid #fff;display:flex;align-items:center;justify-content:center;font-family:var(--pix);font-weight:700;font-size:30px;color:#fff;box-shadow:0 7px 0 var(--navy);transition:transform .15s}
+.node:hover .sq,.node.sel .sq{transform:translateY(-6px);background:var(--y);color:#0F0E0D}
+.node .nm{font-size:18px;font-weight:800;line-height:1.15}
+.node .d{font-family:var(--pix);font-size:15px;color:var(--y)}
+.node.boss .sq{background:var(--red)}
+#lvinfo{width:1100px}
+#lvinfo .screen{padding:22px 34px;text-align:left;display:flex;gap:30px;align-items:center}
+#lvinfo .pix{font-size:24px;color:var(--y);flex:none}
+#lvinfo p{margin:0;font-size:24px;line-height:1.4;font-weight:600}
+#over{position:absolute;inset:0;z-index:50;display:none;align-items:center;justify-content:center;flex-direction:column;gap:24px;background:rgba(224,27,27,.92);font-family:var(--pix);font-weight:700;text-align:center}
+#over.on{display:flex;animation:boot .3s steps(4)}
+#over .big{font-size:110px;color:#fff;line-height:1}
+#over .sm{font-size:32px;color:var(--y)}
+#help{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.88)}
+#help.on{display:flex}
+#help .screen{border:4px solid var(--y);font-size:24px;line-height:1.9;text-align:left}
+#help b{font-family:var(--pix);color:var(--y);display:inline-block;min-width:200px}
+.shot{background:#fff;padding:10px;border-radius:12px 12px 12px 30px;box-shadow:8px 8px 0 rgba(0,0,0,.45)}
+.shot img{display:block;border-radius:6px}
+.sw{display:flex;align-items:center;gap:14px}.sw i{flex:none;width:56px;height:56px;display:block}
+.sw p{margin:0;font-size:21px;font-weight:600}.sw b{color:var(--y)}
+#ctabs .tab{font-size:16px}
+.lk{font-family:var(--sans);font-weight:800;font-size:19px;color:#fff;background:var(--blue);padding:7px 14px;text-decoration:none;box-shadow:0 4px 0 var(--navy)}
+.lk:hover{background:var(--y);color:#0F0E0D}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important}}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+<div id="hud"><span id="lvl">PRESS START</span><span id="xpwrap"><span>XP</span><span id="xp"><span id="xpbar"></span></span></span><span id="oneup">1UP <b id="cnt">01</b></span></div>
+
+<!-- 01 PORTADA -->
+<section class="slide console" data-lvl="INSERT COIN" data-light>
+<span class="vline" style="left:3%"></span><span class="vline" style="right:3%"></span>
+<div class="bars" style="left:7%;top:84px"><i></i><i></i><i></i></div>
+<div class="in" style="gap:30px;padding-top:90px">
+<div class="frame" style="width:1180px"><div class="screen squares" style="padding:52px 60px 44px;display:flex;flex-direction:column;align-items:center;gap:16px">
+<p class="pix" style="margin:0;font-size:26px;color:var(--y)">&gt; CLASE · EDICIÓN DE VIDEO CON IA</p>
+<p style="margin:0;font-weight:900;font-size:104px;letter-spacing:-.045em;line-height:.92">EDITA TU VIDEO<br>CON <span class="pix" style="color:var(--y)">CLAUDE</span></p>
+<p style="margin:6px 0 0;font-weight:800;font-style:italic;font-size:28px;color:var(--lav)">Del video crudo a tu propio kit de skills de edición</p>
+</div></div>
+<div style="display:flex;align-items:center;justify-content:space-between;width:1180px">
+<span class="cross"></span>
+<div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+<button class="chip red blink" style="font-size:36px;min-height:76px;padding:0 54px" onclick="go(1)">PRESS START</button>
+<span class="pill" style="font-size:18px;background:#0F0E0D;color:#fff">TINTA DIGITAL</span>
+</div>
+<span class="btns"><i></i><i></i></span>
+</div>
+</div>
+</section>
+
+<!-- 02 MITO -->
+<section class="slide stars" data-lvl="EL MITO">
+<div class="bars" style="left:0"><i></i><i></i><i></i></div><div class="bars" style="right:0"><i></i><i></i><i></i></div>
+<div class="in" style="gap:44px">
+<p class="kick">&gt; Mucha gente dice que…</p>
+<div style="position:relative">
+<div class="chat" style="font-size:52px;cursor:pointer" onclick="stamp(this)">«La IA no sabe editar videos.»</div>
+<span class="stamp">FALSO</span>
+</div>
+<p class="pix" style="margin:-20px 0 0;font-size:16px;color:var(--lav)">clic en el mensaje</p>
+<h2 class="f" style="font-size:96px">Es cuestión de<br><span class="pix">SABER USARLA</span></h2>
+<p class="lead f">Claude no tiene un botón de «editar»: edita con código. Si le das buenas instrucciones y las guardas como <b>skills</b>, el resultado sale igual cada vez.</p>
+</div>
+</section>
+
+<!-- 03 MAPA -->
+<section class="slide squares" data-lvl="SELECT LEVEL">
+<div class="in" style="gap:18px;padding-top:96px">
+<p class="kick">&gt; La ruta de hoy</p>
+<h2 style="font-size:62px">7 niveles · <span class="pix">1 KIT</span></h2>
+<div class="map" id="map"><svg viewBox="0 0 1340 300"><path d="M70 110 L240 200 L410 110 L580 200 L750 110 L920 200 L1090 110 L1270 200" fill="none" stroke="#fff" stroke-width="6" stroke-dasharray="14 12"/></svg></div>
+<div id="lvinfo"><div class="screen"><span class="pix" id="lvd">NIVEL 1</span><p id="lvt"></p></div></div>
+<p class="pix" style="margin:0;font-size:20px">Primero <span class="yl">tu estilo</span> · después <span class="yl">tu video</span> · al final <span class="yl">tus propias skills</span></p>
+</div>
+</section>
+
+<!-- E1 PORTAL ESTILO -->
+<section class="slide console" data-lvl="NIVEL 1 · TU ESTILO" data-light>
+<span class="vline" style="left:3%"></span><span class="vline" style="right:3%"></span>
+<div class="bars" style="left:7%;top:84px"><i></i><i></i><i></i></div>
+<div class="in">
+<div class="frame" style="width:1180px"><div class="screen squares" style="padding:60px;display:flex;flex-direction:column;align-items:center;gap:22px">
+<span class="pill" style="transform:rotate(-2deg)">NIVEL 1 · ANTES DE EDITAR</span>
+<p style="margin:0;font-weight:900;font-size:110px;letter-spacing:-.04em;line-height:.92">TU ESTILO<br><span class="pix" style="color:var(--y)">VISUAL</span></p>
+<p class="lead" style="color:var(--lav)">Decide una vez cómo se va a ver todo. Después, cada video sale con tu cara.</p>
+</div></div>
+<div style="display:flex;align-items:center;justify-content:space-between;width:1180px">
+<span class="cross"></span><button class="chip red" onclick="next()">START</button><span class="btns"><i></i><i></i></span>
+</div>
+</div>
+</section>
+
+<!-- E2 BONITO O FEO -->
+<section class="slide stars" data-lvl="NIVEL 1 · TU ESTILO">
+<div class="bars" style="left:0"><i></i><i></i><i></i></div><div class="bars" style="right:0"><i></i><i></i><i></i></div>
+<div class="in" style="gap:40px">
+<p class="kick">&gt; Pregunta trampa</p>
+<div style="position:relative">
+<div class="chat" style="font-size:52px;cursor:pointer" onclick="stamp(this)">¿El diseño es bonito o feo?</div>
+<span class="stamp" style="font-size:44px">NINGUNO</span>
+</div>
+<p class="pix" style="margin:-16px 0 0;font-size:16px;color:var(--lav)">clic en la pregunta</p>
+<h2 class="f" style="font-size:92px">Debe ser<br><span class="pix">FUNCIONAL</span></h2>
+<p class="lead f">Que tu imagen <b>realmente comunique algo</b>, y no que solo se vea bonita o se parezca a algo que te gustó.</p>
+</div>
+</section>
+
+<!-- E3 IDENTIDAD -->
+<section class="slide squares" data-lvl="NIVEL 1 · TU ESTILO">
+<div class="in" style="gap:26px">
+<p class="kick">&gt; Tu identidad</p>
+<h2>Tu marca tiene <span class="pix">2 CARAS</span></h2>
+<div style="display:flex;gap:36px;align-items:stretch;width:1360px">
+<div style="display:flex;flex-direction:column;gap:18px;width:520px;flex:none">
+<div class="win"><div style="gap:8px"><span class="n" style="font-size:26px">LO INTANGIBLE</span><h3>Lo que eres</h3><p>Tu voz · tu personalidad · cómo te comportas · tu posicionamiento.</p></div></div>
+<div class="win blue f"><div style="gap:8px"><span class="n" style="font-size:26px">LO TANGIBLE</span><h3>Lo que la gente ve</h3><p>Logotipo · paleta de colores · tipografía · elementos gráficos.</p></div></div>
+</div>
+<div class="shot" style="flex:1"><img src="assets/d/B24.jpg" alt="Mapa de un manual de marca: logotipo, paleta de colores, tipografía y elementos gráficos" style="width:100%;height:440px;object-fit:contain"></div>
+</div>
+<p class="lead f" style="font-size:26px">Lo tangible es justo lo que vas a guardar en tu <b>marca.md</b>.</p>
+</div>
+</section>
+
+<!-- E4 ANATOMIA -->
+<section class="slide console" data-lvl="NIVEL 1 · TU ESTILO" data-light>
+<span class="vline" style="left:3%"></span>
+<div class="in" style="flex-direction:row;gap:50px;text-align:left;padding-top:100px">
+<div class="shot" style="width:820px;flex:none"><img src="assets/d/A10.jpg" alt="Pieza gráfica de Tinta Digital con sus elementos gráficos, paleta de color y tipografías señalados" style="width:100%;display:block"></div>
+<div style="display:flex;flex-direction:column;gap:16px;flex:1">
+<p class="kick">&gt; Anatomía de una pieza</p>
+<h2 style="font-size:60px">Toda pieza tiene <span class="pix">3 PARTES</span></h2>
+<div class="win f"><div style="padding:18px 22px;gap:6px"><span class="n" style="font-size:26px">01</span><h3 style="font-size:25px">Elementos gráficos</h3><p style="font-size:19px">Fotos, ilustraciones, stickers.</p></div></div>
+<div class="win f"><div style="padding:18px 22px;gap:6px"><span class="n" style="font-size:26px">02</span><h3 style="font-size:25px">Paleta de color</h3><p style="font-size:19px">Pocos colores, siempre los mismos.</p></div></div>
+<div class="win f"><div style="padding:18px 22px;gap:6px"><span class="n" style="font-size:26px">03</span><h3 style="font-size:25px">Tipografías</h3><p style="font-size:19px">Una con carácter, otra que se lea.</p></div></div>
+</div>
+</div>
+</section>
+
+<!-- E5 COLOR -->
+<section class="slide stars" data-lvl="NIVEL 1 · COLOR">
+<div class="in" style="gap:20px;padding-top:96px">
+<h2 style="font-size:62px">Arma tu <span class="pix">PALETA</span></h2>
+<div class="tabs" id="ctabs">
+<button class="tab sel" data-c="0">MONOCROMÁTICO</button><button class="tab" data-c="1">ANÁLOGO</button><button class="tab" data-c="2">COMPLEMENTARIO</button><button class="tab" data-c="3">ANÁLOGO + ACENTO</button><button class="tab" data-c="4">TRIÁDICO</button>
+</div>
+<div style="display:flex;gap:34px;align-items:stretch;width:1360px">
+<div style="display:flex;flex-direction:column;gap:14px;width:880px;flex:none">
+<div class="shot"><img id="cimg" src="assets/d/A41.jpg" alt="Combinación de color con ejemplos de piezas" style="width:100%;height:400px;object-fit:contain"></div>
+<p class="lead" id="ctxt" style="font-size:24px;text-align:left"></p>
+</div>
+<div class="det" style="width:auto;flex:1;gap:16px">
+<span class="pix" style="font-size:18px;color:var(--y)">EN TU MARCA.MD: 4 COLORES CON FUNCIÓN</span>
+<div class="sw"><i style="background:#121212;border:2px solid #fff"></i><p><b>Fondo</b> · contorno y fondos</p></div>
+<div class="sw"><i style="background:#F4F1EA"></i><p><b>Texto</b> · subtítulos</p></div>
+<div class="sw"><i style="background:#C6F3A0"></i><p><b>Acento</b> · la palabra que se dice</p></div>
+<div class="sw"><i style="background:#F0A13A"></i><p><b>Secundario</b> · detalles</p></div>
+<p style="font-size:18px;color:var(--lav)">Ejemplo: la paleta de la pieza anterior.<br>Busca la tuya en Color Hunt, Coolors, Adobe Color o Canva.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- E6 TIPOGRAFIA -->
+<section class="slide squares" data-lvl="NIVEL 1 · TIPOGRAFÍA">
+<div class="in" style="gap:20px;padding-top:96px">
+<h2 style="font-size:62px">Elige tus <span class="pix">LETRAS</span></h2>
+<div style="display:flex;gap:34px;align-items:stretch;width:1360px">
+<div style="display:flex;flex-direction:column;gap:14px;width:800px;flex:none">
+<div class="tabs" id="ttabs"><button class="tab sel" data-t="A49">CLASIFICACIÓN</button><button class="tab" data-t="A48">CON CARÁCTER</button></div>
+<div class="shot"><img id="timg" src="assets/d/A49.jpg" alt="Clasificación tipográfica: serif, sans serif, script y decorativa" style="width:100%;height:430px;object-fit:contain"></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px;flex:1;text-align:left">
+<div class="win f"><div style="gap:6px;padding:20px 24px"><span class="n" style="font-size:24px">TÍTULOS</span><p>Una letra con carácter, que tenga impacto. <b style="color:#fff">Ej.: Anton, Bebas Neue.</b></p></div></div>
+<div class="win f"><div style="gap:6px;padding:20px 24px"><span class="n" style="font-size:24px">SUBTÍTULOS</span><p>Muy legible en el celular y en negrita. <b style="color:#fff">Ej.: Inter, Montserrat.</b></p></div></div>
+<div class="win blue f"><div style="gap:6px;padding:20px 24px"><span class="n" style="font-size:24px">REGLA DE ORO</span><p>Máximo 2 o 3. Usa Google Fonts: el kit las descarga solo.</p></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- E7 REFERENCIAS -->
+<section class="slide console" data-lvl="NIVEL 2 · TU TAREA" data-light>
+<span class="vline" style="left:3%"></span><span class="vline" style="right:3%"></span>
+<div class="in" style="flex-direction:row;gap:50px;text-align:left;padding-top:100px">
+<div class="shot" style="width:520px;flex:none"><img src="assets/d/B23.jpg" alt="Moodboard de referencias para una firma de abogados" style="width:100%;display:block"></div>
+<div style="display:flex;flex-direction:column;gap:12px;flex:1" id="refs">
+<p class="kick">&gt; Nivel 2 · Repaso de tu tarea</p>
+<h2 style="font-size:54px">Tus referencias, en <span class="pix">IMAGEN</span></h2>
+<button class="check"><span class="bx"></span><span class="t">Tu <b>logo</b> (o solo el nombre de tu marca).</span></button>
+<button class="check"><span class="bx"></span><span class="t">Una <b>paleta</b> de colores que te guste.</span></button>
+<button class="check"><span class="bx"></span><span class="t"><b>2 o 3 imágenes</b>: tu feed, un afiche, un moodboard o algo que generes con IA.</span></button>
+<button class="check"><span class="bx"></span><span class="t">Una frase: <b>¿qué te gustaría que digan de tu marca?</b></span></button>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span class="pix" style="font-size:16px;color:var(--blue)">DÓNDE BUSCAR:</span>
+<a class="lk" href="https://www.pinterest.com" target="_blank" rel="noopener">Pinterest</a><a class="lk" href="https://www.behance.net" target="_blank" rel="noopener">Behance</a><a class="lk" href="https://dribbble.com" target="_blank" rel="noopener">Dribbble</a><a class="lk" href="https://www.designspiration.com" target="_blank" rel="noopener">Design Inspiration</a></div>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span class="pix" style="font-size:16px;color:var(--blue)">PALETAS:</span>
+<a class="lk" href="https://colorhunt.co" target="_blank" rel="noopener">Color Hunt</a><a class="lk" href="https://coolors.co" target="_blank" rel="noopener">Coolors</a><a class="lk" href="https://color.adobe.com" target="_blank" rel="noopener">Adobe Color</a><a class="lk" href="https://www.canva.com/colors/color-palette-generator/" target="_blank" rel="noopener">Canva</a></div>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span class="pix" style="font-size:16px;color:var(--blue)">CON IA:</span>
+<a class="lk" href="https://chatgpt.com/images" target="_blank" rel="noopener">ChatGPT imágenes</a><a class="lk" href="https://www.canva.com/ai-image-generator/" target="_blank" rel="noopener">Canva</a><a class="lk" href="https://firefly.adobe.com" target="_blank" rel="noopener">Adobe Firefly</a></div>
+<span class="pill" style="align-self:flex-start;font-size:17px;background:var(--red);color:#fff">SIN VIDEOS DE OTROS CREADORES: INSPÍRATE, NO COPIES</span>
+</div>
+</div>
+</section>
+
+<!-- E8 RED FLAGS -->
+<section class="slide squares" data-lvl="NIVEL 2 · RED FLAGS">
+<div class="in" style="gap:24px">
+<p class="kick">&gt; Revisa tus referencias</p>
+<h2><span class="pix" style="color:var(--red)">RED FLAGS</span> de tu identidad</h2>
+<div style="display:flex;gap:34px;align-items:center;width:1360px">
+<div class="shot" style="width:640px;flex:none"><img src="assets/d/B37.jpg" alt="Ejemplos de buen y mal contraste entre texto y fondo" style="width:100%;display:block"></div>
+<div class="grid" style="grid-template-columns:1fr 1fr;gap:16px;flex:1">
+<div class="win flip"><div class="front" style="min-height:150px;justify-content:center;align-items:center"><span class="n" style="color:var(--red)">⚑ 01</span></div><div class="back" style="min-height:150px;flex-direction:column;gap:6px"><h3 style="font-size:23px">Letra que no eres tú</h3><p style="font-size:18px">Tu tipografía no puede mostrar algo que tu marca no es.</p></div></div>
+<div class="win flip"><div class="front" style="min-height:150px;justify-content:center;align-items:center"><span class="n" style="color:var(--red)">⚑ 02</span></div><div class="back" style="min-height:150px;flex-direction:column;gap:6px"><h3 style="font-size:23px">Amontonar todo</h3><p style="font-size:18px">Mejor aire y una idea por pantalla.</p></div></div>
+<div class="win flip"><div class="front" style="min-height:150px;justify-content:center;align-items:center"><span class="n" style="color:var(--red)">⚑ 03</span></div><div class="back" style="min-height:150px;flex-direction:column;gap:6px"><h3 style="font-size:23px">Poco contraste</h3><p style="font-size:18px">Si no se lee en el celular, no sirve.</p></div></div>
+<div class="win flip"><div class="front" style="min-height:150px;justify-content:center;align-items:center"><span class="n" style="color:var(--red)">⚑ 04</span></div><div class="back" style="min-height:150px;flex-direction:column;gap:6px"><h3 style="font-size:23px">Saltarte tu manual</h3><p style="font-size:18px">Si ya definiste tu marca, respétala en cada pieza.</p></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 06 INSTALA -->
+<section class="slide squares" data-lvl="NIVEL 3 · INSTALA EL KIT">
+<div class="in" style="gap:10px;padding-top:88px;padding-bottom:20px">
+<div style="display:flex;align-items:baseline;gap:24px"><p class="kick">&gt; Nivel 3 · Desde la computadora</p><h2 style="font-size:56px">Instala el <span class="pix">KIT</span></h2></div>
+<div class="frame" style="padding:12px;width:960px"><video id="vinst" data-auto data-ar="16/10" src="assets/instalar-kit.mp4" poster="assets/instalar-poster.jpg" muted loop playsinline preload="none" style="display:block;width:100%;aspect-ratio:16/10;background:#000;border-radius:8px"></video></div>
+<div style="display:flex;align-items:center;gap:24px"><p class="pix" style="margin:0;font-size:15px"><span style="color:var(--red)">OJO:</span> no subas la caja · no descomprimas los 3 ZIP · desde el celular no se puede</p><button class="chip" style="font-size:15px;min-height:42px;padding:0 20px" onclick="big('vinst')">⛶ VER EN GRANDE</button><a class="chip red" href="kit-edicion-reels.zip" download style="font-size:15px;min-height:42px;padding:0 20px;text-decoration:none">⬇ DESCARGAR KIT</a></div>
+</div>
+</section>
+
+<!-- 05 KIT -->
+<section class="slide console" data-lvl="NIVEL 3 · TU KIT" data-light>
+<span class="vline" style="left:3%"></span><span class="vline" style="right:3%"></span>
+<div class="in" style="gap:30px">
+<p class="kick">&gt; Qué hace cada skill</p>
+<h2>Con una <span class="pix">SKILL</span>: tu kit trae 3</h2>
+<div class="grid" style="grid-template-columns:repeat(3,1fr);width:1320px">
+<div class="win blue flip"><div class="front" style="min-height:300px"><span class="n">⚔ 01</span><h3 style="font-family:var(--mono);font-size:30px">/editor-reels</h3><p>El montaje.</p><span class="pix" style="margin-top:auto;font-size:15px;color:var(--y)">CLIC: VER PODERES</span></div><div class="back" style="min-height:300px;flex-direction:column;gap:10px"><h3>Hace:</h3><p>Formato vertical 1080×1920 · corta silencios · subtítulos karaoke · título gancho · volumen listo para redes.</p></div></div>
+<div class="win blue flip"><div class="front" style="min-height:300px"><span class="n">🎨 02</span><h3 style="font-family:var(--mono);font-size:30px">/look-reels</h3><p>Tu marca.</p><span class="pix" style="margin-top:auto;font-size:15px;color:var(--y)">CLIC: VER PODERES</span></div><div class="back" style="min-height:300px;flex-direction:column;gap:10px"><h3>Hace:</h3><p>Te pregunta por tu estilo y crea tu <b style="color:#fff">marca.md</b>: colores, fuentes y subtítulos, con vista previa.</p></div></div>
+<div class="win blue flip"><div class="front" style="min-height:300px"><span class="n">✦ 03</span><h3 style="font-family:var(--mono);font-size:30px">/efectos-reels</h3><p>Los efectos.</p><span class="pix" style="margin-top:auto;font-size:15px;color:var(--y)">CLIC: VER PODERES</span></div><div class="back" style="min-height:300px;flex-direction:column;gap:10px"><h3>Hace:</h3><p>19 efectos, cada uno con su código: zoom, cámara lenta, glitch, cuenta regresiva, pantalla dividida y más.</p></div></div>
+</div>
+<p class="lead f" style="font-size:26px"><b>Una skill</b> es una receta guardada: instrucciones que Claude sigue igual cada vez. Te damos 3 listas.</p>
+</div>
+</section>
+
+<!-- 09 EFECTOS -->
+<section class="slide squares" data-lvl="NIVEL 3 · EFECTOS">
+<div class="in" style="gap:28px">
+<p class="kick">&gt; Cómo se piden los efectos</p>
+<h2>Cada efecto tiene un <span class="pix">CÓDIGO</span></h2>
+<p class="lead">Como un truco de videojuego: escribes la skill, el código y <b>cuándo</b> lo quieres.</p>
+<div style="display:flex;gap:16px;align-items:center;font-family:var(--pix);font-size:26px">
+<span class="pill" style="background:var(--blue);color:#fff">/efectos-reels</span><span>+</span><span class="pill">CÓDIGO</span><span>+</span><span class="pill" style="background:#fff">CUÁNDO</span>
+</div>
+<div style="display:flex;gap:30px;width:1340px;align-items:stretch;margin-top:20px">
+<div style="flex:1;display:flex;flex-direction:column;gap:10px"><span class="pix" style="font-size:17px;color:var(--y)">TÚ ELIGES DÓNDE</span>
+<div class="prompt" style="font-size:19px;margin-top:36px;flex:1"><button class="copy" onclick="cp(this)">COPIAR</button><span class="c">/efectos-reels</span> zoom cuando digo «gratis», texto «OJO» en el segundo 3 y barra de progreso</div></div>
+<div style="flex:1.3;display:flex;flex-direction:column;gap:10px"><span class="pix" style="font-size:17px;color:var(--y)">MODO MUESTRA: CLAUDE ELIGE</span>
+<div class="prompt" style="font-size:17px;margin-top:36px;flex:1;line-height:1.5"><button class="copy" onclick="cp(this)">COPIAR</button><span class="c">/efectos-reels</span> aplica 6 a 8 efectos distintos como muestra. Tú decide dónde va cada uno según lo que digo; no uses los primeros 3 segundos ni pantalla-dividida. Al final dame el MP4 y la lista de efectos con su segundo.</div></div>
+</div>
+<p class="pix f" style="margin:0;font-size:18px">Cuenta gratis: <span class="yl">6 a 8 efectos</span> y videos de 30 a 45 s · si se corta, escribe «sigue con los efectos que faltan»</p>
+</div>
+</section>
+
+<!-- 10 CATALOGO -->
+<section class="slide stars" data-lvl="NIVEL 3 · CATÁLOGO">
+<div class="in" style="flex-direction:row;gap:56px;align-items:center;text-align:left;padding-top:96px">
+<div style="display:flex;flex-direction:column;gap:16px;width:760px">
+<h2 style="font-size:56px">19 <span class="pix">EFECTOS</span></h2>
+<div class="tabs" id="tabs"><button class="tab sel" data-g="all">TODOS</button><button class="tab" data-g="mov">MOVIMIENTO</button><button class="tab" data-g="col">COLOR</button><button class="tab" data-g="txt">TEXTO</button></div>
+<div class="fxbtns" id="fxbtns"></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px;width:420px;align-items:center">
+<div class="phone" style="width:270px;height:480px"><div class="scr" id="demo"><div class="cam"><div class="wall"></div><div class="hair"></div><div class="head"></div><i class="eye" style="left:105px"></i><i class="eye" style="left:137px"></i><div class="body"></div></div>
+<div class="ov o-flash"></div><div class="ov o-sweep"></div><div class="ov o-vig"></div><div class="ov o-frame"></div><div class="ov o-split">OTRO VIDEO</div>
+<div class="ov o-big">¡OJO!</div><div class="ov o-hl"><span>80% lo deja</span></div><div class="ov o-low"><div>Ana Pérez</div><i>Diseñadora</i></div>
+<div class="ov o-count" id="cnum">3</div><div class="ov o-ring"></div><div class="ov o-bar"></div><span class="spd" id="spd">0.5×</span>
+<div class="subs" style="top:345px;font-size:21px">así se <b>ve</b> el efecto</div></div></div>
+<div class="det"><span class="cd" id="d-cd">zoom</span><p id="d-tx"></p><span class="ask" id="d-ask"></span></div>
+</div>
+</div>
+</section>
+
+<!-- 08 MARCA -->
+<section class="slide console" data-lvl="NIVEL 4 · TU MARCA" data-light>
+<span class="vline" style="left:3%"></span>
+<div class="in" style="flex-direction:row;gap:70px;text-align:left">
+<div style="display:flex;flex-direction:column;gap:22px;width:860px">
+<p class="kick">&gt; Nivel 4 · ¿No tienes marca?</p>
+<h2>Crea tu <span class="pix">MARCA</span></h2>
+<p class="lead" style="font-size:26px">Adjunta tus referencias. <b>/look-reels</b> te hace preguntas, te muestra una vista previa y guarda todo en <b>marca.md</b>. ¿No sabes por dónde partir? Prueba un estilo:</p>
+<div style="display:flex;gap:14px" id="skins">
+<button class="chip sel" data-s="0" style="font-size:20px;padding:0 26px">EDITORIAL</button>
+<button class="chip" data-s="1" style="font-size:20px;padding:0 26px;background:#141517">OSCURO TECH</button>
+<button class="chip" data-s="2" style="font-size:20px;padding:0 26px;background:#111;color:#FFD23F">POP</button>
+<button class="chip" data-s="3" style="font-size:20px;padding:0 26px;background:#121212;color:#C6F3A0">LIMA</button>
+</div>
+<div class="prompt" style="margin-top:40px;font-size:21px"><button class="copy" onclick="cp(this)">COPIAR</button><span class="c">/look-reels</span> créame mi marca para reels. Te adjunto mi logo, mi paleta y 3 referencias.</div>
+<p class="lead" style="font-size:22px">Ajusta hasta que te guste: <b>«más oscuro»</b>, <b>«otra letra»</b>. Guarda tu <b>marca.md</b>.</p>
+</div>
+<div class="phone"><div class="scr" id="skinscr"><div class="cam"><div class="wall"></div><div class="hair"></div><div class="head"></div><i class="eye" style="left:118px"></i><i class="eye" style="left:150px"></i><div class="body"></div></div>
+<div class="ov" style="opacity:1;display:flex;justify-content:center;padding-top:60px"><span id="sk-t" style="font-weight:900;font-size:30px;padding:10px 16px;height:max-content;text-align:center;line-height:1">TU GANCHO<br>AQUÍ</span></div>
+<div class="subs" id="sk-s">Así se ve <b>tu</b> marca</div></div></div>
+</div>
+</section>
+
+<!-- ACT MARCA -->
+<section class="slide stars" data-lvl="NIVEL 4 · ACTIVIDAD">
+<div class="in" style="flex-direction:row;gap:44px;text-align:left;padding-top:100px;align-items:flex-start">
+<div style="display:flex;flex-direction:column;gap:12px;width:720px;flex:none">
+<p class="kick">&gt; Actividad · 15 minutos</p>
+<h2 style="font-size:56px">Crea tu <span class="pix">MARCA</span></h2>
+<p class="lead" style="font-size:21px">Ten a mano tus referencias de ayer. /look-reels te hará preguntas como estas:</p>
+<div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+<div class="win"><div style="padding:14px 18px;gap:4px"><span class="n" style="font-size:20px">?1</span><p style="font-size:18px;color:#fff">¿De qué trata tu cuenta y a quién le hablas?</p></div></div>
+<div class="win"><div style="padding:14px 18px;gap:4px"><span class="n" style="font-size:20px">?2</span><p style="font-size:18px;color:#fff">¿Qué 3 palabras describen cómo quieres que se vea?</p></div></div>
+<div class="win"><div style="padding:14px 18px;gap:4px"><span class="n" style="font-size:20px">?3</span><p style="font-size:18px;color:#fff">¿Tienes logo, colores o tipografías?</p></div></div>
+<div class="win"><div style="padding:14px 18px;gap:4px"><span class="n" style="font-size:20px">?4</span><p style="font-size:18px;color:#fff">¿Qué cuentas o imágenes te inspiran?</p></div></div>
+</div>
+<p class="pix f" style="margin:6px 0 0;font-size:15px;line-height:1.5;color:var(--lav)">Usa la clase de diseño: 4 colores con función · 2 tipografías · revisa los red flags</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:20px;flex:1;align-items:center">
+<div class="prompt" style="font-size:18px;margin-top:34px;line-height:1.5;white-space:pre-line;width:100%"><button class="copy" onclick="cp(this)">COPIAR</button><span class="c">/look-reels</span> créame mi marca para reels. Te adjunto mi paleta y mis referencias.
+- Mi cuenta es sobre: ___
+- Le hablo a: ___
+- 3 palabras: ___
+Antes de guardar, muéstrame la vista previa.</div>
+<div class="timer" data-sec="900"><span class="lbl">TIEMPO DE ACTIVIDAD</span><span class="t">15:00</span><button data-a="go">▶</button><button data-a="re">↺</button></div>
+<span class="pill" style="font-size:16px">AL TERMINAR: DESCARGA TU MARCA.MD</span>
+</div>
+</div>
+</section>
+
+<!-- 04 GRABA -->
+<section class="slide stars" data-lvl="NIVEL 5 · GRABA">
+<div class="in" style="flex-direction:row;gap:80px;text-align:left">
+<div style="display:flex;flex-direction:column;gap:22px;width:820px">
+<p class="kick">&gt; Paso a paso · 1</p>
+<h2>Graba tu <span class="pix">TOMA CRUDA</span></h2>
+<div class="check f"><span class="bx">1</span><span class="t">Vertical 9:16, con el celular.</span></div>
+<div class="check f"><span class="bx">2</span><span class="t">Luz de frente y <b>audio limpio</b>: eso la IA no lo arregla.</span></div>
+<div class="check f"><span class="bx">3</span><span class="t">Una toma corrida: los errores y silencios se cortan después.</span></div>
+<div class="check f"><span class="bx">4</span><span class="t">Usa el <b>guion</b> que ya escribiste: de <b>30 a 60 segundos</b>.</span></div>
+<div class="check f" style="border-color:var(--y)"><span class="bx">+</span><span class="t">¿No quieres salir en cámara? Graba <b>solo tu voz</b> y junta <b>4 a 6 fotos</b>.</span></div>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+<span class="pill" style="font-size:17px">DE TOMA CRUDA → A ESTO</span>
+<div class="phone" style="width:270px;height:490px;cursor:pointer" onclick="snd()"><div class="scr" style="background:#000"><video id="reel" data-auto src="assets/reel.mp4" poster="assets/reel-poster.jpg" muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;display:block"></video><span class="raw" id="sndtag" style="background:#000;border:2px solid #fff">🔇 TOCA PARA SONIDO</span></div></div>
+<button class="chip" style="font-size:17px;min-height:48px;padding:0 24px" onclick="big()">⛶ VER EN GRANDE</button>
+</div>
+</div>
+</section>
+
+<!-- 07 EDITA -->
+<section class="slide stars" data-lvl="NIVEL 5 · EDITA">
+<div class="in" style="flex-direction:row;gap:70px;text-align:left">
+<div style="display:flex;flex-direction:column;gap:26px;width:860px">
+<p class="kick">&gt; Paso a paso · 2</p>
+<h2>Sube tu video y <span class="pix">EDITA</span></h2>
+<p class="lead" style="font-size:26px">Abre un chat nuevo, toca <b>+</b>, adjunta tu toma y tu <b>marca.md</b>, y escribe:</p>
+<div class="prompt" style="margin-top:40px"><button class="copy" onclick="cp(this)">COPIAR</button><span class="c">/editor-reels</span> edita este video con mi marca.md.
+Título: «3 errores al grabar reels»</div>
+<p class="lead f" style="font-size:22px"><b>¿Voz en off?</b> Adjunta tu audio y tus fotos: «/editor-reels <b>arma un reel con esta voz en off y estas fotos</b>». Pega tu guion para que los subtítulos salgan bien.</p>
+<p class="lead f" style="font-size:22px">Después pide ajustes cortos: <b>«sube los subtítulos»</b>, <b>«corta los primeros 2 segundos»</b>.</p>
+</div>
+<div class="phone"><div class="scr"><div class="cam"><div class="wall"></div><div class="hair"></div><div class="head"></div><i class="eye" style="left:118px"></i><i class="eye" style="left:150px"></i><div class="body"></div></div>
+<div class="ov o-hl" style="opacity:1;padding-top:60px"><span style="background:#fff;color:var(--red);font-size:26px">3 ERRORES AL<br>GRABAR REELS</span></div>
+<div class="subs" id="karaoke"></div></div></div>
+</div>
+</section>
+
+<!-- 07B VOZ EN OFF -->
+<section class="slide stars" data-lvl="NIVEL 5 · VOZ EN OFF">
+<div class="in" style="flex-direction:row;gap:44px;text-align:left;padding-top:100px;align-items:flex-start">
+<div style="display:flex;flex-direction:column;gap:12px;width:560px;flex:none" id="vo">
+<p class="kick">&gt; Paso a paso · 2 · Sin salir en cámara</p>
+<h2 style="font-size:58px">Modo <span class="pix">VOZ EN OFF</span></h2>
+<button class="check" style="font-size:20px;padding:12px 16px"><span class="bx"></span><span class="t">Graba <b>20 a 40 s</b> leyendo tu guion (Notas de voz, lugar silencioso).</span></button>
+<button class="check" style="font-size:20px;padding:12px 16px"><span class="bx"></span><span class="t">Junta <b>4 a 6 fotos</b>, mejor verticales.</span></button>
+<button class="check" style="font-size:20px;padding:12px 16px"><span class="bx"></span><span class="t">Chat nuevo: adjunta <b>audio + fotos + marca.md</b>.</span></button>
+<button class="check" style="font-size:20px;padding:12px 16px"><span class="bx"></span><span class="t">Pide una <b>prueba</b> antes de editar todo.</span></button>
+<button class="check" style="font-size:20px;padding:12px 16px"><span class="bx"></span><span class="t">¿Te gusta? Edita completo y suma efectos.</span></button>
+<p class="pix" style="margin:4px 0 0;font-size:15px;line-height:1.5;color:var(--lav)">Aquí tu marca se luce más: el fondo son tus fotos y mandan el título y los subtítulos.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:52px;flex:1">
+<div class="prompt" style="font-size:18px;margin-top:34px;line-height:1.5;white-space:pre-line"><button class="copy" onclick="cp(this)">COPIAR</button><span class="c">/editor-reels</span> arma un reel de voz en off con este audio y estas fotos, usando mi marca.md.
+- Título: «___»
+- Este es mi guion: ___
+- Elige tú el orden de las fotos según lo que digo.
+- Que se note la línea gráfica: título en caja de color y subtítulos grandes con la palabra activa resaltada.
+Antes de editar todo, muéstrame un fotograma de prueba.</div>
+<div class="prompt" style="font-size:18px;line-height:1.5"><button class="copy" onclick="cp(this)">COPIAR</button>Me gusta. Edita el reel completo y luego aplica 6 efectos donde tú decidas: zoom, flash, texto, glitch, resaltar y barra de progreso.</div>
+</div>
+</div>
+</section>
+
+<!-- 08T TUTORIAL MARCA -->
+<section class="slide squares" data-lvl="NIVEL 5 · PASO A PASO">
+<div class="in" style="gap:10px;padding-top:88px;padding-bottom:20px">
+<div style="display:flex;align-items:baseline;gap:24px"><p class="kick">&gt; Tutorial · todo en un solo chat</p><h2 style="font-size:56px">De la marca al <span class="pix">REEL</span></h2></div>
+<div class="frame" style="padding:12px;width:960px"><video id="vcrea" data-auto data-ar="16/10" src="assets/crea-marca-y-edita.mp4" poster="assets/crea-poster.jpg" muted loop playsinline preload="none" style="display:block;width:100%;aspect-ratio:16/10;background:#000;border-radius:8px"></video></div>
+<div style="display:flex;align-items:center;gap:24px"><p class="pix" style="margin:0;font-size:15px"><span class="yl">/look-reels</span> marca → <span class="yl">/editor-reels</span> prueba y video → <span class="yl">/efectos-reels</span> modo muestra</p><button class="chip" style="font-size:15px;min-height:42px;padding:0 20px" onclick="big('vcrea')">⛶ VER EN GRANDE</button></div>
+</div>
+</section>
+
+<!-- 10R RESULTADO -->
+<section class="slide console" data-lvl="NIVEL 5 · RESULTADO" data-light>
+<span class="vline" style="left:3%"></span><span class="vline" style="right:3%"></span>
+<div class="in" style="flex-direction:row;gap:70px;text-align:left">
+<div style="display:flex;flex-direction:column;gap:18px;width:760px">
+<p class="kick">&gt; Así quedó</p>
+<h2 style="font-size:76px">De toma cruda a <span class="pix">REEL</span></h2>
+<p class="lead" style="font-size:24px">Toma en bruto + <b>marca.md</b> + 3 skills. Sin abrir un editor de video.</p>
+<div class="win f"><div style="padding:16px 20px;gap:6px"><span class="n" style="font-size:22px">LO QUE HIZO CLAUDE</span><p style="font-size:19px">Formato vertical · título en caja amarilla · subtítulos karaoke en mayúsculas · flash, glitch, zoom, blanco y negro, barrido, cámara lenta, resaltar y barra de progreso.</p></div></div>
+<p class="pix f" style="margin:0;font-size:16px;color:var(--blue)">Muestra sin audio · el reel final sí lleva la voz</p>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+<div class="phone" style="width:300px;height:545px"><div class="scr" style="background:#000"><video id="vres" data-auto src="assets/resultado.mp4" poster="assets/resultado-poster.jpg" muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;display:block"></video></div></div>
+<button class="chip" style="font-size:17px;min-height:48px;padding:0 24px" onclick="big('vres')">⛶ VER EN GRANDE</button>
+</div>
+</div>
+</section>
+
+<!-- 15 MISION -->
+<section class="slide stars" data-lvl="NIVEL 6 · MANOS A LA OBRA">
+<div class="in" style="flex-direction:row;gap:50px;text-align:left;padding-top:100px">
+<div style="display:flex;flex-direction:column;gap:10px;width:900px" id="mis">
+<p class="kick">&gt; Manos a la obra</p>
+<h2 style="font-size:54px;white-space:nowrap">Tu pieza sobre <span class="pix">CHINA</span></h2>
+<p class="lead" style="font-size:22px;margin-bottom:4px">Usa el guion que escribiste ayer. <b>Reel</b> con el kit, o <b>carrusel</b> con tu IA preferida.</p>
+<button class="check"><span class="bx"></span><span class="t">Elige tu formato: <b>reel</b> o <b>carrusel</b>.</span></button>
+<button class="check"><span class="bx"></span><span class="t">¿Sin marca? <b>/look-reels</b> te hace preguntas y la crea.</span></button>
+<button class="check"><span class="bx"></span><span class="t"><b>Reel:</b> graba o usa voz en off y edita con <b>/editor-reels</b>.</span></button>
+<button class="check"><span class="bx"></span><span class="t"><b>Reel:</b> suma efectos con <b>/efectos-reels</b>.</span></button>
+<button class="check"><span class="bx"></span><span class="t"><b>Carrusel:</b> Claude, ChatGPT o Canva, con tu estilo visual.</span></button>
+<button class="check"><span class="bx"></span><span class="t">Envía tu pieza al <b>WhatsApp</b> del grupo.</span></button>
+</div>
+<div style="display:flex;flex-direction:column;gap:22px;align-items:center">
+<div class="timer" data-sec="2400"><span class="lbl">TIEMPO DE MISIÓN</span><span class="t">40:00</span><button data-a="go">▶</button><button data-a="re">↺</button></div>
+<p class="pix" style="font-size:16px;margin:0;color:var(--lav)">Tecla T: iniciar / pausar</p>
+<span class="pill" id="score">0 / 6 COMPLETADAS</span>
+</div>
+</div>
+</section>
+
+<!-- WA ENVIA -->
+<section class="slide console" data-lvl="NIVEL 7 · ENVÍA" data-light>
+<span class="vline" style="left:3%"></span><span class="vline" style="right:3%"></span>
+<div class="in" style="gap:30px">
+<p class="kick">&gt; Nivel 7 · Entrega</p>
+<h2 style="font-size:84px">Envía tu pieza al <span class="pix">WHATSAPP</span></h2>
+<div class="chat" style="font-size:32px">📲 Comparte tu reel o carrusel en el grupo, con una línea: qué tema elegiste y qué herramienta usaste.</div>
+<div style="display:flex;gap:18px" class="f"><span class="pill">REEL · MP4</span><span class="pill">CARRUSEL · IMÁGENES</span><span class="pill" style="background:var(--red);color:#fff">+ 1 LÍNEA DE CONTEXTO</span></div>
+</div>
+</section>
+
+<!-- 11 PARTE 2 -->
+<section class="slide console" data-lvl="BONUS · CREA TU SKILL" data-light>
+<span class="vline" style="left:3%"></span><span class="vline" style="right:3%"></span>
+<div class="bars" style="right:7%;top:84px"><i></i><i></i><i></i></div>
+<div class="in">
+<div class="frame" style="width:1180px"><div class="screen squares" style="padding:60px;display:flex;flex-direction:column;align-items:center;gap:22px">
+<span class="pill" style="transform:rotate(-2deg)">BONUS · SI QUEDA TIEMPO</span>
+<p style="margin:0;font-weight:900;font-size:96px;letter-spacing:-.04em;line-height:.92">¿CÓMO SE HACE<br>UNA <span class="pix" style="color:var(--y)">SKILL?</span></p>
+<p class="lead" style="color:var(--lav)">El kit es un ejemplo. Ahora vas a ver cómo se fabrica, para crear las tuyas.</p>
+</div></div>
+<div style="display:flex;align-items:center;justify-content:space-between;width:1180px">
+<span class="cross"></span><button class="chip red" onclick="next()">CONTINUAR</button><span class="btns"><i></i><i></i></span>
+</div>
+</div>
+</section>
+
+<!-- 13 CREA TU SKILL -->
+<section class="slide stars" data-lvl="BONUS · CREA TU SKILL">
+<div class="in" style="gap:24px">
+<p class="kick">&gt; Bonus · si queda tiempo</p>
+<h2>Crea tu propia <span class="pix">SKILL</span></h2>
+<div style="display:flex;gap:40px;align-items:stretch;width:1340px">
+<div class="code" id="anat">
+<span class="ln" data-i="0">---</span>
+<span class="ln" data-i="1"><span class="k">name:</span> editor-reels</span>
+<span class="ln" data-i="2"><span class="k">description:</span> Edita una toma cruda…</span>
+<span class="ln" data-i="2">  Úsala si te piden editar un video.</span>
+<span class="ln" data-i="0">---</span>
+<span class="ln" data-i="3"># Qué hace</span>
+<span class="ln" data-i="3">1. Vertical 1080×1920</span>
+<span class="ln" data-i="3">2. Corta silencios</span>
+<span class="ln" data-i="3">3. Subtítulos karaoke</span>
+<span class="ln" data-i="4">scripts/ · fonts/</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:18px;flex:1;text-align:left">
+<div class="win"><div style="gap:8px"><span class="pix" style="font-size:16px;color:var(--y)">CLIC EN UNA LÍNEA DEL ARCHIVO</span><h3 id="an-h">Un archivo SKILL.md</h3><p id="an-p">Una skill es una receta guardada: instrucciones que Claude sigue igual cada vez.</p></div></div>
+<div class="win blue f"><div style="gap:6px"><span class="n" style="font-size:26px">OPCIÓN A · DESDE EL CHAT</span><p>Cuando algo te quede como quieres, pide: <b style="color:#fff">«Convierte lo que hicimos en una skill»</b> y guárdala.</p></div></div>
+<div class="win blue f"><div style="gap:6px"><span class="n" style="font-size:26px">OPCIÓN B · SUBIÉNDOLA</span><p>Una carpeta con su SKILL.md en un ZIP, igual que el kit.</p></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 14 TIPS -->
+<section class="slide console" data-lvl="BONUS · TRUCOS" data-light>
+<span class="vline" style="left:3%"></span>
+<div class="in" style="gap:30px">
+<p class="kick">&gt; Para que te funcione</p>
+<h2>4 <span class="pix">TRUCOS</span> secretos</h2>
+<div class="grid" style="grid-template-columns:repeat(4,1fr);width:1340px">
+<div class="win flip"><div class="front" style="min-height:250px;justify-content:center;align-items:center"><span class="n">? ? ?</span><span class="pix" style="font-size:15px;color:#9E9E9E">TRUCO 01</span></div><div class="back" style="min-height:250px;flex-direction:column;gap:10px"><span class="n">01</span><h3>Descripción clara</h3><p>Claude decide cuándo usar la skill leyendo su descripción.</p></div></div>
+<div class="win flip"><div class="front" style="min-height:250px;justify-content:center;align-items:center"><span class="n">? ? ?</span><span class="pix" style="font-size:15px;color:#9E9E9E">TRUCO 02</span></div><div class="back" style="min-height:250px;flex-direction:column;gap:10px"><span class="n">02</span><h3>Una tarea</h3><p>Cada skill hace una sola cosa bien.</p></div></div>
+<div class="win flip"><div class="front" style="min-height:250px;justify-content:center;align-items:center"><span class="n">? ? ?</span><span class="pix" style="font-size:15px;color:#9E9E9E">TRUCO 03</span></div><div class="back" style="min-height:250px;flex-direction:column;gap:10px"><span class="n">03</span><h3>Ejemplos</h3><p>Incluye cómo se ve un buen resultado.</p></div></div>
+<div class="win flip"><div class="front" style="min-height:250px;justify-content:center;align-items:center"><span class="n">? ? ?</span><span class="pix" style="font-size:15px;color:#9E9E9E">TRUCO 04</span></div><div class="back" style="min-height:250px;flex-direction:column;gap:10px"><span class="n">04</span><h3>Prueba y ajusta</h3><p>Pruébala después de cada cambio.</p></div></div>
+</div>
+<p class="lead f" style="font-size:24px"><b>¿Claude no usa tu skill?</b> Revisa que esté activada y llámala con <b>/</b> en tu pedido.</p>
+</div>
+</section>
+
+<!-- 16 GAME SAVED -->
+<section class="slide stars" data-lvl="GAME SAVED">
+<div class="in">
+<p class="pix blink" style="margin:0;font-size:30px;color:var(--y)">💾 PARTIDA GUARDADA</p>
+<h2 style="font-size:104px">UN VIDEO CRUDO.<br><span class="pix">MUCHOS ESTILOS.</span></h2>
+<p class="lead">Tus skills hacen el trabajo repetitivo; <b>tú pones la idea.</b></p>
+<p class="pix" style="margin:0;font-size:26px">¿CONTINUE? &nbsp;<span class="yl">PREGUNTAS</span></p>
+</div>
+</section>
+
+<div id="tag">@TINTADIGITAL</div>
+<div id="ctrl"><button onclick="prev()">◀</button><button onclick="next()">▶</button><button onclick="fs()">⛶</button><button onclick="toggleHelp()">?</button></div>
+<div id="vbig" onclick="if(event.target===this)closeBig()" style="position:absolute;inset:0;z-index:58;display:none;align-items:center;justify-content:center;gap:30px;background:rgba(0,0,0,.9)"><video id="reelbig" src="assets/reel.mp4" controls playsinline preload="none" style="height:840px;aspect-ratio:9/16;background:#000;border:5px solid var(--y)"></video><button class="chip red" onclick="closeBig()" style="position:absolute;right:24px;top:24px">✕ CERRAR</button></div>
+<div id="over"><span class="big">TIME'S UP!</span><span class="sm">MUESTRA TU ANTES Y DESPUÉS</span><button class="chip" onclick="this.parentNode.classList.remove('on')" style="margin-top:20px">OK</button></div>
+<div id="help"><div class="screen">
+<div><b>→ / ESPACIO</b> Avanzar</div><div><b>←</b> Volver</div><div><b>T</b> Iniciar o pausar el reloj</div><div><b>R</b> Reiniciar el reloj</div><div><b>F</b> Pantalla completa</div><div><b>M</b> Sonido sí / no</div><div><b>?</b> Cerrar esta ayuda</div>
+</div></div>
+</div></div>
+
+<script>
+{
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0,muted=false,actx=null;
+const stage=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform='scale('+s+')'}
+addEventListener('resize',fit);fit();
+function beep(f=660,d=.08,type='square',v=.05){if(muted)return;try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();const o=actx.createOscillator(),g=actx.createGain();o.type=type;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(actx.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+d);o.stop(actx.currentTime+d+.02)}catch(e){}}
+function coin(){beep(988,.07);setTimeout(()=>beep(1319,.18),70)}
+function show(i,back){
+  i=Math.max(0,Math.min(slides.length-1,i));
+  slides[cur].classList.remove('on');cur=i;const s=slides[cur];s.classList.add('on');
+  s.querySelectorAll('.f').forEach(e=>e.classList.toggle('show',!!back));
+  document.getElementById('lvl').textContent=s.dataset.lvl||'';
+  document.getElementById('cnt').textContent=String(cur+1).padStart(2,'0')+'/'+slides.length;
+  document.getElementById('xpbar').style.width=(cur/(slides.length-1)*100)+'%';
+  stage.classList.toggle('light',s.hasAttribute('data-light'));
+  document.querySelectorAll('video').forEach(v=>{if(!s.contains(v))v.pause()});
+  s.querySelectorAll('video[data-auto]').forEach(v=>playV(v));
+  const nx=slides[cur+1];if(nx)nx.querySelectorAll('video[data-auto]').forEach(v=>loadV(v));
+  try{history.replaceState(null,'','#s'+(cur+1))}catch(e){}
+}
+window.go=i=>{coin();show(i)};
+/* videos: se cargan como blob para que Safari los reproduzca aunque el servidor no permita rangos */
+const vcache={};
+function loadV(v){const src=v.dataset.src||v.getAttribute('src');if(!src||src.startsWith('blob:'))return Promise.resolve(v.src);v.dataset.src=src;
+  if(!vcache[src])vcache[src]=fetch(src).then(r=>{if(!r.ok)throw 0;return r.blob()}).then(b=>URL.createObjectURL(b)).catch(()=>src);
+  return vcache[src].then(u=>{if(v.src!==u){const t=v.currentTime;v.src=u;try{v.currentTime=t}catch(e){}}return u})}
+function playV(v){loadV(v).then(()=>{const p=v.play();if(p)p.catch(()=>{})})}
+const reel=document.getElementById('reel'),reelbig=document.getElementById('reelbig');
+window.snd=()=>{reel.muted=!reel.muted;document.getElementById('sndtag').textContent=reel.muted?'🔇 TOCA PARA SONIDO':'🔊 SONIDO ON';const p=reel.play();if(p)p.catch(()=>{})};
+window.big=(id)=>{const v=document.getElementById(id||'reel');v.pause();const ar=v.dataset.ar||'9/16';reelbig.style.aspectRatio=ar;if(ar==='9/16'){reelbig.style.height='840px';reelbig.style.width='auto'}else{reelbig.style.width='1240px';reelbig.style.height='auto'}document.getElementById('vbig').style.display='flex';loadV(v).then(u=>{reelbig.src=u;reelbig.currentTime=v.currentTime||0;const p=reelbig.play();if(p)p.catch(()=>{})})};
+window.sndv=(id,tag)=>{const v=document.getElementById(id);v.muted=!v.muted;document.getElementById(tag).textContent=v.muted?'🔇 TOCA PARA SONIDO':'🔊 SONIDO ON';const p=v.play();if(p)p.catch(()=>{})};
+window.closeBig=()=>{reelbig.pause();document.getElementById('vbig').style.display='none'};
+window.next=()=>{const h=slides[cur].querySelector('.f:not(.show)');if(h){h.classList.add('show');beep(523,.05);return}if(cur<slides.length-1){beep(784,.06);show(cur+1)}};
+window.prev=()=>{if(cur>0){beep(392,.06);show(cur-1,true)}};
+window.fs=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})}catch(e){}};
+window.toggleHelp=()=>document.getElementById('help').classList.toggle('on');
+window.stamp=el=>{const s=el.parentNode.querySelector('.stamp');s.classList.toggle('on');beep(180,.25,'sawtooth',.07)};
+window.cp=b=>{const box=b.parentNode;const t=[...box.childNodes].filter(n=>n!==b).map(n=>n.textContent).join('').trim();
+  const done=()=>{b.textContent='✔ COPIADO';coin();setTimeout(()=>b.textContent='COPIAR',2000)};
+  try{navigator.clipboard.writeText(t).then(done,()=>{fb(t);done()})}catch(e){fb(t);done()}};
+function fb(t){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()}
+addEventListener('keydown',e=>{
+  if(document.getElementById('vbig').style.display==='flex'){if(e.key==='Escape')closeBig();return}
+  if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();next()}
+  else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();prev()}
+  else if(e.key==='f'||e.key==='F')fs();
+  else if(e.key==='m'||e.key==='M')muted=!muted;
+  else if(e.key==='t'||e.key==='T'){const t=slides[cur].querySelector('.timer');if(t)toggleTimer(t)}
+  else if(e.key==='r'||e.key==='R'){const t=slides[cur].querySelector('.timer');if(t)resetTimer(t)}
+  else if(e.key==='?'||e.key==='h'||e.key==='H')toggleHelp();
+  else if(e.key==='Escape'){document.getElementById('help').classList.remove('on');document.getElementById('over').classList.remove('on')}
+});
+/* timer */
+const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+function paint(t){t.querySelector('.t').textContent=t._left>0?fmt(t._left):'¡TIEMPO!';t.classList.toggle('warn',t._left>0&&t._left<=60);t.classList.toggle('done',t._left<=0);t.querySelector('[data-a=go]').textContent=t._iv?'❚❚':'▶'}
+function toggleTimer(t){if(t._iv){clearInterval(t._iv);t._iv=null;paint(t);return}if(t._left<=0)t._left=+t.dataset.sec;coin();
+  t._iv=setInterval(()=>{t._left--;if(t._left<=10&&t._left>0)beep(880,.05);if(t._left<=0){clearInterval(t._iv);t._iv=null;[523,659,784,1047].forEach((f,k)=>setTimeout(()=>beep(f,.2),k*160));document.getElementById('over').classList.add('on')}paint(t)},1000);paint(t)}
+function resetTimer(t){clearInterval(t._iv);t._iv=null;t._left=+t.dataset.sec;paint(t)}
+document.querySelectorAll('.timer').forEach(t=>{t._left=+t.dataset.sec;
+  t.querySelector('[data-a=go]').onclick=e=>{e.stopPropagation();toggleTimer(t)};
+  t.querySelector('[data-a=re]').onclick=e=>{e.stopPropagation();resetTimer(t)}});
+/* checklists */
+function upScore(){const n=document.querySelectorAll('#mis .check.ok').length;document.getElementById('score').textContent=n+' / 6 COMPLETADAS';if(n===6){[523,659,784,1047,1319].forEach((f,k)=>setTimeout(()=>beep(f,.15),k*110))}}
+document.querySelectorAll('#inst .check,#mis .check,#vo .check').forEach(c=>c.addEventListener('click',e=>{e.stopPropagation();c.classList.toggle('ok');c.classList.contains('ok')?coin():beep(330,.05);upScore()}));
+/* flips */
+document.querySelectorAll('.flip').forEach(l=>l.addEventListener('click',e=>{e.stopPropagation();l.classList.toggle('open');beep(659,.06)}));
+/* level map */
+const L=[['TU ESTILO','Paleta, tipografías y red flags: lo que hace que tus reels se reconozcan.'],['TU TAREA','Repasas tus referencias: logo, paleta e imágenes que te gustan.'],['EQUÍPATE','Instalas el kit y conoces sus 3 skills y los 19 efectos.'],['TU MARCA','Actividad de 15 min: /look-reels te hace preguntas y crea tu marca.md.'],['PASO A PASO','Graba, edita con /editor-reels (o voz en off) y suma efectos.'],['MANOS A LA OBRA','Tu reel o carrusel con el guion sobre China.'],['ENVÍA','Compartes tu pieza en el WhatsApp del grupo.']];
+const xs=[70,240,410,580,750,920,1090,1270],ys=[110,200,110,200,110,200,110,200];
+const map=document.getElementById('map');
+const sel=i=>{map.querySelectorAll('.node').forEach((n,k)=>n.classList.toggle('sel',k===i));document.getElementById('lvd').textContent=i===7?'BONUS':'NIVEL '+(i+1)+' · '+L[i][0];document.getElementById('lvt').textContent=i===7?'Si queda tiempo: cómo se hace una skill y 4 trucos.':L[i][1]};
+[...L,['BONUS','']].forEach((l,i)=>{const b=document.createElement('button');b.className='node'+(i===7?' boss':'');b.style.left=xs[i]+'px';b.style.top=(ys[i]-50)+'px';
+  b.innerHTML='<span class="sq">'+(i===7?'★':i+1)+'</span>'+(i===7?'<span class="d">FINAL</span>':'')+'<span class="nm">'+l[0]+'</span>';
+  b.onclick=e=>{e.stopPropagation();sel(i);beep(659+i*60,.06)};map.appendChild(b)});
+sel(0);
+/* karaoke demo */
+const kw=['Así','se','ve','tu','reel','editado'];let ki=0;
+setInterval(()=>{const g=ki<3?kw.slice(0,3):kw.slice(3);const a=ki%3;document.getElementById('karaoke').innerHTML=g.map((w,j)=>j===a?'<b>'+w+'</b>':w).join(' ');ki=(ki+1)%6},450);
+/* skins */
+const SK=[{bg:'linear-gradient(180deg,#2a3350,#1B2233)',box:'#F6F3EE',tc:'#E2412A',sub:'#F6F3EE',acc:'#E2412A',up:false,font:'Montserrat'},
+{bg:'linear-gradient(180deg,#26282c,#141517)',box:'transparent',tc:'#fff',sub:'#fff',acc:'#F0694B',up:true,font:'Montserrat'},
+{bg:'linear-gradient(180deg,#333,#111)',box:'#FFD23F',tc:'#111',sub:'#fff',acc:'#FFD23F',up:true,font:'Montserrat'},
+{bg:'linear-gradient(180deg,#262626,#121212)',box:'#C6F3A0',tc:'#121212',sub:'#F4F1EA',acc:'#F0A13A',up:false,font:'Montserrat'}];
+function skin(i){const s=SK[i],scr=document.getElementById('skinscr');scr.querySelector('.wall').style.background=s.bg;const t=document.getElementById('sk-t');t.style.background=s.box;t.style.color=s.tc;
+  const sb=document.getElementById('sk-s');sb.innerHTML=s.up?'ASÍ SE VE <b style="color:'+s.acc+'">TU</b> MARCA':'Así se ve <b style="color:'+s.acc+'">tu</b> marca';
+  document.querySelectorAll('#skins .chip').forEach((c,k)=>c.style.outline=k===i?'5px solid #FFE600':'none')}
+document.querySelectorAll('#skins .chip').forEach(c=>c.addEventListener('click',e=>{e.stopPropagation();skin(+c.dataset.s);coin()}));skin(0);
+/* effects catalog */
+const FX=[['zoom','mov','Acercamiento de golpe en un tramo. Para remarcar una frase.','zoom cuando digo «gratis»'],
+['zoom-lento','mov','Acercamiento progresivo. Crea tensión o intimidad.','zoom lento en el final'],
+['vibrar','mov','Sacudida de cámara para un remate o una sorpresa.','que tiemble en el remate'],
+['lento','mov','Cámara lenta, con el audio a juego.','cámara lenta del segundo 4 al 6'],
+['rapido','mov','Acelera el tramo al doble. Para saltar lo aburrido.','acelera la parte en que cocino'],
+['pantalla-dividida','mov','Otro video arriba y tú abajo. Para reaccionar o comparar.','pon este video arriba mientras hablo'],
+['flash','col','Destello blanco. Para cambiar de tema.','flash al cambiar de tema'],
+['barrido','col','Franja de color que cruza la pantalla. Transición.','barrido antes del segundo punto'],
+['bn','col','Blanco y negro. Ideal para un «antes».','el antes en blanco y negro'],
+['glitch','col','Falla digital: colores corridos y ruido.','glitch cuando digo «error»'],
+['vineta','col','Oscurece los bordes: momento emotivo.','viñeta en la parte emotiva'],
+['desenfoque','col','Desenfoca el video para poner texto encima.','desenfoca del segundo 5 al 7'],
+['marco','col','Marco con el color de tu marca.','marco rojo en la conclusión'],
+['texto','txt','Palabra grande que aparece con rebote.','pon «OJO» en grande en el segundo 3'],
+['resaltar','txt','Frase dentro de una caja de color.','resalta «80% lo deja»'],
+['rotulo','txt','Tu nombre y cargo entran de lado.','rótulo con mi nombre al inicio'],
+['cuenta','txt','Cuenta regresiva 3, 2, 1 en grande.','cuenta regresiva antes del truco'],
+['senalar','txt','Un círculo marca un punto de la pantalla.','señala mi celular'],
+['barra','txt','Barra de progreso arriba en todo el video.','agrega barra de progreso']];
+const box=document.getElementById('fxbtns'),demo=document.getElementById('demo');let cIv=null;
+box.innerHTML=FX.map((f,i)=>'<button class="fxb" data-i="'+i+'" data-g="'+f[1]+'">'+f[0]+'</button>').join('');
+function pick(i){const f=FX[i];box.querySelectorAll('.fxb').forEach((b,k)=>b.classList.toggle('sel',k===i));
+  demo.className='scr';void demo.offsetWidth;demo.classList.add('fx-'+f[0]);
+  document.getElementById('spd').textContent=f[0]==='lento'?'0.5×':'2×';
+  document.getElementById('d-cd').textContent=f[0];document.getElementById('d-tx').textContent=f[2];
+  document.getElementById('d-ask').textContent='/efectos-reels '+f[3];
+  clearInterval(cIv);if(f[0]==='cuenta'){let n=3;const c=document.getElementById('cnum');c.textContent=n;cIv=setInterval(()=>{n=n>1?n-1:3;c.textContent=n;beep(n===3?440:660,.05)},700)}}
+box.querySelectorAll('.fxb').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();pick(+b.dataset.i);beep(700,.05)}));
+document.querySelectorAll('#tabs .tab').forEach(t=>t.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('#tabs .tab').forEach(x=>x.classList.toggle('sel',x===t));
+  box.querySelectorAll('.fxb').forEach(b=>b.hidden=!(t.dataset.g==='all'||b.dataset.g===t.dataset.g));beep(523,.05)}));
+pick(0);
+/* color & type tabs */
+const CS=[['A41','Un solo color en distintos tonos: ordenado y elegante.'],['A42','Colores vecinos en la rueda: armonía y calidez.'],['A43','Colores opuestos: máximo contraste, llama la atención.'],['A44','Colores vecinos y uno opuesto para resaltar lo clave.'],['A45','Tres colores a la misma distancia: energía y juego.']];
+const setC=i=>{document.getElementById('cimg').src='assets/d/'+CS[i][0]+'.jpg';document.getElementById('ctxt').textContent=CS[i][1];document.querySelectorAll('#ctabs .tab').forEach((t,k)=>t.classList.toggle('sel',k===i))};
+document.querySelectorAll('#ctabs .tab').forEach(t=>t.addEventListener('click',e=>{e.stopPropagation();setC(+t.dataset.c);beep(600,.05)}));setC(0);
+document.querySelectorAll('#ttabs .tab').forEach(t=>t.addEventListener('click',e=>{e.stopPropagation();document.getElementById('timg').src='assets/d/'+t.dataset.t+'.jpg';document.querySelectorAll('#ttabs .tab').forEach(x=>x.classList.toggle('sel',x===t));beep(600,.05)}));
+document.querySelectorAll('#refs .check').forEach(c=>c.addEventListener('click',e=>{e.stopPropagation();c.classList.toggle('ok');c.classList.contains('ok')?coin():beep(330,.05)}));
+/* skill anatomy */
+const AN=[['Separadores','Las líneas --- encierran la ficha de la skill: su nombre y su descripción.'],['name','El nombre de la skill. Es lo que escribes después de / para llamarla.'],['description','Lo más importante: Claude la lee para decidir cuándo usar la skill. Máximo 200 caracteres.'],['Instrucciones','Los pasos que Claude sigue cada vez, escritos como se los explicarías a una persona.'],['Archivos extra','Scripts, fuentes o plantillas que la skill usa. Son opcionales.']];
+document.querySelectorAll('#anat .ln').forEach(l=>l.addEventListener('click',e=>{e.stopPropagation();const i=+l.dataset.i;document.querySelectorAll('#anat .ln').forEach(x=>x.classList.toggle('sel',x.dataset.i===l.dataset.i));
+  document.getElementById('an-h').textContent=AN[i][0];document.getElementById('an-p').textContent=AN[i][1];beep(600+i*80,.05)}));
+/* start */
+const h=parseInt((location.hash.match(/#s(\d+)/)||[])[1]||'1',10)-1;
+slides[0].classList.add('on');show(isNaN(h)?0:h);
+}
+</script>
+</body>
+</html>
