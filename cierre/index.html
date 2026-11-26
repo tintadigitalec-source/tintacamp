@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cierre · Tinta Camp III</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,900&family=Silkscreen:wght@400;700&display=swap">
+<style>
+/* VOICE: la consola de Tinta Camp: cercana, retadora, paso a paso.
+   IDEA: una presentación-videojuego: niveles, concepto → ejemplo → misión, jefe final = carrusel.
+   PICTURE: cada slide es una pantalla de consola 16:9; los puntos aparecen uno a uno.
+   COLOUR/TYPE: #FFE600, azules estelares, gris consola, negro; Montserrat 900 + Silkscreen.
+   LAYOUT: lienzo 1600×900 escalado a la ventana; barra inferior con avance y controles. */
+:root{--y:#FFE600;--blue:#1B2DB0;--navy:#0B0C4A;--red:#E01B1B;--pink:#C2004E;--vio:#7B5CFF;--lav:#DCDDFF;--pix:'Silkscreen',monospace;--sans:'Montserrat',system-ui,sans-serif;color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;height:100%;background:#050505;color:#fff;font-family:var(--sans);overflow:hidden}
+button{font-family:inherit}
+#vp{position:fixed;inset:0 0 56px 0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:1600px;height:900px;flex:none;transform-origin:center center;overflow:hidden;background:#0F0E0D}
+.s{position:absolute;inset:0;padding:64px 90px 60px;display:none;flex-direction:column;gap:26px;overflow:hidden}
+.s.on{display:flex}
+.s.in{animation:boot .5s steps(6) both}
+@keyframes boot{0%{clip-path:inset(0 0 100% 0);filter:brightness(1.8)}100%{clip-path:inset(0);filter:none}}
+
+.stars{background-color:#14179A;background-image:radial-gradient(circle,#fff 1.2px,transparent 2px),radial-gradient(circle,#A9AEFF 1.4px,transparent 2.4px),linear-gradient(180deg,#1C22C2 0%,#0B0C4A 100%);background-size:150px 150px,97px 97px,100% 100%;background-position:12px 30px,60px 8px,0 0}
+.squares{background-color:#050505;background-image:linear-gradient(#262626,#262626),linear-gradient(#262626,#262626),linear-gradient(#262626,#262626),linear-gradient(#1E1E1E,#1E1E1E),linear-gradient(#262626,#262626),linear-gradient(#1E1E1E,#1E1E1E);background-size:44px 44px,18px 18px,30px 30px,56px 56px,14px 14px,24px 24px;background-position:6% 10%,40% 6%,88% 16%,12% 78%,62% 92%,94% 64%;background-repeat:no-repeat}
+.console{background-color:#9E9E9E;background-image:linear-gradient(#B4B4B4,#B4B4B4),linear-gradient(#B4B4B4,#B4B4B4),linear-gradient(#B4B4B4,#B4B4B4),linear-gradient(#B4B4B4,#B4B4B4);background-size:30px 30px,16px 16px,40px 40px,22px 22px;background-position:93% 8%,86% 22%,10% 88%,97% 70%;background-repeat:no-repeat;color:#0F0E0D}
+.yel{background:var(--y);color:#0F0E0D}
+.ink{background:#0F0E0D}
+
+/* badge de modo */
+.badge{position:absolute;top:26px;right:34px;display:flex;gap:8px;z-index:3}
+.badge span{font-family:var(--pix);font-weight:700;font-size:17px;padding:6px 12px;background:#0F0E0D;color:#fff}
+.badge .m-concepto{background:var(--red);color:#fff}
+.badge .m-ejemplo{background:var(--vio);color:#fff}
+.badge .m-mision{background:var(--y);color:#0F0E0D}
+.badge .m-juego{background:#118A3E;color:#fff}
+.badge .m-repaso{background:var(--blue);color:#fff}
+
+/* tipografía */
+.k{font-family:var(--pix);font-size:22px;color:var(--y);margin:0}
+.console .k,.yel .k{color:var(--blue)}
+h1,h2,h3{margin:0;font-weight:900;letter-spacing:-.03em;line-height:1.05}
+h2{font-size:62px;max-width:1220px}
+h3{font-size:32px;letter-spacing:-.02em;line-height:1.15}
+p{margin:0}
+.lead{font-size:30px;line-height:1.45;color:var(--lav);max-width:1250px;font-weight:500}
+.console .lead,.yel .lead{color:#1D1D1D}
+.big{font-size:58px;font-weight:900;font-style:italic;letter-spacing:-.03em;line-height:1.1}
+.big em{color:var(--y);font-style:italic}
+.yel .big em,.console .big em{color:var(--blue)}
+.pixy{font-family:var(--pix);font-weight:700;color:var(--y)}
+.small{font-size:20px;color:#B8B8B8;font-weight:600}
+.console .small{color:#333}
+.src{font-size:19px;color:#B8B8B8;font-weight:600}
+.console .src{color:#333}
+
+/* layouts */
+.cols{display:grid;gap:22px}
+.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:repeat(3,1fr)}.c4{grid-template-columns:repeat(4,1fr)}
+.box{background:#1A1A1A;border:3px solid #2E2E2E;padding:26px;display:flex;flex-direction:column;gap:12px;color:#fff}
+.box p{font-size:23px;line-height:1.4;color:#D8D8D8;font-weight:500}
+.box .n{font-family:var(--pix);font-size:44px;color:var(--y);line-height:1}
+.wbox{background:#fff;color:#0F0E0D;border:4px solid #0F0E0D;box-shadow:8px 8px 0 var(--vio);padding:26px;display:flex;flex-direction:column;gap:10px}
+.wbox p{font-size:24px;line-height:1.4;font-weight:600}
+.frame{background:#4D4D4D;border-radius:18px 18px 18px 64px;padding:22px;box-shadow:0 8px 0 rgba(0,0,0,.35)}
+.scr{background:#050505;border-radius:12px;padding:40px 48px;color:#fff}
+.row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.fill{flex:1}
+.center{align-items:center;justify-content:center;text-align:center}
+.step{display:flex;gap:22px;align-items:flex-start;padding:16px 0;border-bottom:2px solid rgba(255,255,255,.12)}
+.step .n{font-family:var(--pix);font-size:40px;color:var(--y);width:64px;flex:none;line-height:1}
+.step h3{font-size:30px}
+.step p{font-size:24px;color:var(--lav);margin-top:4px;line-height:1.4}
+.console .step{border-color:rgba(0,0,0,.15)}.console .step .n{color:var(--blue)}.console .step p{color:#222}
+
+/* fragmentos */
+.f{opacity:0;transform:translateY(24px);transition:opacity .35s ease,transform .35s ease}
+.f.v{opacity:1;transform:none}
+.f.dim{opacity:.35}
+
+.ej{background:#fff;color:#0F0E0D;border-left:14px solid var(--vio);padding:16px 22px;display:flex;gap:18px;align-items:flex-start;box-shadow:6px 6px 0 rgba(0,0,0,.35);max-width:1420px}
+.ej b.t{font-family:var(--pix);background:var(--vio);color:#fff;padding:5px 10px;font-size:16px;flex:none;margin-top:3px}
+.ej p{font-size:23px;font-weight:600;line-height:1.4}
+.ej p i{color:var(--blue);font-weight:800}
+.ejs{display:block;margin-top:6px;font-size:20px;font-weight:700;font-style:italic;color:#B9A8FF}
+.console .ejs,.yel .ejs{color:#4B2FD6}
+.box .ejs,.console .box .ejs{font-size:19px;color:#B9A8FF}
+/* nivel */
+.lvbig{font-family:var(--pix);font-weight:700;font-size:150px;line-height:.9;color:var(--y)}
+.lvsub{font-size:72px;font-weight:900;font-style:italic;letter-spacing:-.03em}
+.time{font-family:var(--pix);font-size:22px;background:#0F0E0D;color:#fff;padding:8px 14px}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);border:4px solid #0F0E0D}
+.tl>div{padding:24px;background:#fff;color:#0F0E0D;border-right:4px solid #0F0E0D;display:flex;flex-direction:column;gap:10px}
+.tl>div:last-child{border-right:0;background:var(--y)}
+.tl .yr{font-family:var(--pix);font-size:36px;color:var(--blue)}
+.tl5{grid-template-columns:repeat(5,1fr)}.tl5 .yr{font-size:26px}.tl5>div{padding:18px}.tl5 p{font-size:20px}
+.tl p{font-size:22px;line-height:1.35;font-weight:600}
+
+/* pills */
+.pills{display:flex;flex-wrap:wrap;gap:12px}
+.pills span{padding:12px 18px;font-weight:800;font-size:23px}
+.az span{background:#2333C9;color:#fff}.rj span{background:var(--red);color:#fff}
+
+/* tabla */
+table{width:100%;border-collapse:collapse;background:#fff;color:#0F0E0D;font-size:23px}
+th{background:#0F0E0D;color:var(--y);font-family:var(--pix);font-size:18px;font-weight:700;text-align:left;padding:14px 16px}
+td{padding:14px 16px;border-top:2px solid #DDD;vertical-align:top;font-weight:600;line-height:1.35}
+
+/* botones e inputs */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 28px;border:0;border-radius:999px;font-family:var(--pix);font-weight:700;font-size:19px;color:#fff;background:var(--blue);box-shadow:0 6px 0 #6E6E6E;cursor:pointer}
+.btn.red{background:var(--red)}.btn.y{background:var(--y);color:#0F0E0D}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #6E6E6E}
+.btn:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--y);outline-offset:3px}
+label.lb{display:block;margin:0 0 8px;font-family:var(--pix);font-size:18px;color:var(--y)}
+.console label.lb{color:var(--blue)}
+input[type=text],textarea{width:100%;background:#fff;color:#0F0E0D;border:3px solid #0F0E0D;padding:12px 16px;font:600 22px/1.4 var(--sans);box-shadow:5px 5px 0 var(--navy)}
+textarea{min-height:110px;resize:none}
+.out{background:#fff;color:#0F0E0D;padding:22px 26px;font-weight:800;font-size:28px;line-height:1.4;box-shadow:8px 8px 0 var(--vio)}
+.out .ph{color:#8A8A8A}
+
+/* personas */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.flip{perspective:1000px;cursor:pointer;background:none;border:0;padding:0;text-align:left;color:inherit;height:250px}
+.fi{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.open .fi{transform:rotateY(180deg)}
+.fa,.fb{position:absolute;inset:0;backface-visibility:hidden;padding:18px 20px;display:flex;flex-direction:column;gap:6px;border:3px solid #0F0E0D}
+.fa{background:#1A1FB8;color:#fff;box-shadow:6px 6px 0 #0F0E0D}
+.fa .av{font-family:var(--pix);font-size:48px;line-height:1;color:var(--y)}
+.fa h3{font-size:28px}
+.fa .pl{font-family:var(--pix);font-size:16px;color:var(--lav)}
+.fa .hint{margin-top:auto;font-family:var(--pix);font-size:14px;color:var(--y)}
+.fb{background:#fff;color:#0F0E0D;transform:rotateY(180deg);box-shadow:6px 6px 0 var(--pink)}
+.fb p{font-size:19px;line-height:1.35;font-weight:600}
+.flip.pick .fa{background:var(--red)}
+.pickout{font-family:var(--pix);font-size:26px;color:var(--y)}
+
+/* cartuchos */
+.cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cart{background:#3F3F3F;border-radius:10px 10px 4px 4px;padding:10px 10px 14px;cursor:pointer;border:0;text-align:left;color:#fff;box-shadow:0 6px 0 #6E6E6E;min-height:104px;display:flex}
+.cart .lb2{background:#0F0E0D;padding:12px 14px;border-radius:6px;flex:1;display:flex;flex-direction:column;gap:4px}
+.cart b{font-weight:900;font-size:22px;line-height:1.15}
+.cart span{font-family:var(--pix);font-size:14px;color:var(--lav)}
+.cart.on{background:var(--y)}.cart.on .lb2{background:var(--blue)}
+.detail{background:#fff;color:#0F0E0D;padding:22px 26px;box-shadow:8px 8px 0 var(--vio);display:flex;flex-direction:column;gap:8px;flex:1}
+.detail h3{font-size:30px}.detail p{font-size:21px;font-weight:700;line-height:1.35}
+.detail ul{margin:0;padding-left:24px;font-size:21px;font-weight:600;line-height:1.4}
+
+/* quiz */
+.qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.q{background:#1A1A1A;border:3px solid #2E2E2E;padding:18px;display:flex;flex-direction:column;gap:12px}
+.q .s2{font-weight:800;font-size:21px;line-height:1.3}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{min-height:44px;padding:0 12px;background:#2E2E2E;border:3px solid #2E2E2E;color:#fff;font-family:var(--pix);font-size:14px;cursor:pointer}
+.opt.ok{background:#118A3E;border-color:var(--y)}.opt.no{background:var(--pink)}
+.fb2{font-size:17px;color:var(--lav);display:none;line-height:1.35}
+.q.done .fb2{display:block}
+
+/* ganchos */
+.hook{background:#fff;color:#0F0E0D;border:4px solid #0F0E0D;box-shadow:7px 7px 0 var(--blue);padding:20px 24px;display:flex;flex-direction:column;gap:8px}
+.hook .t{font-family:var(--pix);font-size:18px;color:var(--red)}
+.hook q{font-style:italic;font-weight:800;font-size:25px;line-height:1.3;color:var(--blue)}
+.hook p{font-size:19px;font-weight:600}
+
+/* carrusel */
+.cb{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;flex:1;min-height:0}
+.slots{display:flex;flex-direction:column;gap:10px;overflow:auto;padding-right:8px}
+.slot label{font-family:var(--pix);font-size:16px;color:var(--y);display:flex;justify-content:space-between}
+.slot textarea{min-height:58px;font-size:19px;padding:8px 12px}
+.slot .wc.over{color:#FF7A7A}
+.phone{background:#3F3F3F;border-radius:40px;padding:18px;box-shadow:0 10px 0 #6E6E6E;width:420px;justify-self:center;align-self:start}
+.psc{aspect-ratio:4/5;background:#14179A;border-radius:24px;position:relative;display:flex;flex-direction:column;justify-content:center;padding:30px;gap:14px}
+.psc.s0{background:var(--y);color:#0F0E0D}
+.psc .tag{font-family:var(--pix);font-size:15px;opacity:.85}
+.psc .txt{font-weight:900;font-size:27px;line-height:1.2;letter-spacing:-.02em;white-space:pre-wrap;overflow-wrap:anywhere}
+.psc .pg{position:absolute;right:20px;bottom:14px;font-family:var(--pix);font-size:15px}
+.dots{display:flex;justify-content:center;gap:8px;margin:14px 0 6px}
+.dots i{width:12px;height:12px;background:#6E6E6E;display:block}.dots i.on{background:var(--y)}
+.pnav{display:flex;gap:10px}.pnav button{flex:1;min-height:48px;background:#0F0E0D;color:#fff;border:0;font-family:var(--pix);font-size:16px;cursor:pointer}
+.check{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.check label{display:flex;gap:14px;align-items:flex-start;background:#1A1A1A;border:3px solid #2E2E2E;padding:14px 16px;cursor:pointer;font-weight:700;font-size:22px}
+.check input{width:26px;height:26px;flex:none;accent-color:#FFE600;margin-top:2px}
+
+/* plantilla carrusel */
+.tpl{display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
+.tpl div{aspect-ratio:4/5;background:#14179A;border:3px solid #0F0E0D;padding:14px;display:flex;flex-direction:column;gap:8px;color:#fff;box-shadow:5px 5px 0 #0F0E0D}
+.tpl div:first-child{background:var(--y);color:#0F0E0D}
+.tpl b{font-family:var(--pix);font-size:28px;line-height:1}
+.tpl h3{font-size:21px}.tpl p{font-size:16px;line-height:1.3;font-weight:600}
+.tpl div:first-child p{color:#0F0E0D}
+.tplx div{aspect-ratio:3/4}.tplx div:first-child p{font-size:16px!important}.tplx p{font-size:19px!important;line-height:1.3}
+
+/* barra inferior */
+#bar{position:fixed;left:0;right:0;bottom:0;height:56px;background:#9E9E9E;border-top:4px solid #4D4D4D;display:flex;align-items:center;gap:10px;padding:0 12px;color:#0F0E0D;z-index:10}
+#bar img{height:34px;width:auto}
+#bar button{min-height:40px;min-width:44px;background:#0F0E0D;color:#fff;border:0;font-family:var(--pix);font-size:14px;cursor:pointer;padding:0 10px}
+#bar button.on{background:var(--y);color:#0F0E0D}
+.xp{flex:1;height:16px;background:#0F0E0D;border:3px solid #0F0E0D;padding:2px;max-width:420px}
+.xpb{height:100%;width:0;background:repeating-linear-gradient(90deg,var(--y) 0 10px,transparent 10px 13px);transition:width .3s steps(6)}
+#cnt{font-family:var(--pix);font-size:15px;min-width:70px;text-align:center}
+#lvnav{display:flex;gap:4px}
+#tbox{display:flex;align-items:center;gap:6px;background:#0F0E0D;padding:4px 8px;border:2px solid var(--y)}
+#tt{font-family:var(--pix);font-weight:700;font-size:22px;color:var(--y);min-width:4.2ch;text-align:center}
+#tbox.end{border-color:var(--red)}#tbox.end #tt{color:#FF7A7A}
+#tbox button{min-width:36px;min-height:32px;background:#2E2E2E}
+#notes{position:fixed;left:12px;right:12px;bottom:64px;max-height:34vh;overflow:auto;background:#FFF7B0;color:#0F0E0D;border-left:10px solid var(--pink);padding:16px 20px;font-size:17px;font-weight:600;line-height:1.5;z-index:11;display:none;box-shadow:0 8px 0 rgba(0,0,0,.4)}
+#notes.on{display:block}
+#notes b{font-family:var(--pix);font-size:13px;color:var(--pink);display:block;margin-bottom:4px}
+.navz{position:absolute;top:0;bottom:0;width:7%;z-index:2;cursor:pointer}
+#zl{left:0}#zr{right:0}
+@media(max-width:700px){#lvnav,.xp,#bar img{display:none}}
+@media(prefers-reduced-motion:reduce){.s.in{animation:none}.f{transition:none}.fi{transition:none}}
+</style>
+</head>
+<body>
+<div id="vp"><div id="stage">
+
+<!-- ============ APERTURA ============ -->
+<section class="s console center" data-lv="" data-note="Bienvenida al cierre. Saluda a Mauricio y al IRI. Hoy no hay clase nueva: hoy se celebra lo que hicieron.">
+<div class="frame" style="width:1180px"><div class="squares" style="border-radius:14px;padding:56px 40px;display:flex;flex-direction:column;align-items:center;gap:10px">
+<p style="color:#fff;font-weight:900;font-style:italic;font-size:40px;letter-spacing:-.03em">TINTA CAMP III · INVESTIGADORES GEOPOLÍTICOS</p>
+<h1 style="color:var(--y);font-family:var(--pix);font-weight:700;font-size:118px;line-height:.95">GAME COMPLETE</h1>
+<p style="color:#fff;font-weight:900;font-style:italic;font-size:40px;letter-spacing:-.03em">Llegaron al final. Ahora toca celebrarlo.</p>
+</div></div>
+<p style="font-weight:800;font-size:26px">Jueves 26 de noviembre · 16h00 · Cierre y entrega de diplomas</p>
+</section>
+
+<section class="s stars" data-lv="" data-note="Cuenta la agenda en 30 segundos. Lo central es que ellos presenten.">
+<p class="k">Hoy</p>
+<h2>Cuatro momentos para cerrar</h2>
+<div class="cols c2" style="gap:0 40px">
+<div class="step f"><span class="n">1</span><div><h3>El recorrido</h3><p>Todo lo que hicimos juntos en estas semanas, en pocos minutos.</p></div></div>
+<div class="step f"><span class="n">2</span><div><h3>Ustedes presentan</h3><p>Su pieza, sus dudas, sus éxitos y lo que quieran contar del proceso.</p></div></div>
+<div class="step f"><span class="n">3</span><div><h3>Diplomas</h3><p>Uno por uno, con su nombre en pantalla.</p></div></div>
+<div class="step f"><span class="n">4</span><div><h3>Lo que viene</h3><p>Cómo seguimos después del camp.</p></div></div>
+</div>
+</section>
+
+<section class="s console center" data-lv="REC" data-lvstart="1" data-note="Pantalla de sección.">
+<p class="lvbig" style="color:#0F0E0D">EL RECORRIDO</p>
+<p class="lvsub">De no saber por dónde empezar a publicar un análisis</p>
+</section>
+
+<section class="s squares" data-lv="REC" data-mode="ejemplo" data-note="Las cifras del programa. Los 15 son quienes reciben certificado hoy.">
+<p class="k">Tinta Camp III en números</p>
+<div class="cols" style="grid-template-columns:repeat(4,1fr);gap:22px;margin-top:20px">
+<div class="wbox f" style="align-items:center;text-align:center"><p class="pixy" style="font-size:96px;color:#0F0E0D;margin:0">20</p><p style="font-size:26px;font-weight:800">horas de entrenamiento intensivo virtual</p></div>
+<div class="wbox f" style="align-items:center;text-align:center"><p class="pixy" style="font-size:96px;color:#0F0E0D;margin:0">15</p><p style="font-size:26px;font-weight:800">periodistas y comunicadores certificados</p></div>
+<div class="wbox f" style="align-items:center;text-align:center"><p class="pixy" style="font-size:96px;color:#0F0E0D;margin:0">6</p><p style="font-size:26px;font-weight:800">países: Ecuador, Bolivia, Costa Rica, Guatemala, Uruguay y Brasil</p></div>
+<div class="wbox f" style="align-items:center;text-align:center"><p class="pixy" style="font-size:96px;color:#0F0E0D;margin:0">5</p><p style="font-size:26px;font-weight:800">niveles y un jefe final en su cuaderno de misiones</p></div>
+</div>
+<p class="lead f" style="margin-top:10px">Un mismo objetivo: investigar y contar operaciones complejas de influencia internacional, con China como caso de estudio.</p>
+</section>
+
+<section class="s stars" data-lv="REC" data-mode="ejemplo" data-note="El punto de partida, según la encuesta inicial que respondieron 8 participantes el 18 de noviembre. Sirve para que Mauricio vea desde dónde empezamos.">
+<p class="k">El punto de partida · encuesta inicial, 8 respuestas</p>
+<h2>Así llegaron el primer día</h2>
+<div class="cols" style="grid-template-columns:repeat(3,1fr);gap:22px">
+<div class="box f"><p class="pixy" style="font-size:80px;margin:0">6 de 8</p><p style="font-size:26px;font-weight:700">tenían un conocimiento básico o nulo sobre China.</p></div>
+<div class="box f"><p class="pixy" style="font-size:80px;margin:0">5 de 8</p><p style="font-size:26px;font-weight:700">señalaron el idioma como barrera para llegar a fuentes originales.</p></div>
+<div class="box f"><p class="pixy" style="font-size:80px;margin:0">6 de 8</p><p style="font-size:26px;font-weight:700">no conocían los archivos Markdown, uno de los formatos con los que se trabaja con IA.</p></div>
+</div>
+<p class="lead f">Por eso el camp combinó tres cosas: entender China, investigar con IA sin perder rigor y contarlo en redes.</p>
+</section>
+
+<section class="s squares" data-lv="REC" data-mode="concepto" data-note="El mapa del camp día por día. No te detengas en cada uno: es para que se vea el camino completo.">
+<p class="k">El mapa del camp</p>
+<div class="cols" style="grid-template-columns:repeat(4,1fr);gap:16px"><div class="box f" style="padding:18px;gap:6px"><p class="pixy" style="font-size:20px;margin:0">Lun 17</p><h3 style="font-size:26px;margin:0">Inauguración</h3><p style="font-size:19px;line-height:1.35;margin:0">La influencia de potencias extranjeras en América Latina y escenarios a 50 años.</p></div><div class="box f" style="padding:18px;gap:6px"><p class="pixy" style="font-size:20px;margin:0">Mar 18</p><h3 style="font-size:26px;margin:0">Historia de China</h3><p style="font-size:19px;line-height:1.35;margin:0">De la caída de la dinastía Qing a Xi Jinping, con Bernardo Gortaire.</p></div><div class="box f" style="padding:18px;gap:6px"><p class="pixy" style="font-size:20px;margin:0">Mié 19</p><h3 style="font-size:26px;margin:0">Geopolítica</h3><p style="font-size:19px;line-height:1.35;margin:0">El poder chino: economía, semiconductores, tierras raras, Taiwán y Rusia.</p></div><div class="box f" style="padding:18px;gap:6px"><p class="pixy" style="font-size:20px;margin:0">Jue 20</p><h3 style="font-size:26px;margin:0">IA para investigar</h3><p style="font-size:19px;line-height:1.35;margin:0">Seguridad, proyectos con instrucciones y límites para trabajar con IA.</p></div><div class="box f" style="padding:18px;gap:6px"><p class="pixy" style="font-size:20px;margin:0">Sáb 21</p><h3 style="font-size:26px;margin:0">Del tema al ensayo</h3><p style="font-size:19px;line-height:1.35;margin:0">Audiencia, preguntas, enfoque, fuentes y un ensayo con argumento y contraargumento.</p></div><div class="box f" style="padding:18px;gap:6px"><p class="pixy" style="font-size:20px;margin:0">Lun 23</p><h3 style="font-size:26px;margin:0">Storytelling digital</h3><p style="font-size:19px;line-height:1.35;margin:0">Tensión, gancho y recorrido: del ensayo al carrusel o al guion de video.</p></div><div class="box f" style="padding:18px;gap:6px"><p class="pixy" style="font-size:20px;margin:0">Mar 24</p><h3 style="font-size:26px;margin:0">Laboratorio</h3><p style="font-size:19px;line-height:1.35;margin:0">Identidad visual y edición de video con Claude.</p></div><div class="box f" style="padding:18px;gap:6px"><p class="pixy" style="font-size:20px;margin:0">Jue 26</p><h3 style="font-size:26px;margin:0">Cierre</h3><p style="font-size:19px;line-height:1.35;margin:0">Presentaciones y diplomas.</p></div></div>
+</section>
+
+<section class="s stars" data-lv="REC" data-mode="concepto" data-note="Lo que se llevan. Pregunta a la sala cuál de las cinco les sirvió más.">
+<p class="k">Lo que se llevan</p>
+<h2>Cinco habilidades que ya son suyas</h2>
+<div class="cols c2" style="gap:0 40px">
+<div class="step f"><span class="n">1</span><div><h3>Entender a China con contexto</h3><p>Su historia, su economía y su lugar en el mundo, sin caricaturas.</p></div></div>
+<div class="step f"><span class="n">2</span><div><h3>Investigar con IA sin perder el rigor</h3><p>Verificar en la fuente original y distinguir lo documentado de lo disputado.</p></div></div>
+<div class="step f"><span class="n">3</span><div><h3>Pensar en su audiencia primero</h3><p>A quién le hablan, qué cree hoy y qué necesita saber.</p></div></div>
+<div class="step f"><span class="n">4</span><div><h3>Escribir un análisis que se pueda auditar</h3><p>Tesis, argumentos con fuente y un «Peeero ojo» honesto.</p></div></div>
+<div class="step f"><span class="n">5</span><div><h3>Contarlo en redes sin simplificar</h3><p>Tensión, gancho y recorrido, en carrusel o en video, producido con IA.</p></div></div>
+</div>
+<p class="lead f">Pregunta para el chat: ¿cuál de las cinco les sirvió más?</p>
+</section>
+
+<section class="s console center" data-lv="TU" data-lvstart="1" data-note="Pantalla de sección. Ahora presentan ellos.">
+<p class="lvbig" style="color:#0F0E0D">AHORA USTEDES</p>
+<p class="lvsub">Su pieza, su proceso, su voz</p>
+</section>
+
+<section class="s squares" data-lv="TU" data-mode="mision" data-note="Inicia el cronómetro de 3 minutos para cada presentación. Si alguien no terminó su pieza, igual puede contar su tensión y su gancho.">
+<p class="k">Presentaciones · 3 minutos por persona</p>
+<h2>Cuéntennos, con su pieza en pantalla</h2>
+<div class="cols c2" style="gap:0 40px">
+<div class="step f"><span class="n">1</span><div><h3>Tu tema y tu audiencia</h3><p>¿De qué trata y a quién le hablas?</p></div></div>
+<div class="step f"><span class="n">2</span><div><h3>Tu tensión y tu gancho</h3><p>¿Qué cree tu audiencia que tu análisis complica?</p></div></div>
+<div class="step f"><span class="n">3</span><div><h3>Un éxito</h3><p>Algo que te salió bien o que te sorprendió.</p></div></div>
+<div class="step f"><span class="n">4</span><div><h3>Una duda o un reto</h3><p>Lo que todavía te cuesta o lo que harías distinto.</p></div></div>
+</div>
+<div class="row f" style="gap:14px"><button class="btn red" data-min="3" style="font-size:24px">▶ 3 MINUTOS</button><button class="btn" data-min="2" style="font-size:22px;background:#fff;color:#0F0E0D">2 MIN</button><p style="font-size:22px;font-weight:700">El resto comenta en el chat: una cosa que funciona y una sugerencia.</p></div>
+</section>
+
+<section class="s yel center" data-lv="TU" data-mode="mision" data-note="Deja esta lámina mientras van pasando. Ve llamando por nombre.">
+<p class="big" style="color:#0F0E0D;max-width:1250px">Lo que no se publica no informa a nadie.</p>
+<p class="lead" style="color:#0F0E0D;font-weight:700">Esta es su primera audiencia. ¿Quién empieza?</p>
+</section>
+
+<section class="s console center" data-lv="DIP" data-lvstart="1" data-note="Pantalla de sección. Antes de los diplomas, agradece al IRI y a Mauricio Delgado.">
+<p class="lvbig" style="color:#0F0E0D">DIPLOMAS</p>
+<p class="lvsub">Tinta Digital con el apoyo del IRI</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 1 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 1 de 15</p>
+<img src="img/cert1.jpg" alt="Certificado de Tinta Camp III para Lady Cedeño Plaza" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Lady Cedeño Plaza!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 2 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 2 de 15</p>
+<img src="img/cert2.jpg" alt="Certificado de Tinta Camp III para Kléver Ebelio Guaillas Patiño" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Kléver Ebelio Guaillas Patiño!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 3 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 3 de 15</p>
+<img src="img/cert3.jpg" alt="Certificado de Tinta Camp III para Angélica Moraima Changoluisa Chancúsig" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Angélica Moraima Changoluisa Chancúsig!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 4 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 4 de 15</p>
+<img src="img/cert4.jpg" alt="Certificado de Tinta Camp III para Josué Arnoldo Pérez Ortiz" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Josué Arnoldo Pérez Ortiz!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 5 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 5 de 15</p>
+<img src="img/cert5.jpg" alt="Certificado de Tinta Camp III para Jeremy Josué Mendoza Rodríguez" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Jeremy Josué Mendoza Rodríguez!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 6 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 6 de 15</p>
+<img src="img/cert6.jpg" alt="Certificado de Tinta Camp III para Aníbal Sebastián Paredes Vera" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Aníbal Sebastián Paredes Vera!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 7 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 7 de 15</p>
+<img src="img/cert7.jpg" alt="Certificado de Tinta Camp III para Xavier Andrés Condega Rodríguez" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Xavier Andrés Condega Rodríguez!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 8 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 8 de 15</p>
+<img src="img/cert8.jpg" alt="Certificado de Tinta Camp III para Karla Romina Galvez Palacios" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Karla Romina Galvez Palacios!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 9 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 9 de 15</p>
+<img src="img/cert9.jpg" alt="Certificado de Tinta Camp III para Patrícia Álvares Barbosa" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Patrícia Álvares Barbosa!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 10 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 10 de 15</p>
+<img src="img/cert10.jpg" alt="Certificado de Tinta Camp III para Jefferson Bolívar Castillo Esmeralda" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Jefferson Bolívar Castillo Esmeralda!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 11 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 11 de 15</p>
+<img src="img/cert11.jpg" alt="Certificado de Tinta Camp III para Mischele Salomé Flor Castillo" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Mischele Salomé Flor Castillo!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 12 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 12 de 15</p>
+<img src="img/cert12.jpg" alt="Certificado de Tinta Camp III para Carolina Alexandra Tello Quesquén" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Carolina Alexandra Tello Quesquén!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 13 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 13 de 15</p>
+<img src="img/cert13.jpg" alt="Certificado de Tinta Camp III para Manuel Vicente Mera Vacacela" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Manuel Vicente Mera Vacacela!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 14 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 14 de 15</p>
+<img src="img/cert14.jpg" alt="Certificado de Tinta Camp III para Marcelo Ayala Vargas" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Marcelo Ayala Vargas!</p>
+</section>
+
+<section class="s stars center" data-lv="DIP" data-mode="juego" data-note="Diploma 15 de 15. Di el nombre en voz alta y pide aplausos en el chat.">
+<p class="k">Diploma 15 de 15</p>
+<img src="img/cert15.jpg" alt="Certificado de Tinta Camp III para Andrés Johan Caicedo Angulo" style="height:600px;width:auto;border:6px solid #0F0E0D;box-shadow:12px 12px 0 var(--pink)">
+<p style="font-size:42px;font-weight:900;font-style:italic;letter-spacing:-.02em">¡Felicidades, Andrés Johan Caicedo Angulo!</p>
+</section>
+
+<section class="s squares" data-lv="DIP" data-mode="juego" data-note="Foto de grupo: pide que prendan sus cámaras para la captura.">
+<p class="k">Promoción Tinta Camp III</p>
+<h2>15 investigadores geopolíticos</h2>
+<ol style="columns:3;column-gap:40px;color:#fff;margin:0;padding-left:30px"><li style="font-size:21px;font-weight:700;padding:4px 0">Lady Cedeño Plaza</li><li style="font-size:21px;font-weight:700;padding:4px 0">Kléver Ebelio Guaillas Patiño</li><li style="font-size:21px;font-weight:700;padding:4px 0">Angélica Moraima Changoluisa Chancúsig</li><li style="font-size:21px;font-weight:700;padding:4px 0">Josué Arnoldo Pérez Ortiz</li><li style="font-size:21px;font-weight:700;padding:4px 0">Jeremy Josué Mendoza Rodríguez</li><li style="font-size:21px;font-weight:700;padding:4px 0">Aníbal Sebastián Paredes Vera</li><li style="font-size:21px;font-weight:700;padding:4px 0">Xavier Andrés Condega Rodríguez</li><li style="font-size:21px;font-weight:700;padding:4px 0">Karla Romina Galvez Palacios</li><li style="font-size:21px;font-weight:700;padding:4px 0">Patrícia Álvares Barbosa</li><li style="font-size:21px;font-weight:700;padding:4px 0">Jefferson Bolívar Castillo Esmeralda</li><li style="font-size:21px;font-weight:700;padding:4px 0">Mischele Salomé Flor Castillo</li><li style="font-size:21px;font-weight:700;padding:4px 0">Carolina Alexandra Tello Quesquén</li><li style="font-size:21px;font-weight:700;padding:4px 0">Manuel Vicente Mera Vacacela</li><li style="font-size:21px;font-weight:700;padding:4px 0">Marcelo Ayala Vargas</li><li style="font-size:21px;font-weight:700;padding:4px 0">Andrés Johan Caicedo Angulo</li></ol>
+<p class="lead f">Prendan sus cámaras: foto de grupo. 📸</p>
+</section>
+
+<section class="s console center" data-lv="FIN" data-lvstart="1" data-note="Pantalla de sección.">
+<p class="lvbig" style="color:#0F0E0D">LO QUE VIENE</p>
+<p class="lvsub">El camp termina; el trabajo sigue</p>
+</section>
+
+<section class="s stars" data-lv="FIN" data-note="Pide el tweet: ayuda a que el programa crezca a otros países.">
+<p class="k">Un último favor</p>
+<h2>Ayúdennos a llevar el camp a más países</h2>
+<div class="cols c2" style="gap:0 40px">
+<div class="step f"><span class="n">1</span><div><h3>Publiquen su pieza</h3><p>Su carrusel o su video ya tiene tensión, gancho y fuentes. Que llegue a su audiencia.</p></div></div>
+<div class="step f"><span class="n">2</span><div><h3>Un tweet sobre lo que aprendieron</h3><p>Cuenten qué aprendieron a analizar de China. Con eso nos ayudan a seguir creando el programa con otros países.</p></div></div>
+<div class="step f"><span class="n">3</span><div><h3>Las clases siguen disponibles</h3><p>Pueden volver a verlas cuando quieran.</p></div></div>
+</div>
+</section>
+
+<section class="s squares center" data-lv="FIN" data-note="Agradecimiento final al IRI, a Bernie, a Erika y a los participantes.">
+<div class="frame" style="max-width:1200px"><div class="scr">
+<p style="font-size:40px;font-weight:900;font-style:italic;line-height:1.25">Gracias por cada pregunta, cada fuente verificada y cada gancho honesto.</p>
+<p class="pixy" style="font-size:22px;margin-top:20px">Tinta Digital · Instituto Republicano Internacional (IRI)</p>
+</div></div>
+<img src="../assets/logos-tinta-iri.png" alt="Tinta Digital e Instituto Republicano Internacional" style="height:110px;width:auto;margin-top:20px;background:#9E9E9E;padding:12px 20px">
+<p class="pixy" style="font-size:40px">GAME COMPLETE ▸ NEW GAME?</p>
+</section>
+
+
+<div class="navz" id="zl" aria-hidden="true"></div><div class="navz" id="zr" aria-hidden="true"></div>
+</div></div>
+
+<div id="notes" aria-live="polite"></div>
+<div id="bar">
+<img src="../assets/logos-tinta-iri.png" alt="Tinta Digital e IRI">
+<button id="bprev" aria-label="Anterior">◂</button>
+<span id="cnt">1/1</span>
+<button id="bnext" aria-label="Siguiente">▸</button>
+<div class="xp" aria-hidden="true"><div class="xpb" id="xpb"></div></div>
+<div id="lvnav"></div>
+<span style="flex:1"></span>
+<div id="tbox" role="timer"><span id="tt">00:00</span><button id="tp" aria-label="Pausar o seguir">II</button><button id="tr" aria-label="Reiniciar">↺</button></div>
+<button id="bnotes" aria-pressed="false" title="Notas (N)">NOTAS</button>
+<button id="bfs" title="Pantalla completa (F)">⛶</button>
+</div>
+
+<script>
+{
+const $=s=>document.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* ---------- motor de slides ---------- */
+const S=$$('.s'),N=S.length;
+const LV=[['REC','RECORRIDO'],['TU','USTEDES'],['DIP','DIPLOMAS'],['FIN','CIERRE']];
+$('#lvnav').innerHTML=LV.map(([k,t])=>`<button data-lv="${k}">${t}</button>`).join('');
+S.forEach(s=>{const lv=s.dataset.lv,m=s.dataset.mode;if(!lv&&!m)return;const b=document.createElement('div');b.className='badge';
+ b.innerHTML=(lv?`<span>${esc(lv)}</span>`:'')+(m?`<span class="m-${m}">${{concepto:'RECORRIDO',ejemplo:'DATOS',mision:'TU TURNO',juego:'DIPLOMA',repaso:'REPASO'}[m]}</span>`:'');s.appendChild(b)});
+let idx=0,frag=0;
+const frags=s=>$$('.f',s);
+const show=(i,atEnd)=>{i=Math.max(0,Math.min(N-1,i));S[idx].classList.remove('on','in');idx=i;const s=S[idx];s.classList.add('on');
+ void s.offsetWidth;s.classList.add('in');const fs=frags(s);frag=atEnd?fs.length:0;fs.forEach((f,j)=>f.classList.toggle('v',j<frag));upd()};
+const upd=()=>{$('#cnt').textContent=(idx+1)+'/'+N;$('#xpb').style.width=((idx+1)/N*100)+'%';
+ const lv=S[idx].dataset.lv;$$('#lvnav button').forEach(b=>b.classList.toggle('on',b.dataset.lv===lv));
+ const nt=S[idx].dataset.note||'';$('#notes').innerHTML='<b>Nota para ti · slide '+(idx+1)+'</b>'+esc(nt);
+ try{history.replaceState(null,'','#s'+(idx+1))}catch(e){}};
+const next=()=>{const fs=frags(S[idx]);if(frag<fs.length){fs[frag].classList.add('v');frag++}else if(idx<N-1)show(idx+1)};
+const prev=()=>{const fs=frags(S[idx]);if(frag>0){frag--;fs[frag].classList.remove('v')}else if(idx>0)show(idx-1,true)};
+const typing=e=>{const t=e.target;return t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA')};
+addEventListener('keydown',e=>{if(typing(e)){if(e.key==='Escape')e.target.blur();return}
+ if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();next()}
+ else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();prev()}
+ else if(e.key==='n'||e.key==='N')toggleNotes();else if(e.key==='f'||e.key==='F')fs();
+ else if(e.key==='Home')show(0);else if(e.key==='End')show(N-1)});
+$('#bnext').addEventListener('click',next);$('#bprev').addEventListener('click',prev);
+$('#zr').addEventListener('click',next);$('#zl').addEventListener('click',prev);
+$('#lvnav').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const i=S.findIndex(s=>s.dataset.lv===b.dataset.lv&&s.dataset.lvstart);if(i>=0)show(i)});
+const toggleNotes=()=>{const on=$('#notes').classList.toggle('on');$('#bnotes').classList.toggle('on',on);$('#bnotes').setAttribute('aria-pressed',on)};
+$('#bnotes').addEventListener('click',toggleNotes);
+const fs=()=>{try{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen()}catch(e){}};
+$('#bfs').addEventListener('click',fs);
+let tx=null;$('#stage').addEventListener('touchstart',e=>{if(!typing(e))tx=e.touches[0].clientX},{passive:true});
+$('#stage').addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(dx)>60)(dx<0?next:prev)()});
+
+const fit=()=>{const vp=$('#vp'),k=Math.min(vp.clientWidth/1600,vp.clientHeight/900);$('#stage').style.transform=`scale(${k})`};
+const ro=new ResizeObserver(fit);ro.observe($('#vp'));fit();
+
+/* ---------- cronómetro ---------- */
+let rem=0,tid=null,ac=null;
+const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+const beep=()=>{try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();[0,.35,.7].forEach(t=>{const o=ac.createOscillator(),gn=ac.createGain();o.type='square';o.frequency.value=880;gn.gain.value=.08;o.connect(gn).connect(ac.destination);o.start(ac.currentTime+t);o.stop(ac.currentTime+t+.2)})}catch(e){}};
+const tick=()=>{rem--;$('#tt').textContent=fmt(Math.max(rem,0));if(rem<=0){clearInterval(tid);tid=null;$('#tbox').classList.add('end');$('#tt').textContent='¡YA!';beep()}};
+$$('[data-min]').forEach(b=>b.addEventListener('click',()=>{rem=+b.dataset.min*60;$('#tbox').classList.remove('end');$('#tt').textContent=fmt(rem);clearInterval(tid);tid=setInterval(tick,1000);try{ac=ac||new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}));
+$('#tp').addEventListener('click',()=>{if(tid){clearInterval(tid);tid=null}else if(rem>0)tid=setInterval(tick,1000)});
+$('#tr').addEventListener('click',()=>{clearInterval(tid);tid=null;rem=0;$('#tt').textContent='00:00';$('#tbox').classList.remove('end')});
+
+const h=parseInt((location.hash||'').replace('#s',''),10);S[0].classList.add('on');show(isNaN(h)?0:h-1);
+}
+</script>
+</body>
+</html>
